@@ -6,6 +6,21 @@ RenderManager::RenderManager()
 {
 	view.reset(sf::FloatRect(0, 0, 1280, 720));
 	WindowManager::sInstance->setView(view);
+
+	// Load the background texture
+	if (!mBackgroundTexture.loadFromFile("../Assets/Background.png"))
+	{
+		// Handle error (e.g., log or exit)
+	}
+	mBackgroundSprite.setTexture(mBackgroundTexture);
+
+	// Scale the sprite to fit the window
+	sf::Vector2u windowSize = WindowManager::sInstance->getSize();
+	sf::Vector2u textureSize = mBackgroundTexture.getSize();
+	mBackgroundSprite.setScale(
+		static_cast<float>(windowSize.x) / textureSize.x,
+		static_cast<float>(windowSize.y) / textureSize.y
+	);
 }
 
 
@@ -67,6 +82,9 @@ void RenderManager::Render()
 	// Clear the back buffer
 	//
 	WindowManager::sInstance->clear(sf::Color(100, 149, 237, 255));
+
+	// Draw the background
+	WindowManager::sInstance->draw(mBackgroundSprite);
 
 	RenderManager::sInstance->RenderComponents();
 

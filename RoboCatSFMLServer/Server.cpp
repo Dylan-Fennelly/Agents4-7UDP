@@ -66,8 +66,6 @@ namespace
 			go->SetLocation(mouseLocation);
 		}
 	}
-
-
 }
 
 

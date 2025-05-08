@@ -4,7 +4,7 @@ std::unique_ptr<sf::RenderWindow>	WindowManager::sInstance;
 
 bool WindowManager::StaticInit()
 {
-	sInstance.reset(new sf::RenderWindow(sf::VideoMode(1280, 720), "RoboCatSFML!"));
+	sInstance.reset(new sf::RenderWindow(sf::VideoMode(1280, 720), "Agents 4-7"));
 	return true;
 }
 
