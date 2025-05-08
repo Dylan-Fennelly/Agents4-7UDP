@@ -56,12 +56,10 @@ namespace
 	{
 		Vector3 mouseMin(100.f, 100.f, 0.f);
 		Vector3 mouseMax(1180.f, 620.f, 0.f);
-		GameObjectPtr go;
 
-		//make a mouse somewhere- where will these come from?
 		for (int i = 0; i < inMouseCount; ++i)
 		{
-			go = GameObjectRegistry::sInstance->CreateGameObject('MOUS');
+			GameObjectPtr go = GameObjectRegistry::sInstance->CreateGameObject('MOUS');
 			Vector3 mouseLocation = RoboMath::GetRandomVector(mouseMin, mouseMax);
 			go->SetLocation(mouseLocation);
 		}
@@ -72,7 +70,7 @@ namespace
 void Server::SetupWorld()
 {
 	//spawn some random mice
-	CreateRandomMice(10);
+	//CreateRandomMice(10);
 
 	//spawn more random mice!
 	//CreateRandomMice(10);
@@ -85,6 +83,15 @@ void Server::DoFrame()
 	NetworkManagerServer::sInstance->CheckForDisconnects();
 
 	NetworkManagerServer::sInstance->RespawnCats();
+
+	// Update the mouse spawn timer
+	mMouseSpawnTimer += Timing::sInstance.GetDeltaTime();
+	if (mMouseSpawnTimer >= mMouseSpawnInterval)
+	{
+		// Spawn one mouse
+		CreateRandomMice(1);
+		mMouseSpawnTimer = 0.0f; // Reset the timer
+	}
 
 	Engine::DoFrame();
 
