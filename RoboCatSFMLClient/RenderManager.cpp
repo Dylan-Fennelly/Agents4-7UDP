@@ -12,15 +12,13 @@ RenderManager::RenderManager()
 	{
 		// Handle error (e.g., log or exit)
 	}
-	mBackgroundSprite.setTexture(mBackgroundTexture);
+	// Enable texture repeating
+	mBackgroundTexture.setRepeated(true);
 
-	// Scale the sprite to fit the window
+	// Set the texture rectangle to cover the entire window
 	sf::Vector2u windowSize = WindowManager::sInstance->getSize();
-	sf::Vector2u textureSize = mBackgroundTexture.getSize();
-	mBackgroundSprite.setScale(
-		static_cast<float>(windowSize.x) / textureSize.x,
-		static_cast<float>(windowSize.y) / textureSize.y
-	);
+	mBackgroundSprite.setTexture(mBackgroundTexture);
+	mBackgroundSprite.setTextureRect(sf::IntRect(0, 0, windowSize.x, windowSize.y));
 }
 
 
@@ -81,7 +79,7 @@ void RenderManager::Render()
 	//
 	// Clear the back buffer
 	//
-	WindowManager::sInstance->clear(sf::Color(100, 149, 237, 255));
+	WindowManager::sInstance->clear(sf::Color(0, 0, 0, 255));
 
 	// Draw the background
 	WindowManager::sInstance->draw(mBackgroundSprite);
