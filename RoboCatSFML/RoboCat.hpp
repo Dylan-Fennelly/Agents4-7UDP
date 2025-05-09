@@ -38,6 +38,9 @@ public:
 
 	virtual uint32_t	Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyState) const override;
 
+	uint8_t GetTextureIndex()  const { return mTextureIndex; }
+	void    SetTextureIndex(uint8_t idx) { mTextureIndex = idx; }
+
 protected:
 	RoboCat();
 
@@ -70,6 +73,7 @@ protected:
 	int   mMaxHealth{ 20 };
 	float mMachineGunTimer;
 	float mInvincibilityTimer;
+	uint8_t mTextureIndex{ 0 };
 
 	bool				mIsShooting;
 };

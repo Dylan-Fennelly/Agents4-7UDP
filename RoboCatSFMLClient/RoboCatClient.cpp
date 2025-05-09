@@ -1,4 +1,4 @@
-#include "RoboCatClientPCH.hpp"
+﻿#include "RoboCatClientPCH.hpp"
 
 RoboCatClient::RoboCatClient() :
 	mTimeLocationBecameOutOfSync(0.f),
@@ -69,6 +69,22 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		inInputStream.Read(playerId);
 		SetPlayerId(playerId);
 		readState |= ECRS_PlayerId;
+
+		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
+		static constexpr int kNumSkins = 7;
+		static const char* sSkins[kNumSkins] = {
+			"AgentOne",
+			"AgentTwo",
+			"AgentThree",
+			"AgentFour",
+			"AgentFive",
+			"AgentSix",
+			"AgentSeven"
+		};
+		int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
+		mSpriteComponent->SetTexture(
+			TextureManager::sInstance->GetTexture(sSkins[slot])
+		);
 	}
 
 	float oldRotation = GetRotation();

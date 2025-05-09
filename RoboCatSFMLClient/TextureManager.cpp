@@ -16,6 +16,14 @@ TextureManager::TextureManager()
 	CacheTexture("health", "../Assets/Health.png");
 	CacheTexture("machinegun", "../Assets/Machinegun.png");
 	CacheTexture("invincibility", "../Assets/Invincibility.png");
+
+	CacheTexture("AgentOne", "../Assets/AgentOne.png");
+	CacheTexture("AgentTwo", "../Assets/AgentTwo.png");
+	CacheTexture("AgentThree", "../Assets/AgentThree.png");
+	CacheTexture("AgentFour", "../Assets/AgentFour.png");
+	CacheTexture("AgentFive", "../Assets/AgentFive.png");
+	CacheTexture("AgentSix", "../Assets/AgentSix.png");
+	CacheTexture("AgentSeven", "../Assets/AgentSeven.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)
