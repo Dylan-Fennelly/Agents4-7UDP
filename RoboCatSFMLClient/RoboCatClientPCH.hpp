@@ -1,7 +1,7 @@
 #include "RoboCatShared.hpp"
 
 #include "SFML\Graphics.hpp"
-
+#include <iostream>
 #include "InputManager.hpp"
 #include "SpriteComponent.hpp"
 #include "PlayerSpriteComponent.hpp"

@@ -5,7 +5,7 @@ const float WORLD_WIDTH = 1280.f;
 
 RoboCat::RoboCat() :
 	GameObject(),
-	mMaxRotationSpeed(100.f),
+	mMaxRotationSpeed(500.f),
 	mMaxLinearSpeed(5000.f),
 	mVelocity(Vector3::Zero),
 	mWallRestitution(0.1f),
@@ -22,9 +22,18 @@ void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 {
 	//process our input....
 
-	//turning...
-	float newRotation = GetRotation() + inInputState.GetDesiredHorizontalDelta() * mMaxRotationSpeed * inDeltaTime;
-	SetRotation(newRotation);
+	// Smooth rotate to desired rotation, taking shortest path
+	float currentRot = GetRotation();
+	float targetRot = inInputState.GetDesiredRotation();
+
+	// Ensure angle difference is in the range [-180, 180]
+	float delta = fmodf(targetRot - currentRot + 540.f, 360.f) - 180.f;
+
+	// Rotate with interpolation or speed clamp
+	float maxRotDelta = mMaxRotationSpeed * inDeltaTime;
+	delta = RoboMath::Clamp(delta, -maxRotDelta, maxRotDelta);
+
+	SetRotation(currentRot + delta);
 
 	//moving...
 	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();

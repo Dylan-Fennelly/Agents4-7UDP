@@ -42,10 +42,15 @@ namespace
 
 void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 {
+	Vector3 pos;
 	switch (inKeyCode)
 	{
 	case sf::Keyboard::A:
 		UpdateDesireFloatFromKey(inInputAction, mCurrentState.mDesiredLeftAmount);
+		break;
+	case sf::Keyboard::Left:
+		pos = NetworkManagerClient::sInstance->GetLocalCatPosition();
+		std::cout << "InputManager::HandleInput() pos: " << pos.mX << ", " << pos.mY << ", " << pos.mZ << std::endl;
 		break;
 	case sf::Keyboard::D:
 		UpdateDesireFloatFromKey(inInputAction, mCurrentState.mDesiredRightAmount);
@@ -116,5 +121,16 @@ void InputManager::Update()
 	if (IsTimeToSampleInput())
 	{
 		mPendingMove = &SampleInputAsMove();
+		Vector3 pos = NetworkManagerClient::sInstance->GetLocalCatPosition();
+		std::cout << "InputManager::Update() pos: " << pos.mX << ", " << pos.mY << ", " << pos.mZ << std::endl;
+		sf::Vector2i mousePos = sf::Mouse::getPosition(*WindowManager::sInstance);
+		sf::Vector2f mousePosF = WindowManager::sInstance->mapPixelToCoords(mousePos,RenderManager::sInstance->GetView());
+		//convert pos into sf::Vector2f
+		sf::Vector2f posF(pos.mX, pos.mY);
+		sf::Vector2f dir = mousePosF - posF;
+		float angle = atan2(dir.y, dir.x)*180.f/ 3.14159265f;
+		angle = angle + 90.f;
+		mCurrentState.mDesiredRotation = angle;
+
 	}
 }
