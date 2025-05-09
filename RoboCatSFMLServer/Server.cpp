@@ -62,6 +62,11 @@ namespace
 			GameObjectPtr go = GameObjectRegistry::sInstance->CreateGameObject('MOUS');
 			Vector3 mouseLocation = RoboMath::GetRandomVector(mouseMin, mouseMax);
 			go->SetLocation(mouseLocation);
+
+			// assign random pickup type
+			auto mouseServer = static_cast<MouseServer*>(go.get());
+			int r = RoboMath::GetRandomInt(0, 2);
+			mouseServer->SetType(static_cast<Mouse::Type>(r));
 		}
 	}
 }

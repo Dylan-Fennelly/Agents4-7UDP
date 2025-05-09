@@ -60,6 +60,8 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 	uint32_t readState = 0;
 
+	GameObject::Read(inInputStream);
+
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
@@ -120,8 +122,20 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 	if (stateBit)
 	{
 		mHealth = 0;
-		inInputStream.Read(mHealth, 4);
+		inInputStream.Read(mHealth, 5);
 		readState |= ECRS_Health;
+	}
+
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		inInputStream.Read(mMachineGunTimer);
+	}
+
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		inInputStream.Read(mInvincibilityTimer);
 	}
 
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())

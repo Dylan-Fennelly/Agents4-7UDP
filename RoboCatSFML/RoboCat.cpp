@@ -177,41 +177,33 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 {
 	uint32_t writtenState = 0;
 
-	if (inDirtyState & ECRS_PlayerId)
+	// ——— PlayerId ———
+	bool dirty = (inDirtyState & ECRS_PlayerId) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
 	{
-		inOutputStream.Write((bool)true);
 		inOutputStream.Write(GetPlayerId());
-
 		writtenState |= ECRS_PlayerId;
 	}
-	else
+
+	// ——— Pose ———
+	dirty = (inDirtyState & ECRS_Pose) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
 	{
-		inOutputStream.Write((bool)false);
-	}
+		Vector3 vel = mVelocity;
+		inOutputStream.Write(vel.mX);
+		inOutputStream.Write(vel.mY);
 
-
-	if (inDirtyState & ECRS_Pose)
-	{
-		inOutputStream.Write((bool)true);
-
-		Vector3 velocity = mVelocity;
-		inOutputStream.Write(velocity.mX);
-		inOutputStream.Write(velocity.mY);
-
-		Vector3 location = GetLocation();
-		inOutputStream.Write(location.mX);
-		inOutputStream.Write(location.mY);
+		Vector3 loc = GetLocation();
+		inOutputStream.Write(loc.mX);
+		inOutputStream.Write(loc.mY);
 
 		inOutputStream.Write(GetRotation());
-
 		writtenState |= ECRS_Pose;
 	}
-	else
-	{
-		inOutputStream.Write((bool)false);
-	}
 
-	//always write mThrustDir- it's just two bits
+	// ——— ThrustDir (always two bits) ———
 	if (mThrustDir != 0.f)
 	{
 		inOutputStream.Write(true);
@@ -222,33 +214,43 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		inOutputStream.Write(false);
 	}
 
-	if (inDirtyState & ECRS_Color)
+	// ——— Color ———
+	dirty = (inDirtyState & ECRS_Color) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
 	{
-		inOutputStream.Write((bool)true);
 		inOutputStream.Write(GetColor());
-
 		writtenState |= ECRS_Color;
 	}
-	else
-	{
-		inOutputStream.Write((bool)false);
-	}
 
-	if (inDirtyState & ECRS_Health)
+	// ——— Health ———
+	dirty = (inDirtyState & ECRS_Health) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
 	{
-		inOutputStream.Write((bool)true);
-		inOutputStream.Write(mHealth, 4);
-
+		inOutputStream.Write(mHealth, 5);
 		writtenState |= ECRS_Health;
 	}
-	else
+
+	// ——— Machine-Gun Timer ———
+	dirty = (inDirtyState & ECRS_MachineGunTimer) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
 	{
-		inOutputStream.Write((bool)false);
+		inOutputStream.Write(mMachineGunTimer);
+		writtenState |= ECRS_MachineGunTimer;
+	}
+
+	// ——— Invincibility Timer ———
+	dirty = (inDirtyState & ECRS_InvincibilityTimer) != 0;
+	inOutputStream.Write(dirty);
+	if (dirty)
+	{
+		inOutputStream.Write(mInvincibilityTimer);
+		writtenState |= ECRS_InvincibilityTimer;
 	}
 
 	return writtenState;
-
-
 }
 
 

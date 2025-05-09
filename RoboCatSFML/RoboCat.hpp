@@ -9,8 +9,10 @@ public:
 		ECRS_Color = 1 << 1,
 		ECRS_PlayerId = 1 << 2,
 		ECRS_Health = 1 << 3,
+		ECRS_MachineGunTimer = 1 << 4,
+		ECRS_InvincibilityTimer = 1 << 5,
 
-		ECRS_AllState = ECRS_Pose | ECRS_Color | ECRS_PlayerId | ECRS_Health
+		ECRS_AllState = ECRS_Pose | ECRS_Color | ECRS_PlayerId | ECRS_Health | ECRS_MachineGunTimer | ECRS_InvincibilityTimer
 	};
 
 
@@ -65,6 +67,9 @@ protected:
 
 	float				mThrustDir;
 	int					mHealth;
+	int   mMaxHealth{ 20 };
+	float mMachineGunTimer;
+	float mInvincibilityTimer;
 
 	bool				mIsShooting;
 };

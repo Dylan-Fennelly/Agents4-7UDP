@@ -22,6 +22,20 @@ void SpriteComponent::SetTexture(TexturePtr inTexture)
 	m_sprite.setScale(sf::Vector2f(1.f * mGameObject->GetScale(), 1.f * mGameObject->GetScale()));
 }
 
+void SpriteComponent::SetSize(float inWidth, float inHeight)
+{
+	// get the sprite’s original pixel dimensions
+	const auto bounds = m_sprite.getLocalBounds();
+	if (bounds.width > 0 && bounds.height > 0)
+	{
+		// compute uniform scale in X and Y so neither axis is stretched
+		float scaleX = inWidth / bounds.width;
+		float scaleY = inHeight / bounds.height;
+		float uniform = std::min(scaleX, scaleY);
+		m_sprite.setScale(uniform, uniform);
+	}
+}
+
 sf::Sprite& SpriteComponent::GetSprite()
 {
 	// Update the sprite based on the game object stuff.

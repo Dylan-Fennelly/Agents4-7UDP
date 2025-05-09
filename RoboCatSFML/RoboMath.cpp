@@ -23,6 +23,14 @@ float RoboMath::GetRandomFloat()
 	return dis(gen);
 }
 
+int RoboMath::GetRandomInt(int inMin, int inMax)
+{
+	static std::mt19937 sRandomEngine;
+	// uniform_int_distribution is inclusive on both ends
+	std::uniform_int_distribution<int> dist(inMin, inMax);
+	return dist(sRandomEngine);
+}
+
 Vector3 RoboMath::GetRandomVector(const Vector3& inMin, const Vector3& inMax)
 {
 	Vector3 r = Vector3(GetRandomFloat(), GetRandomFloat(), GetRandomFloat());
