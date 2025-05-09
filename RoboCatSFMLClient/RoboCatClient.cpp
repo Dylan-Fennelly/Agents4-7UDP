@@ -95,17 +95,17 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 		readState |= ECRS_Pose;
 	}
-
-	inInputStream.Read(stateBit);
-	if (stateBit)
-	{
-		inInputStream.Read(stateBit);
-		mThrustDir = stateBit ? 1.f : -1.f;
-	}
-	else
-	{
-		mThrustDir = 0.f;
-	}
+	//Remove the thrust block
+	//inInputStream.Read(stateBit);
+	//if (stateBit)
+	//{
+	//	inInputStream.Read(stateBit);
+	//	mThrustDir = stateBit ? 1.f : -1.f;
+	//}
+	//else
+	//{
+	//	mThrustDir = 0.f;
+	//}
 
 	inInputStream.Read(stateBit);
 	if (stateBit)

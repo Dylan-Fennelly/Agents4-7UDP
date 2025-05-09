@@ -11,7 +11,7 @@ public:
 		mDesiredRotation(0.f)
 	{}
 
-	float GetDesiredHorizontalDelta()	const { return /*1.f;*/mDesiredRightAmount - mDesiredLeftAmount; }
+	float GetDesiredHorizontalDelta()	const { return /*1.f;*/  mDesiredLeftAmount-mDesiredRightAmount; }
 	float GetDesiredVerticalDelta()		const { return mDesiredForwardAmount - mDesiredBackAmount; }
 	bool  IsShooting()					const { return mIsShooting; }
 

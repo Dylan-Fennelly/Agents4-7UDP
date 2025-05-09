@@ -6,7 +6,7 @@ const float WORLD_WIDTH = 1280.f;
 RoboCat::RoboCat() :
 	GameObject(),
 	mMaxRotationSpeed(500.f),
-	mMaxLinearSpeed(5000.f),
+	mMaxLinearSpeed(100.f),
 	mVelocity(Vector3::Zero),
 	mWallRestitution(0.1f),
 	mCatRestitution(0.1f),
@@ -35,10 +35,11 @@ void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 
 	SetRotation(currentRot + delta);
 
-	//moving...
-	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
-	mThrustDir = inputForwardDelta;
-
+	mInputDirection = Vector3(-inInputState.GetDesiredHorizontalDelta(), -inInputState.GetDesiredVerticalDelta(), 0.f);
+	if (mInputDirection.LengthSq2D() > 1.f)
+	{
+		mInputDirection.Normalize2D();
+	}
 
 	mIsShooting = inInputState.IsShooting();
 
@@ -46,10 +47,16 @@ void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 
 void RoboCat::AdjustVelocityByThrust(float inDeltaTime)
 {
-	//just set the velocity based on the thrust direction -- no thrust will lead to 0 velocity
-	//simulating acceleration makes the client prediction a bit more complex
-	Vector3 forwardVector = GetForwardVector();
-	mVelocity = forwardVector * (mThrustDir * inDeltaTime * mMaxLinearSpeed);
+	if (mInputDirection.LengthSq2D() > 0.f)
+	{
+		// Snap velocity instantly to max speed in the input direction
+		mVelocity = mInputDirection * mMaxLinearSpeed;
+	}
+	else
+	{
+		// No input: stop movement completely or add a small decay if you want it to coast slightly
+		mVelocity = Vector3::Zero;
+	}
 }
 
 void RoboCat::SimulateMovement(float inDeltaTime)
@@ -221,15 +228,15 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 	}
 
 	//always write mThrustDir- it's just two bits
-	if (mThrustDir != 0.f)
-	{
-		inOutputStream.Write(true);
-		inOutputStream.Write(mThrustDir > 0.f);
-	}
-	else
-	{
-		inOutputStream.Write(false);
-	}
+	//if (mThrustDir != 0.f)
+	//{
+	//	inOutputStream.Write(true);
+	//	inOutputStream.Write(mThrustDir > 0.f);
+	//}
+	//else
+	//{
+	//	inOutputStream.Write(false);
+	//}
 
 	if (inDirtyState & ECRS_Color)
 	{

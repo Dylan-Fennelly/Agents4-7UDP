@@ -31,23 +31,22 @@ namespace
 
 bool InputState::Write(OutputMemoryBitStream& inOutputStream) const
 {
-	WriteSignedBinaryValue(inOutputStream, GetDesiredHorizontalDelta());
-	WriteSignedBinaryValue(inOutputStream, GetDesiredVerticalDelta());
+	WriteSignedBinaryValue(inOutputStream, mDesiredRightAmount);
+	WriteSignedBinaryValue(inOutputStream, mDesiredLeftAmount);
+	WriteSignedBinaryValue(inOutputStream, mDesiredForwardAmount);
+	WriteSignedBinaryValue(inOutputStream, mDesiredBackAmount);
 	inOutputStream.Write(mIsShooting);
-
 	inOutputStream.Write(mDesiredRotation);
-
 	return false;
 }
 
 bool InputState::Read(InputMemoryBitStream& inInputStream)
 {
-
 	ReadSignedBinaryValue(inInputStream, mDesiredRightAmount);
+	ReadSignedBinaryValue(inInputStream, mDesiredLeftAmount);
 	ReadSignedBinaryValue(inInputStream, mDesiredForwardAmount);
+	ReadSignedBinaryValue(inInputStream, mDesiredBackAmount);
 	inInputStream.Read(mIsShooting);
-
 	inInputStream.Read(mDesiredRotation);
-
 	return true;
 }
