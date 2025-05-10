@@ -24,6 +24,7 @@ const int WSAEWOULDBLOCK = EAGAIN;
 const int SOCKET_ERROR = -1;
 #endif
 
+#include <iostream>
 
 #include "memory"
 

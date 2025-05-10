@@ -56,7 +56,12 @@ bool InputState::Write(OutputMemoryBitStream& inOutputStream) const
 	if (mDesiredLeftAmount != 0.f) inputMask |= (1 << 2);
 	if (mDesiredRightAmount != 0.f) inputMask |= (1 << 3);
 
-	inOutputStream.Write(inputMask, 4); // only 4 bits
+
+	inOutputStream.Write(inputMask,4); // only 4 bits
+	//WriteSignedBinaryValue(inOutputStream, mDesiredRightAmount);
+	//WriteSignedBinaryValue(inOutputStream, mDesiredLeftAmount);
+	//WriteSignedBinaryValue(inOutputStream, mDesiredForwardAmount);
+	//WriteSignedBinaryValue(inOutputStream, mDesiredBackAmount);
 	inOutputStream.Write(mIsShooting);  // 1 bit
 
 	// Only encode quantised float as byte — don't re-quantise
@@ -69,12 +74,22 @@ bool InputState::Write(OutputMemoryBitStream& inOutputStream) const
 bool InputState::Read(InputMemoryBitStream& inInputStream)
 {
 	uint8_t inputMask;
-	inInputStream.Read(inputMask, 4);
+	inInputStream.Read(inputMask,4);
+	//Output the bit mask values
+	std::cout << "bit1" << (inputMask & (1 << 0)) << " "
+		<< "bit2" << (inputMask & (1 << 1)) << " "
+		<< "bit3" << (inputMask & (1 << 2)) << " "
+		<< "bit4" << (inputMask & (1 << 3)) << std::endl;
 
 	mDesiredForwardAmount = (inputMask & (1 << 0)) ? 1.f : 0.f;
 	mDesiredBackAmount = (inputMask & (1 << 1)) ? 1.f : 0.f;
 	mDesiredLeftAmount = (inputMask & (1 << 2)) ? 1.f : 0.f;
 	mDesiredRightAmount = (inputMask & (1 << 3)) ? 1.f : 0.f;
+
+	//ReadSignedBinaryValue(inInputStream, mDesiredRightAmount);
+	//ReadSignedBinaryValue(inInputStream, mDesiredLeftAmount);
+	//ReadSignedBinaryValue(inInputStream, mDesiredForwardAmount);
+	//ReadSignedBinaryValue(inInputStream, mDesiredBackAmount);
 
 	inInputStream.Read(mIsShooting);
 
