@@ -125,13 +125,19 @@ void InputManager::Update()
 void InputManager::CalculateRotation()
 {
 	Vector3 pos = NetworkManagerClient::sInstance->GetLocalCatPosition();
-	std::cout << "InputManager::Update() pos: " << pos.mX << ", " << pos.mY << ", " << pos.mZ << std::endl;
+	sf::Vector2f posF(pos.mX, pos.mY);
+
 	sf::Vector2i mousePos = sf::Mouse::getPosition(*WindowManager::sInstance);
 	sf::Vector2f mousePosF = WindowManager::sInstance->mapPixelToCoords(mousePos, RenderManager::sInstance->GetView());
-	//convert pos into sf::Vector2f
-	sf::Vector2f posF(pos.mX, pos.mY);
+
 	sf::Vector2f dir = mousePosF - posF;
-	float angle = atan2(dir.y, dir.x) * 180.f / 3.14159265f;
-	angle = angle + 90.f;
-	mCurrentState.mDesiredRotation = angle;
+	float angle = atan2f(dir.y, dir.x) * (180.f / 3.14159265f);
+	angle += 90.f;
+	angle = fmodf(angle + 360.f, 360.f);
+
+	// Quantise to the same step used for network
+	float quantisedAngle = std::round((angle / 360.f) * 255.f) / 255.f * 360.f;
+	mCurrentState.mDesiredRotation = quantisedAngle;
+	std::cout << "angle: " << angle << " quantisedAngle: " << quantisedAngle << std::endl;
 }
+

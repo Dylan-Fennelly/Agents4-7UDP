@@ -177,10 +177,11 @@ void RoboCatClient::DoClientSidePredictionAfterReplicationForLocalCat(uint32_t i
 
 void RoboCatClient::InterpolateClientSidePrediction(float inOldRotation, const Vector3 & inOldLocation, const Vector3 & inOldVelocity, bool inIsForRemoteCat)
 {
-	if (inOldRotation != GetRotation() && !inIsForRemoteCat)
-	{
-		LOG("ERROR! Move replay ended with incorrect rotation!", 0);
-	}
+	//if (inOldRotation != GetRotation() && !inIsForRemoteCat)
+	//{
+	//	LOG("ERROR! Move replay ended with incorrect rotation!", 0);
+	//}
+	//Since we are qauntising the rotation to 8 bits, we need to modify tyh
 
 	float roundTripTime = NetworkManagerClient::sInstance->GetRoundTripTime();
 

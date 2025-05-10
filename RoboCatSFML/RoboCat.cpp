@@ -6,7 +6,7 @@ const float WORLD_WIDTH = 1280.f;
 RoboCat::RoboCat() :
 	GameObject(),
 	mMaxRotationSpeed(500.f),
-	mMaxLinearSpeed(100.f),
+	mMaxLinearSpeed(400.f),
 	mVelocity(Vector3::Zero),
 	mWallRestitution(0.1f),
 	mCatRestitution(0.1f),
@@ -20,21 +20,24 @@ RoboCat::RoboCat() :
 
 void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 {
-	//process our input....
-
-	// Smooth rotate to desired rotation, taking shortest path
 	float currentRot = GetRotation();
 	float targetRot = inInputState.GetDesiredRotation();
 
-	// Ensure angle difference is in the range [-180, 180]
+	// Normalise angles to [0, 360)
+	currentRot = fmodf(currentRot + 360.f, 360.f);
+	targetRot = fmodf(targetRot + 360.f, 360.f);
+
+	// Get shortest angle delta in [-180, 180]
 	float delta = fmodf(targetRot - currentRot + 540.f, 360.f) - 180.f;
 
-	// Rotate with interpolation or speed clamp
+	// Clamp based on max speed
 	float maxRotDelta = mMaxRotationSpeed * inDeltaTime;
 	delta = RoboMath::Clamp(delta, -maxRotDelta, maxRotDelta);
 
+	// Apply delta
 	SetRotation(currentRot + delta);
 
+	// Movement input
 	mInputDirection = Vector3(-inInputState.GetDesiredHorizontalDelta(), -inInputState.GetDesiredVerticalDelta(), 0.f);
 	if (mInputDirection.LengthSq2D() > 1.f)
 	{
@@ -42,8 +45,8 @@ void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 	}
 
 	mIsShooting = inInputState.IsShooting();
-
 }
+
 
 void RoboCat::AdjustVelocityByThrust(float inDeltaTime)
 {
