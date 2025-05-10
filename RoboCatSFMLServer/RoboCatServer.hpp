@@ -1,3 +1,6 @@
+#pragma once
+
+
 enum ECatControlType
 {
 	ESCT_Human,
@@ -16,6 +19,10 @@ public:
 
 	void TakeDamage(int inDamagingPlayerId);
 
+	void AddHealth(int amount);
+	void AddMachineGun(float duration, float newFireDelay);
+	void AddInvincibility(float duration);
+
 protected:
 	RoboCatServer();
 
@@ -29,5 +36,8 @@ private:
 	float		mTimeOfNextShot;
 	float		mTimeBetweenShots;
 
+	float mMachineGunTimer{ 0.f };
+	float mInvincibilityTimer{ 0.f };
+	float mOriginalTimeBetweenShots{ 0.2f };
 };
 

@@ -11,6 +11,15 @@ public:
 		EMRS_AllState = EMRS_Pose | EMRS_Color
 	};
 
+	enum class Type : uint8_t
+	{
+		Health = 0,
+		MachineGun,
+		Invincibility
+	};
+
+	Mouse();
+
 	static	GameObject* StaticCreate() { return new Mouse(); }
 
 	virtual uint32_t	GetAllStateMask()	const override { return EMRS_AllState; }
@@ -20,7 +29,10 @@ public:
 
 	virtual bool HandleCollisionWithCat(RoboCat* inCat) override;
 
-protected:
-	Mouse();
+	Type GetType() const { return mType; }
+	void  SetType(Type t) { mType = t; }
+
+private:
+	Type mType{ Type::Health };
 };
 

@@ -1,4 +1,4 @@
-#include "RoboCatClientPCH.hpp"
+﻿#include "RoboCatClientPCH.hpp"
 
 RoboCatClient::RoboCatClient() :
 	mTimeLocationBecameOutOfSync(0.f),
@@ -60,6 +60,8 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 	uint32_t readState = 0;
 
+	GameObject::Read(inInputStream);
+
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
@@ -67,6 +69,22 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		inInputStream.Read(playerId);
 		SetPlayerId(playerId);
 		readState |= ECRS_PlayerId;
+
+		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
+		static constexpr int kNumSkins = 7;
+		static const char* sSkins[kNumSkins] = {
+			"AgentOne",
+			"AgentTwo",
+			"AgentThree",
+			"AgentFour",
+			"AgentFive",
+			"AgentSix",
+			"AgentSeven"
+		};
+		int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
+		mSpriteComponent->SetTexture(
+			TextureManager::sInstance->GetTexture(sSkins[slot])
+		);
 	}
 
 	float oldRotation = GetRotation();
@@ -120,8 +138,26 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 	if (stateBit)
 	{
 		mHealth = 0;
-		inInputStream.Read(mHealth, 4);
+		inInputStream.Read(mHealth, 5);
 		readState |= ECRS_Health;
+	}
+
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		uint8_t q; 
+		inInputStream.Read(q, 8);
+		mMachineGunTimer = float(q) * 0.1f;
+		readState |= ECRS_MachineGunTimer;
+	}
+
+	inInputStream.Read(stateBit);
+	if (stateBit)
+	{
+		uint8_t q;
+		inInputStream.Read(q, 8);
+		mInvincibilityTimer = float(q) * 0.1f;
+		readState |= ECRS_InvincibilityTimer;
 	}
 
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
