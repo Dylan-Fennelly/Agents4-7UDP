@@ -154,5 +154,4 @@ RoboCatPtr Server::GetCatForPlayer(int inPlayerId)
 	}
 
 	return nullptr;
-
 }

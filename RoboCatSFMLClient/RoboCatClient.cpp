@@ -145,13 +145,19 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
-		inInputStream.Read(mMachineGunTimer);
+		uint8_t q; 
+		inInputStream.Read(q, 8);
+		mMachineGunTimer = float(q) * 0.1f;
+		readState |= ECRS_MachineGunTimer;
 	}
 
 	inInputStream.Read(stateBit);
 	if (stateBit)
 	{
-		inInputStream.Read(mInvincibilityTimer);
+		uint8_t q;
+		inInputStream.Read(q, 8);
+		mInvincibilityTimer = float(q) * 0.1f;
+		readState |= ECRS_InvincibilityTimer;
 	}
 
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
