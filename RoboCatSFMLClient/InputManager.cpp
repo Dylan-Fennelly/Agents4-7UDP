@@ -42,6 +42,7 @@ namespace
 
 void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 {
+	Vector3 pos;
 	switch (inKeyCode)
 	{
 	case sf::Keyboard::A:
@@ -116,5 +117,27 @@ void InputManager::Update()
 	if (IsTimeToSampleInput())
 	{
 		mPendingMove = &SampleInputAsMove();
+		CalculateRotation();
+
 	}
 }
+
+void InputManager::CalculateRotation()
+{
+	Vector3 pos = NetworkManagerClient::sInstance->GetLocalCatPosition();
+	sf::Vector2f posF(pos.mX, pos.mY);
+
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*WindowManager::sInstance);
+	sf::Vector2f mousePosF = WindowManager::sInstance->mapPixelToCoords(mousePos, RenderManager::sInstance->GetView());
+
+	sf::Vector2f dir = mousePosF - posF;
+	float angle = atan2f(dir.y, dir.x) * (180.f / 3.14159265f);
+	angle += 90.f;
+	angle = fmodf(angle + 360.f, 360.f);
+
+	// Quantise to the same step used for network
+	float quantisedAngle = std::round((angle / 360.f) * 255.f) / 255.f * 360.f;
+	mCurrentState.mDesiredRotation = quantisedAngle;
+	std::cout << "angle: " << angle << " quantisedAngle: " << quantisedAngle << std::endl;
+}
+

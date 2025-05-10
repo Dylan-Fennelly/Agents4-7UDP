@@ -20,6 +20,7 @@ public:
 	float									GetRoundTripTime()		const { return mAvgRoundTripTime.GetValue(); }
 	int		GetPlayerId()											const { return mPlayerId; }
 	float	GetLastMoveProcessedByServerTimestamp()					const { return mLastMoveProcessedByServerTimestamp; }
+	Vector3 GetLocalCatPosition();
 private:
 	NetworkManagerClient();
 	void Init(const SocketAddress& inServerAddress, const string& inName);

@@ -1,11 +1,36 @@
 #include "RoboCatClientPCH.hpp"
-
+//Modified by Dylan Fennelly 
 NetworkManagerClient* NetworkManagerClient::sInstance;
 
 namespace
 {
 	const float kTimeBetweenHellos = 1.f;
 	const float kTimeBetweenInputPackets = 0.033f;
+}
+/// <summary>
+/// This function parses the map of the gameobjects for cats, and then checks if the local cat is in the map.Finally it gets the cats location
+/// </summary>
+/// <returns>Postion of the local Cat</returns>
+Vector3 NetworkManagerClient::GetLocalCatPosition()
+{
+	for (auto& pair : m_network_id_to_game_object_map)
+	{
+		if (pair.second->GetClassId() == 'RCAT')
+		{
+			RoboCat* cat = pair.second->GetAsCat();
+			if (cat->GetPlayerId() == GetPlayerId())
+			{
+				Vector3 vec = cat->GetLocation();
+				//std::cout << "NetworkManagerClient::GetLocalCat() pos: " << vec.mX << ", " << vec.mY << ", " << vec.mZ << std::endl;
+				return vec;
+			}
+			
+			
+		}
+	}
+	//we didnt find our cat (we are probally dead)
+	//so we return a zero vector
+	return Vector3(0.f, 0.f, 0.f);
 }
 
 NetworkManagerClient::NetworkManagerClient() :

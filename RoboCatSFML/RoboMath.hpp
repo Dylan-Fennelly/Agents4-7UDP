@@ -171,6 +171,9 @@ struct GetRequiredBits
 	enum { Value = GetRequiredBitsHelper< tValue, 0 >::Value };
 };
 
+
+
+
 namespace RoboMath
 {
 	const float PI = 3.1415926535f;
@@ -193,6 +196,11 @@ namespace RoboMath
 	inline float ToRadians(float inDegrees)
 	{
 		return (inDegrees / 180.0f) * PI;
+	}
+	template<typename T>
+	const T& Clamp(const T& value, const T& min, const T& max)
+	{
+		return (value < min) ? min : (value > max) ? max : value;
 	}
 }
 

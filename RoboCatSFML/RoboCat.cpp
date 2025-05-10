@@ -5,8 +5,8 @@ const float WORLD_WIDTH = 1280.f;
 
 RoboCat::RoboCat() :
 	GameObject(),
-	mMaxRotationSpeed(100.f),
-	mMaxLinearSpeed(5000.f),
+	mMaxRotationSpeed(500.f),
+	mMaxLinearSpeed(400.f),
 	mVelocity(Vector3::Zero),
 	mWallRestitution(0.1f),
 	mCatRestitution(0.1f),
@@ -20,27 +20,46 @@ RoboCat::RoboCat() :
 
 void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
 {
-	//process our input....
+	float currentRot = GetRotation();
+	float targetRot = inInputState.GetDesiredRotation();
 
-	//turning...
-	float newRotation = GetRotation() + inInputState.GetDesiredHorizontalDelta() * mMaxRotationSpeed * inDeltaTime;
-	SetRotation(newRotation);
+	// Normalise angles to [0, 360)
+	currentRot = fmodf(currentRot + 360.f, 360.f);
+	targetRot = fmodf(targetRot + 360.f, 360.f);
 
-	//moving...
-	float inputForwardDelta = inInputState.GetDesiredVerticalDelta();
-	mThrustDir = inputForwardDelta;
+	// Get shortest angle delta in [-180, 180]
+	float delta = fmodf(targetRot - currentRot + 540.f, 360.f) - 180.f;
 
+	// Clamp based on max speed
+	float maxRotDelta = mMaxRotationSpeed * inDeltaTime;
+	delta = RoboMath::Clamp(delta, -maxRotDelta, maxRotDelta);
+
+	// Apply delta
+	SetRotation(currentRot + delta);
+
+	// Movement input
+	mInputDirection = Vector3(-inInputState.GetDesiredHorizontalDelta(), -inInputState.GetDesiredVerticalDelta(), 0.f);
+	if (mInputDirection.LengthSq2D() > 1.f)
+	{
+		mInputDirection.Normalize2D();
+	}
 
 	mIsShooting = inInputState.IsShooting();
-
 }
+
 
 void RoboCat::AdjustVelocityByThrust(float inDeltaTime)
 {
-	//just set the velocity based on the thrust direction -- no thrust will lead to 0 velocity
-	//simulating acceleration makes the client prediction a bit more complex
-	Vector3 forwardVector = GetForwardVector();
-	mVelocity = forwardVector * (mThrustDir * inDeltaTime * mMaxLinearSpeed);
+	if (mInputDirection.LengthSq2D() > 0.f)
+	{
+		// Snap velocity instantly to max speed in the input direction
+		mVelocity = mInputDirection * mMaxLinearSpeed;
+	}
+	else
+	{
+		// No input: stop movement completely or add a small decay if you want it to coast slightly
+		mVelocity = Vector3::Zero;
+	}
 }
 
 void RoboCat::SimulateMovement(float inDeltaTime)
@@ -177,7 +196,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 {
 	uint32_t writtenState = 0;
 
-	// ——— PlayerId ———
+	// â€”â€”â€” PlayerId â€”â€”â€”
 	bool dirty = (inDirtyState & ECRS_PlayerId) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -186,7 +205,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_PlayerId;
 	}
 
-	// ——— Pose ———
+	// â€”â€”â€” Pose â€”â€”â€”
 	dirty = (inDirtyState & ECRS_Pose) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -203,18 +222,22 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Pose;
 	}
 
-	// ——— ThrustDir (always two bits) ———
-	if (mThrustDir != 0.f)
-	{
-		inOutputStream.Write(true);
-		inOutputStream.Write(mThrustDir > 0.f);
-	}
-	else
-	{
-		inOutputStream.Write(false);
-	}
 
-	// ——— Color ———
+	// â€”â€”â€” ThrustDir (always two bits) â€”â€”â€”
+	//if (mThrustDir != 0.f)
+	//{
+	//	inOutputStream.Write(true);
+	//	inOutputStream.Write(mThrustDir > 0.f);
+	//}
+	//else
+	//{
+	//	inOutputStream.Write(false);
+	//}
+
+
+
+
+	// â€”â€”â€” Color â€”â€”â€”
 	dirty = (inDirtyState & ECRS_Color) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -223,7 +246,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Color;
 	}
 
-	// ——— Health ———
+	// â€”â€”â€” Health â€”â€”â€”
 	dirty = (inDirtyState & ECRS_Health) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -232,7 +255,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Health;
 	}
 
-	// ——— Machine-Gun Timer ———
+	// â€”â€”â€” Machine-Gun Timer â€”â€”â€”
 	dirty = (inDirtyState & ECRS_MachineGunTimer) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -244,12 +267,12 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_MachineGunTimer;
 	}
 
-	// ——— Invincibility Timer ———
+	// â€”â€”â€” Invincibility Timer â€”â€”â€”
 	dirty = (inDirtyState & ECRS_InvincibilityTimer) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
 	{
-		// pack 0–MaxInvTime seconds into 0–255 with 0.1s precision
+		// pack 0â€“MaxInvTime seconds into 0â€“255 with 0.1s precision
 		float raw = mInvincibilityTimer * 10.f;
 		float clamped = std::max(0.f, std::min(raw, 255.f));
 		uint8_t q = static_cast<uint8_t>(clamped);

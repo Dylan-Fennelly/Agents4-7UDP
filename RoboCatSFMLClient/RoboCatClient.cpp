@@ -113,17 +113,17 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 		readState |= ECRS_Pose;
 	}
-
-	inInputStream.Read(stateBit);
-	if (stateBit)
-	{
-		inInputStream.Read(stateBit);
-		mThrustDir = stateBit ? 1.f : -1.f;
-	}
-	else
-	{
-		mThrustDir = 0.f;
-	}
+	//Remove the thrust block
+	//inInputStream.Read(stateBit);
+	//if (stateBit)
+	//{
+	//	inInputStream.Read(stateBit);
+	//	mThrustDir = stateBit ? 1.f : -1.f;
+	//}
+	//else
+	//{
+	//	mThrustDir = 0.f;
+	//}
 
 	inInputStream.Read(stateBit);
 	if (stateBit)
@@ -213,10 +213,11 @@ void RoboCatClient::DoClientSidePredictionAfterReplicationForLocalCat(uint32_t i
 
 void RoboCatClient::InterpolateClientSidePrediction(float inOldRotation, const Vector3 & inOldLocation, const Vector3 & inOldVelocity, bool inIsForRemoteCat)
 {
-	if (inOldRotation != GetRotation() && !inIsForRemoteCat)
-	{
-		LOG("ERROR! Move replay ended with incorrect rotation!", 0);
-	}
+	//if (inOldRotation != GetRotation() && !inIsForRemoteCat)
+	//{
+	//	LOG("ERROR! Move replay ended with incorrect rotation!", 0);
+	//}
+	//Since we are qauntising the rotation to 8 bits, we need to modify tyh
 
 	float roundTripTime = NetworkManagerClient::sInstance->GetRoundTripTime();
 

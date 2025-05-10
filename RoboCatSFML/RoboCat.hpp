@@ -51,6 +51,7 @@ private:
 
 	Vector3				mVelocity;
 
+	Vector3 			mInputDirection;
 
 	float				mMaxLinearSpeed;
 	float				mMaxRotationSpeed;
@@ -69,6 +70,8 @@ protected:
 	float				mLastMoveTimestamp;
 
 	float				mThrustDir;
+
+
 	int					mHealth;
 	int   mMaxHealth{ 20 };
 	float mMachineGunTimer;
