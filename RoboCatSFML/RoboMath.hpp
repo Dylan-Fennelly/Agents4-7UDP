@@ -1,3 +1,7 @@
+#pragma once
+
+#include <random>
+
 class Vector3
 {
 public:
@@ -173,6 +177,8 @@ namespace RoboMath
 	float GetRandomFloat();
 
 	Vector3 GetRandomVector(const Vector3& inMin, const Vector3& inMax);
+
+	int GetRandomInt(int inMin, int inMax);
 
 	inline bool	Is2DVectorEqual(const Vector3& inA, const Vector3& inB)
 	{

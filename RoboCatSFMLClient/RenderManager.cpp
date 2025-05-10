@@ -6,6 +6,19 @@ RenderManager::RenderManager()
 {
 	view.reset(sf::FloatRect(0, 0, 1280, 720));
 	WindowManager::sInstance->setView(view);
+
+	// Load the background texture
+	if (!mBackgroundTexture.loadFromFile("../Assets/Background.png"))
+	{
+		// Handle error (e.g., log or exit)
+	}
+	// Enable texture repeating
+	mBackgroundTexture.setRepeated(true);
+
+	// Set the texture rectangle to cover the entire window
+	sf::Vector2u windowSize = WindowManager::sInstance->getSize();
+	mBackgroundSprite.setTexture(mBackgroundTexture);
+	mBackgroundSprite.setTextureRect(sf::IntRect(0, 0, windowSize.x, windowSize.y));
 }
 
 
@@ -66,7 +79,10 @@ void RenderManager::Render()
 	//
 	// Clear the back buffer
 	//
-	WindowManager::sInstance->clear(sf::Color(100, 149, 237, 255));
+	WindowManager::sInstance->clear(sf::Color(0, 0, 0, 255));
+
+	// Draw the background
+	WindowManager::sInstance->draw(mBackgroundSprite);
 
 	RenderManager::sInstance->RenderComponents();
 

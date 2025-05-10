@@ -1,3 +1,6 @@
+#include "RoboCatServer.hpp"
+
+
 class MouseServer : public Mouse
 {
 public:

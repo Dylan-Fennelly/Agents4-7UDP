@@ -48,6 +48,7 @@ uint32_t Mouse::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtySta
 		inOutputStream.Write((bool)false);
 	}
 
+	inOutputStream.Write(static_cast<uint8_t>(mType));
 
 	return writtenState;
 }

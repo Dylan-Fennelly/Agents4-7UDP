@@ -11,6 +11,28 @@ void RoboCatServer::HandleDying()
 	NetworkManagerServer::sInstance->UnregisterGameObject(this);
 }
 
+void RoboCatServer::AddHealth(int amount)
+{
+	mHealth = std::min(mHealth + amount, mMaxHealth);
+	NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ECRS_Health);
+}
+
+void RoboCatServer::AddMachineGun(float duration, float newFireDelay)
+{
+	if (mMachineGunTimer <= 0.f)
+		mOriginalTimeBetweenShots = mTimeBetweenShots;
+
+	mTimeBetweenShots = newFireDelay;
+	mMachineGunTimer = duration;
+	NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ECRS_MachineGunTimer);
+}
+
+void RoboCatServer::AddInvincibility(float duration)
+{
+	mInvincibilityTimer = duration;
+	NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ECRS_InvincibilityTimer);
+}
+
 void RoboCatServer::Update()
 {
 	RoboCat::Update();
@@ -18,6 +40,20 @@ void RoboCatServer::Update()
 	Vector3 oldLocation = GetLocation();
 	Vector3 oldVelocity = GetVelocity();
 	float oldRotation = GetRotation();
+
+	float dt = Timing::sInstance.GetDeltaTime();
+
+	// countdown machinegun
+	if (mMachineGunTimer > 0.f)
+	{
+		mMachineGunTimer -= dt;
+		if (mMachineGunTimer <= 0.f)
+			mTimeBetweenShots = mOriginalTimeBetweenShots;
+	}
+
+	// countdown invincibility
+	if (mInvincibilityTimer > 0.f)
+		mInvincibilityTimer -= dt;
 
 	//are you controlled by a player?
 	//if so, is there a move we haven't processed yet?
@@ -76,6 +112,9 @@ void RoboCatServer::HandleShooting()
 
 void RoboCatServer::TakeDamage(int inDamagingPlayerId)
 {
+	if (mInvincibilityTimer > 0.f)
+		return;
+
 	mHealth--;
 	if (mHealth <= 0.f)
 	{
