@@ -1,3 +1,7 @@
+#pragma once
+
+#include <random>
+
 class Vector3
 {
 public:

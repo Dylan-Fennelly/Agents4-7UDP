@@ -14,6 +14,8 @@ const Vector3 Vector3::Zero(0.0f, 0.0f, 0.0f);
 const Vector3 Vector3::UnitX(1.0f, 0.0f, 0.0f);
 const Vector3 Vector3::UnitY(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::UnitZ(0.0f, 0.0f, 1.0f);
+std::mt19937 sRandomEngine{ std::random_device{}() };
+
 
 float RoboMath::GetRandomFloat()
 {
@@ -25,8 +27,6 @@ float RoboMath::GetRandomFloat()
 
 int RoboMath::GetRandomInt(int inMin, int inMax)
 {
-	static std::mt19937 sRandomEngine;
-	// uniform_int_distribution is inclusive on both ends
 	std::uniform_int_distribution<int> dist(inMin, inMax);
 	return dist(sRandomEngine);
 }
