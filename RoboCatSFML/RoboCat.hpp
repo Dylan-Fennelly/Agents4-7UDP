@@ -51,7 +51,6 @@ private:
 
 	Vector3				mVelocity;
 
-	Vector3 			mInputDirection;
 
 	float				mMaxLinearSpeed;
 	float				mMaxRotationSpeed;
@@ -79,6 +78,9 @@ protected:
 	uint8_t mTextureIndex{ 0 };
 
 	bool				mIsShooting;
+
+
+	Vector3 			mInputDirection;
 };
 
 typedef shared_ptr< RoboCat >	RoboCatPtr;

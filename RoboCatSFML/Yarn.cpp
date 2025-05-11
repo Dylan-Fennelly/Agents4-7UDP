@@ -81,10 +81,12 @@ void Yarn::InitFromShooter(RoboCat* inShooter)
 	SetPlayerId(inShooter->GetPlayerId());
 
 	Vector3 forward = inShooter->GetForwardVector();
-	SetVelocity(inShooter->GetVelocity() + forward * mMuzzleSpeed);
+	SetVelocity(/*inShooter->GetVelocity() + */forward * mMuzzleSpeed);
 	SetLocation(inShooter->GetLocation() /* + forward * 0.55f */);
 
 	SetRotation(inShooter->GetRotation());
+	
+	//std::cout << "Bang Bang" << std::endl;
 }
 
 void Yarn::Update()

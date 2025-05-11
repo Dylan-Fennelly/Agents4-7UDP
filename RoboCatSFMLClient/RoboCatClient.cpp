@@ -44,13 +44,13 @@ void RoboCatClient::Update()
 	}
 	else
 	{
-		//SimulateMovement(Timing::sInstance.GetDeltaTime());
+		SimulateMovement(Timing::sInstance.GetDeltaTime());
 
-		//if (RoboMath::Is2DVectorEqual(GetVelocity(), Vector3::Zero))
-		//{
-		//	//we're in sync if our velocity is 0
-		//	mTimeLocationBecameOutOfSync = 0.f;
-		//}
+		if (RoboMath::Is2DVectorEqual(GetVelocity(), Vector3::Zero))
+		{
+			//we're in sync if our velocity is 0
+			mTimeLocationBecameOutOfSync = 0.f;
+		}
 	}
 }
 
@@ -110,6 +110,11 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 		inInputStream.Read(replicatedRotation);
 		SetRotation(replicatedRotation);
+
+		Vector3 inputDir;
+		inInputStream.Read(inputDir.mX);
+		inInputStream.Read(inputDir.mY);
+		mInputDirection = inputDir;
 
 		readState |= ECRS_Pose;
 	}

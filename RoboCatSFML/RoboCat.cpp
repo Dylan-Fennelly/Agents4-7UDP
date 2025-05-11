@@ -6,7 +6,7 @@ const float WORLD_WIDTH = 1280.f;
 RoboCat::RoboCat() :
 	GameObject(),
 	mMaxRotationSpeed(500.f),
-	mMaxLinearSpeed(400.f),
+	mMaxLinearSpeed(200.f),
 	mVelocity(Vector3::Zero),
 	mWallRestitution(0.1f),
 	mCatRestitution(0.1f),
@@ -219,6 +219,8 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		inOutputStream.Write(loc.mY);
 
 		inOutputStream.Write(GetRotation());
+		inOutputStream.Write(mInputDirection.mX);
+		inOutputStream.Write(mInputDirection.mY);
 		writtenState |= ECRS_Pose;
 	}
 
