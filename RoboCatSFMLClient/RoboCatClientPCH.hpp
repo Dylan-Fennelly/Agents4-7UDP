@@ -11,6 +11,7 @@
 #include "WindowManager.hpp"
 
 #include "RoboCatClient.hpp"
+#include "ZombieClient.hpp"
 #include "MouseClient.hpp"
 #include "YarnClient.hpp"
 

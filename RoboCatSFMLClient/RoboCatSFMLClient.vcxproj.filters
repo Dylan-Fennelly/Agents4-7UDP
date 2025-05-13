@@ -63,6 +63,9 @@
     <ClInclude Include="PlayerSpriteComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ZombieClient.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="ReplicationManagerClient.cpp">
       <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieClient.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

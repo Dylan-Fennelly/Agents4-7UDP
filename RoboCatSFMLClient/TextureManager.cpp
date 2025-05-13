@@ -24,6 +24,8 @@ TextureManager::TextureManager()
 	CacheTexture("AgentFive", "../Assets/AgentFive.png");
 	CacheTexture("AgentSix", "../Assets/AgentSix.png");
 	CacheTexture("AgentSeven", "../Assets/AgentSeven.png");
+
+	CacheTexture("zombie", "../Assets/Zombie.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)

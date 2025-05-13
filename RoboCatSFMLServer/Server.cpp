@@ -1,4 +1,3 @@
-
 #include "RoboCatServerPCH.hpp"
 #include <iostream>
 
@@ -19,6 +18,7 @@ Server::Server()
 	GameObjectRegistry::sInstance->RegisterCreationFunction('RCAT', RoboCatServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUS', MouseServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('YARN', YarnServer::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('ZOMB', ZombieServer::StaticCreate);
 
 	InitNetworkManager();
 
@@ -74,11 +74,8 @@ namespace
 
 void Server::SetupWorld()
 {
-	//spawn some random mice
-	//CreateRandomMice(10);
-
-	//spawn more random mice!
-	//CreateRandomMice(10);
+	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
+	go->SetLocation(Vector3(600, 500, 0.f));
 }
 
 void Server::DoFrame()

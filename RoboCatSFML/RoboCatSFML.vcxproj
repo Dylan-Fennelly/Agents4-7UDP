@@ -183,6 +183,7 @@
     <ClInclude Include="WeightedTimedMovingAverage.hpp" />
     <ClInclude Include="World.hpp" />
     <ClInclude Include="Yarn.hpp" />
+    <ClInclude Include="Zombie.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AckRange.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="UDPSocket.cpp" />
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Yarn.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
