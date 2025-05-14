@@ -21,6 +21,8 @@
 #include "Container.hpp"
 
 #include "TitleState.hpp"
+#include "GameState.hpp"
+#include "Title2.hpp"
 
 #include "RoboCatClient.hpp"
 #include "MouseClient.hpp"

@@ -9,27 +9,32 @@ void TextureManager::StaticInit()
 
 TextureManager::TextureManager()
 {
-	//CacheTexture("cat", "../Assets/AgentOne.png");
+	CacheTexture("cat", "../Assets/Media/Textures/AgentOne.png");
 	//CacheTexture("mouse", "../Assets/mouse.png");
-	//CacheTexture("yarn", "../Assets/Bullet.png");
+	CacheTexture("yarn", "../Assets/Media/Textures/Bullet.png");
 
 	//Menu Textures
 	CacheTexture("button", "../Assets/Media/Textures/Buttons.png");
+	CacheTexture("title", "../Assets/Media/Textures/TitleScreen2.png");
+
+	//Background
 	CacheTexture("background", "../Assets/Media/Textures/Background.png");
+	GetTexture("background")->setRepeated(true);
+	
 
 	//Power Ups
-	CacheTexture("health", "../Assets/Health.png");
-	CacheTexture("machinegun", "../Assets/Machinegun.png");
-	CacheTexture("invincibility", "../Assets/Invincibility.png");
+	CacheTexture("health", "../Assets/Media/Textures/Health.png");
+	CacheTexture("machinegun", "../Assets/Media/Textures/Machinegun.png");
+	CacheTexture("invincibility", "../Assets/Media/Textures/Invincibility.png");
 
 	//Player Sprites
-	CacheTexture("AgentOne", "../Assets/AgentOne.png");
-	CacheTexture("AgentTwo", "../Assets/AgentTwo.png");
-	CacheTexture("AgentThree", "../Assets/AgentThree.png");
-	CacheTexture("AgentFour", "../Assets/AgentFour.png");
-	CacheTexture("AgentFive", "../Assets/AgentFive.png");
-	CacheTexture("AgentSix", "../Assets/AgentSix.png");
-	CacheTexture("AgentSeven", "../Assets/AgentSeven.png");
+	CacheTexture("AgentOne", "../Assets/Media/Textures/AgentOne.png");
+	CacheTexture("AgentTwo", "../Assets/Media/Textures/AgentTwo.png");
+	CacheTexture("AgentThree", "../Assets/Media/Textures/AgentThree.png");
+	CacheTexture("AgentFour", "../Assets/Media/Textures/AgentFour.png");
+	CacheTexture("AgentFive", "../Assets/Media/Textures/AgentFive.png");
+	CacheTexture("AgentSix", "../Assets/Media/Textures/AgentSix.png");
+	CacheTexture("AgentSeven", "../Assets/Media/Textures/AgentSeven.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)

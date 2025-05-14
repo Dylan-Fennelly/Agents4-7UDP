@@ -1,6 +1,6 @@
 #include "RoboCatClientPCH.hpp"
 
-TitleState::TitleState(StateStack& stack)
+Title2::Title2(StateStack& stack)
 	: State(stack)
 	, m_show_text(true)
 	, m_text_effect_time(0)
@@ -11,14 +11,14 @@ TitleState::TitleState(StateStack& stack)
 	const auto position = WindowManager::sInstance->getView().getSize() / 2.f;
 
 	std::shared_ptr<gui::Label> label;
-	label = std::make_shared<gui::Label>("Press any key to continue");
+	label = std::make_shared<gui::Label>("you have arrived");
 	label->setPosition(position.x, position.y);
 	//Utility::CreateLabel(label, position.x, position.y, "Press any key to continue", 50);
 
 	m_container.Pack(label);
 }
 
-bool TitleState::Update(const float dt)
+bool Title2::Update(const float dt)
 {
 	m_text_effect_time += dt;
 
@@ -29,7 +29,7 @@ bool TitleState::Update(const float dt)
 	}
 	return true;
 }
-bool TitleState::HandleEvent(const sf::Event& event)
+bool Title2::HandleEvent(const sf::Event& event)
 {
 	if (event.type == sf::Event::KeyReleased)
 	{
@@ -39,7 +39,7 @@ bool TitleState::HandleEvent(const sf::Event& event)
 	return true;
 }
 
-void TitleState::Draw()
+void Title2::Draw()
 {
 	WindowManager::sInstance->draw(m_background_sprite);
 	if (m_show_text)

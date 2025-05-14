@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 class StateStack : sf::NonCopyable
 {
 public:
@@ -46,7 +46,7 @@ void StateStack::RegisterState(const StateID state_id)
 {
 	m_state_factory[state_id] = [this]
 		{
-			return State::Ptr(new T());
+			return std::make_unique<T>(*this); // ⬅️ Pass the stack
 		};
 }
 

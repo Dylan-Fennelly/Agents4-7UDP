@@ -25,6 +25,7 @@
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="FontManager.hpp" />
+    <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Label.hpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="StateID.hpp" />
     <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="TextureManager.hpp" />
+    <ClInclude Include="Title2.hpp" />
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="WindowManager.hpp" />
     <ClInclude Include="YarnClient.hpp" />
@@ -52,6 +54,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Label.cpp" />
@@ -72,6 +75,7 @@
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Title2.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="YarnClient.cpp" />

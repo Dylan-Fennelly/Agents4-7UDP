@@ -1,8 +1,8 @@
 #pragma once
-class TitleState final : public State
+class Title2 final : public State
 {
 public:
-	explicit TitleState(StateStack& stack);
+	explicit Title2(StateStack& stack);
 	bool Update(float dt) override;
 	bool HandleEvent(const sf::Event& event) override;
 	void Draw() override;

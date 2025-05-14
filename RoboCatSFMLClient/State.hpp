@@ -6,7 +6,7 @@ class State
 public:
 	using Ptr = std::unique_ptr<State>;
 
-	explicit State() = default;
+	explicit State(StateStack& stack) : m_stack(stack) {}
 	virtual ~State() = default;
 
 	virtual bool Update(float dt) = 0;
@@ -19,4 +19,7 @@ public:
 protected:
 	static void RequestStackPop();
 	static void RequestStackClear();
+
+protected:
+	StateStack& m_stack;
 };
