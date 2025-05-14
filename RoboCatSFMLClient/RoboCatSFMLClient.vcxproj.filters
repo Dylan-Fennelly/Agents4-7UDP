@@ -9,95 +9,113 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Source Files\Manager">
+      <UniqueIdentifier>{cfef61ce-458b-48d4-be0c-f8592a28af86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{7a7f5a3f-e355-49ac-b220-b8956d0d5c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{354550e6-f785-417a-ba19-9f07ef5cbde9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{dc50314e-e90f-4de9-90dc-e327fee378bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sprite">
+      <UniqueIdentifier>{dea73892-f5dc-4693-a936-f0bfa996891b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pre-Compiled Headers">
+      <UniqueIdentifier>{69344b60-1c51-4f24-9f88-eccd11380170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Clientside Objects">
+      <UniqueIdentifier>{511b6704-adfd-4ddb-b87c-a0aca3f3f884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{fe163e89-2ddf-4d2c-9fcb-51fdd0f7f282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{209835d7-fe31-436a-ab4f-6ef393d9ab12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Clientside Objects">
+      <UniqueIdentifier>{c3a356f8-b207-42fe-80fd-d6ecab04cebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sprites">
+      <UniqueIdentifier>{01bfd929-26ae-4d88-9bd5-180e35c1f170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pre-Compiled Headers">
+      <UniqueIdentifier>{e3327999-4c2f-4923-a2f7-1548521fda43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States\Definitions">
+      <UniqueIdentifier>{1fd57163-7a4f-4232-be78-6e5eff99a4eb}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Manager">
-      <UniqueIdentifier>{cfef61ce-458b-48d4-be0c-f8592a28af86}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Client.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoboCatClientPCH.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HUD.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="FontManager.hpp">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MouseClient.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="NetworkManagerClient.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="RenderManager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ReplicationManagerClient.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoboCatClient.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteComponent.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="TextureManager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="WindowManager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.hpp">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="StackManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseClient.hpp">
+      <Filter>Header Files\Clientside Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="RoboCatClient.hpp">
+      <Filter>Header Files\Clientside Objects</Filter>
     </ClInclude>
     <ClInclude Include="YarnClient.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FontManager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Clientside Objects</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSpriteComponent.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.hpp">
+      <Filter>Header Files\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="RoboCatClientPCH.hpp">
+      <Filter>Header Files\Pre-Compiled Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="StateID.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="State.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="StateStack.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleState.hpp">
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoboCatClientPCH.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HUD.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoboCatClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="YarnClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSpriteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FontManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
@@ -112,6 +130,51 @@
     </ClCompile>
     <ClCompile Include="ReplicationManagerClient.cpp">
       <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="StateStack.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="StackManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientMain.cpp">
+      <Filter>Source Files\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSpriteComponent.cpp">
+      <Filter>Source Files\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>Source Files\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="RoboCatClientPCH.cpp">
+      <Filter>Source Files\Pre-Compiled Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseClient.cpp">
+      <Filter>Source Files\Clientside Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="YarnClient.cpp">
+      <Filter>Source Files\Clientside Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RoboCatClient.cpp">
+      <Filter>Source Files\Clientside Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleState.cpp">
+      <Filter>Source Files\States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

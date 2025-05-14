@@ -31,7 +31,12 @@
     <ClInclude Include="RoboCatClient.hpp" />
     <ClInclude Include="RoboCatClientPCH.hpp" />
     <ClInclude Include="SpriteComponent.hpp" />
+    <ClInclude Include="StackManager.hpp" />
+    <ClInclude Include="State.hpp" />
+    <ClInclude Include="StateID.hpp" />
+    <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="TextureManager.hpp" />
+    <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="WindowManager.hpp" />
     <ClInclude Include="YarnClient.hpp" />
   </ItemGroup>
@@ -54,7 +59,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="StackManager.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="YarnClient.cpp" />
   </ItemGroup>

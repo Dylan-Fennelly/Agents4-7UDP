@@ -2,7 +2,6 @@
 
 bool Client::StaticInit()
 {
-	// Create the Client pointer first because it initializes SDL
 	Client* client = new Client();
 	InputManager::StaticInit();
 

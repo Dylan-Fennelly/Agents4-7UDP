@@ -1,7 +1,7 @@
 #include "RoboCatPCH.hpp"
 
 Yarn::Yarn() :
-	mMuzzleSpeed(300.f),
+	mMuzzleSpeed(600.f),
 	mVelocity(Vector3::Zero),
 	mPlayerId(0)
 {
