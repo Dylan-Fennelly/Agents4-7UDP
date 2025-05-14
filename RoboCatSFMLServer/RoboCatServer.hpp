@@ -17,7 +17,7 @@ public:
 
 	void SetCatControlType(ECatControlType inCatControlType) { mCatControlType = inCatControlType; }
 
-	void TakeDamage(int inDamagingPlayerId);
+	void TakeDamage(int inDamagingPlayerId, int inAmount);
 
 	void AddHealth(int amount);
 	void AddMachineGun(float duration, float newFireDelay);
@@ -37,7 +37,6 @@ private:
 	float		mTimeBetweenShots;
 
 	float mMachineGunTimer{ 0.f };
-	float mInvincibilityTimer{ 0.f };
 	float mOriginalTimeBetweenShots{ 0.2f };
 };
 

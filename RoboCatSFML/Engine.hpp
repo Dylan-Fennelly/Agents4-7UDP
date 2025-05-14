@@ -11,10 +11,10 @@ public:
 	}
 	virtual void HandleEvent(sf::Event& p_event);
 	virtual bool PollEvent(sf::Event& p_event);
-
+	virtual void DoFrame();
 protected:
 	Engine();
-	virtual void DoFrame();
+
 
 private:
 	int DoRunLoop();

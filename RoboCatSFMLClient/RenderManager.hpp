@@ -15,6 +15,7 @@ public:
 	void RemoveComponent(SpriteComponent* inComponent);
 	int	 GetComponentIndex(SpriteComponent* inComponent) const;
 	sf::View GetView() const { return view; }
+	sf::Sprite GetBackgroundSprite() { return mBackgroundSprite; }
 
 private:
 

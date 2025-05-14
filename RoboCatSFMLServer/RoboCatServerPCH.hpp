@@ -8,6 +8,7 @@
 #include "Server.hpp"
 
 #include "RoboCatServer.hpp"
+#include "ZombieServer.hpp"
 #include "MouseServer.hpp"
 #include "YarnServer.hpp"
 

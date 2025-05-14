@@ -27,7 +27,7 @@ const int SOCKET_ERROR = -1;
 #include <iostream>
 
 #include "memory"
-
+#include <functional>
 #include "vector"
 #include "unordered_map"
 #include "string"
@@ -81,6 +81,7 @@ class GameObject;
 #include "GameObject.hpp"
 #include "GameObjectRegistry.hpp"
 #include "RoboCat.hpp"
+#include "Zombie.hpp"
 #include "World.hpp"
 #include "Timing.hpp"
 #include "Mouse.hpp"

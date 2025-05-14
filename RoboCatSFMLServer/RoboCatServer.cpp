@@ -3,7 +3,7 @@
 RoboCatServer::RoboCatServer() :
 	mCatControlType(ESCT_Human),
 	mTimeOfNextShot(0.f),
-	mTimeBetweenShots(1.5f)
+	mTimeBetweenShots(1.2f)
 {}
 
 void RoboCatServer::HandleDying()
@@ -37,11 +37,19 @@ void RoboCatServer::Update()
 {
 	RoboCat::Update();
 
+	
+
 	Vector3 oldLocation = GetLocation();
 	Vector3 oldVelocity = GetVelocity();
 	float oldRotation = GetRotation();
 
 	float dt = Timing::sInstance.GetDeltaTime();
+
+	if (mInvincibilityTimer > 0.f)
+	{
+		mInvincibilityTimer -= dt;
+		NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ECRS_InvincibilityTimer);
+	}
 
 	// countdown machinegun
 	if (mMachineGunTimer > 0.f)
@@ -50,10 +58,6 @@ void RoboCatServer::Update()
 		if (mMachineGunTimer <= 0.f)
 			mTimeBetweenShots = mOriginalTimeBetweenShots;
 	}
-
-	// countdown invincibility
-	if (mInvincibilityTimer > 0.f)
-		mInvincibilityTimer -= dt;
 
 	//are you controlled by a player?
 	//if so, is there a move we haven't processed yet?
@@ -71,9 +75,6 @@ void RoboCatServer::Update()
 
 				ProcessInput(deltaTime, currentState);
 				SimulateMovement(deltaTime);
-
-				//LOG( "Server Move Time: %3.4f deltaTime: %3.4f left rot at %3.4f", unprocessedMove.GetTimestamp(), deltaTime, GetRotation() );
-
 			}
 
 			moveList.Clear();
@@ -110,12 +111,12 @@ void RoboCatServer::HandleShooting()
 	}
 }
 
-void RoboCatServer::TakeDamage(int inDamagingPlayerId)
+void RoboCatServer::TakeDamage(int inDamagingPlayerId, int inAmount)
 {
 	if (mInvincibilityTimer > 0.f)
 		return;
 
-	mHealth--;
+	mHealth -= inAmount;
 	if (mHealth <= 0.f)
 	{
 		//score one for damaging player...

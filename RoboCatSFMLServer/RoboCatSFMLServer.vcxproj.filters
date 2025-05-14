@@ -13,65 +13,95 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ServerSide Objects">
+      <UniqueIdentifier>{09c62de9-259f-4c38-937d-7c12a6cf836f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Application">
+      <UniqueIdentifier>{5a27d6e3-02e6-4449-9304-1ba022cd00d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pre-Compiled Headers">
+      <UniqueIdentifier>{8ad84a80-10c8-4da1-a267-186d72cabf5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Networking">
+      <UniqueIdentifier>{996e4b65-6fdf-4158-ad37-05d14ff8b278}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application">
+      <UniqueIdentifier>{8ce23493-1c3e-4050-bbf9-d3607b7d6913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking">
+      <UniqueIdentifier>{7d46f001-480c-4ead-b966-8719f03347f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pre-Compiled Headers">
+      <UniqueIdentifier>{34a556b4-5fe2-45b6-892f-70481dac42aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ServerSide Objects">
+      <UniqueIdentifier>{1a8914d4-6411-4979-9340-9ee87d414f97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ClientProxy.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoboCatServerPCH.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MouseServer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkManagerServer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ReplicationManagerServer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ServerSide Objects</Filter>
     </ClInclude>
     <ClInclude Include="RoboCatServer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Server.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ServerSide Objects</Filter>
     </ClInclude>
     <ClInclude Include="YarnServer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ServerSide Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.hpp">
+      <Filter>Header Files\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="RoboCatServerPCH.hpp">
+      <Filter>Header Files\Pre-Compiled Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkManagerServer.hpp">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="ReplicationManagerServer.hpp">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
     <ClInclude Include="ReplicationManagerTransmissionData.hpp">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientProxy.hpp">
+      <Filter>Header Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="ZombieServer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ClientProxy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoboCatServerPCH.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkManagerServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ReplicationManagerServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoboCatServer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ServerMain.cpp">
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
     <ClCompile Include="Server.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Application</Filter>
     </ClCompile>
-    <ClCompile Include="YarnServer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="ClientProxy.cpp">
+      <Filter>Source Files\Networking</Filter>
     </ClCompile>
-    <ClCompile Include="ServerMain.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="NetworkManagerServer.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="ReplicationManagerServer.cpp">
+      <Filter>Source Files\Networking</Filter>
     </ClCompile>
     <ClCompile Include="ReplicationManagerTransmissionData.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="RoboCatServerPCH.cpp">
+      <Filter>Source Files\Pre-Compiled Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseServer.cpp">
+      <Filter>Source Files\ServerSide Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="RoboCatServer.cpp">
+      <Filter>Source Files\ServerSide Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="YarnServer.cpp">
+      <Filter>Source Files\ServerSide Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

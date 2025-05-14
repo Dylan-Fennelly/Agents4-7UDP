@@ -13,9 +13,10 @@ RoboCat::RoboCat() :
 	mThrustDir(0.f),
 	mPlayerId(0),
 	mIsShooting(false),
-	mHealth(10)
+	mHealth(10),
+	mInvincibilityTimer(0.f)
 {
-	SetCollisionRadius(0.f);
+	SetCollisionRadius(10.f);
 }
 
 void RoboCat::ProcessInput(float inDeltaTime, const InputState& inInputState)
@@ -279,6 +280,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		float clamped = std::max(0.f, std::min(raw, 255.f));
 		uint8_t q = static_cast<uint8_t>(clamped);
 		inOutputStream.Write(q, 8);
+		//inOutputStream.Write(mInvincibilityTimer);
 		writtenState |= ECRS_InvincibilityTimer;
 	}
 

@@ -19,10 +19,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.hpp" />
+    <ClInclude Include="ButtonType.hpp" />
     <ClInclude Include="Client.hpp" />
+    <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Container.hpp" />
     <ClInclude Include="FontManager.hpp" />
+    <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="Label.hpp" />
     <ClInclude Include="MouseClient.hpp" />
     <ClInclude Include="NetworkManagerClient.hpp" />
     <ClInclude Include="PlayerSpriteComponent.hpp" />
@@ -31,16 +37,28 @@
     <ClInclude Include="RoboCatClient.hpp" />
     <ClInclude Include="RoboCatClientPCH.hpp" />
     <ClInclude Include="SpriteComponent.hpp" />
+    <ClInclude Include="StackManager.hpp" />
+    <ClInclude Include="State.hpp" />
+    <ClInclude Include="StateID.hpp" />
+    <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="TextureManager.hpp" />
+    <ClInclude Include="Title2.hpp" />
+    <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="WindowManager.hpp" />
     <ClInclude Include="YarnClient.hpp" />
+    <ClInclude Include="ZombieClient.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientMain.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="MouseClient.cpp" />
     <ClCompile Include="NetworkManagerClient.cpp" />
     <ClCompile Include="PlayerSpriteComponent.cpp" />
@@ -54,9 +72,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="StackManager.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Title2.cpp" />
+    <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="YarnClient.cpp" />
+    <ClCompile Include="ZombieClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RoboCatSFML\RoboCatSFML.vcxproj">

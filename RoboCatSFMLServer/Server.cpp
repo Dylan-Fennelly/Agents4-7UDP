@@ -1,8 +1,8 @@
-
-#include "RoboCatServerPCH.hpp"
+﻿#include "RoboCatServerPCH.hpp"
 #include <iostream>
 
-
+extern const float WORLD_WIDTH = 1280.f;
+extern const float WORLD_HEIGHT = 720.f;
 
 //uncomment this when you begin working on the server
 
@@ -19,6 +19,7 @@ Server::Server()
 	GameObjectRegistry::sInstance->RegisterCreationFunction('RCAT', RoboCatServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('MOUS', MouseServer::StaticCreate);
 	GameObjectRegistry::sInstance->RegisterCreationFunction('YARN', YarnServer::StaticCreate);
+	GameObjectRegistry::sInstance->RegisterCreationFunction('ZOMB', ZombieServer::StaticCreate);
 
 	InitNetworkManager();
 
@@ -30,6 +31,9 @@ Server::Server()
 		latency = stof(latencyString);
 	}
 	NetworkManagerServer::sInstance->SetSimulatedLatency(latency);
+
+	mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+	mZombieSpawnTimer = mNextZombieSpawnInterval;
 }
 
 
@@ -71,14 +75,9 @@ namespace
 	}
 }
 
-
 void Server::SetupWorld()
 {
-	//spawn some random mice
-	//CreateRandomMice(10);
 
-	//spawn more random mice!
-	//CreateRandomMice(10);
 }
 
 void Server::DoFrame()
@@ -88,6 +87,15 @@ void Server::DoFrame()
 	NetworkManagerServer::sInstance->CheckForDisconnects();
 
 	NetworkManagerServer::sInstance->RespawnCats();
+
+	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
+    if (mZombieSpawnTimer <= 0.f)
+    {
+        TrySpawnZombie();
+        // pick a new interval and reset timer
+        mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+        mZombieSpawnTimer        = mNextZombieSpawnInterval;
+    }
 
 	// Update the mouse spawn timer
 	mMouseSpawnTimer += Timing::sInstance.GetDeltaTime();
@@ -102,6 +110,43 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+}
+
+void Server::TrySpawnZombie()
+{
+	const float margin = 50.f;
+	int side = RoboMath::GetRandomInt(0, 3);
+	Vector3 spawn;
+
+	switch (side)
+	{
+	case 0: // top
+		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
+		spawn.mY = WORLD_HEIGHT + margin;
+		break;
+	case 1: // bottom
+		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
+		spawn.mY = -margin;
+		break;
+	case 2: // left
+		spawn.mX = -margin;
+		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
+		break;
+	default: // right
+		spawn.mX = WORLD_WIDTH + margin;
+		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
+		break;
+	}
+
+	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
+	auto zs = static_cast<ZombieServer*>(go.get());
+
+	// random between 0 (default) and 1 (fast)
+	auto t = (RoboMath::GetRandomFloat() < 0.3f  // e.g. 30% fast
+		? Zombie::ZT_Fast
+		: Zombie::ZT_Default);
+	zs->SetType(t);
+	go->SetLocation(spawn);
 }
 
 void Server::HandleNewClient(ClientProxyPtr inClientProxy)
