@@ -276,11 +276,11 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 	if (dirty)
 	{
 		// pack 0–MaxInvTime seconds into 0–255 with 0.1s precision
-	/*	float raw = mInvincibilityTimer * 10.f;
+		float raw = mInvincibilityTimer * 10.f;
 		float clamped = std::max(0.f, std::min(raw, 255.f));
 		uint8_t q = static_cast<uint8_t>(clamped);
-		inOutputStream.Write(q, 8);*/
-		inOutputStream.Write(mInvincibilityTimer);
+		inOutputStream.Write(q, 8);
+		//inOutputStream.Write(mInvincibilityTimer);
 		writtenState |= ECRS_InvincibilityTimer;
 	}
 

@@ -152,15 +152,11 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 	}
 
 	inInputStream.Read(stateBit);
-	LOG("Client::Read invincibility-stateBit = %d", stateBit);
 	if (stateBit)
 	{
-		//uint8_t q;
-		float timer;
-		inInputStream.Read(timer);
-		LOG("Client::Read raw timer byte = %d", timer);
-		//mInvincibilityTimer = float(q) * 0.1f;
-		mInvincibilityTimer = timer;
+		uint8_t q;
+		inInputStream.Read(q, 8);
+		mInvincibilityTimer = float(q) * 0.1f;
 		readState |= ECRS_InvincibilityTimer;
 	}
 
