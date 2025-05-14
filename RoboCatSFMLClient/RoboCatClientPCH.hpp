@@ -26,6 +26,7 @@
 #include "CredentialEntryState.hpp"
 #include "MenuState.hpp"
 #include "Title2.hpp"
+#include "PauseState.hpp"
 
 #include "RoboCatClient.hpp"
 #include "ZombieClient.hpp"
