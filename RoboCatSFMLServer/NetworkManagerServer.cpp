@@ -118,6 +118,17 @@ void NetworkManagerServer::SendWelcomePacket(ClientProxyPtr inClientProxy)
 	SendPacket(welcomePacket, inClientProxy->GetSocketAddress());
 }
 
+void NetworkManagerServer::SendGameOverPacket()
+{
+	OutputMemoryBitStream gameOverPacket;
+	gameOverPacket.Write(kGameOverCC);
+	for (auto& kv : mAddressToClientMap)
+	{
+		SendPacket(gameOverPacket, kv.first);
+	}
+	std::cout << "Game Over Packet Sent" << std::endl;
+}
+
 void NetworkManagerServer::RespawnCats()
 {
 	for (auto it = mAddressToClientMap.begin(), end = mAddressToClientMap.end(); it != end; ++it)
