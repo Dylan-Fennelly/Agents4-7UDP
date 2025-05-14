@@ -66,6 +66,22 @@ void ZombieClient::Read(InputMemoryBitStream& inInputStream)
         readState |= ZRS_Health;
     }
 
+    inInputStream.Read(stateBit);
+    if (stateBit)
+    {
+        uint8_t t;
+        inInputStream.Read(t, 5);
+        SetType(static_cast<Zombie::EZombieType>(t));
+        readState |= ZRS_Type;
+    }
+    
+    const char* key = (GetType() == Zombie::ZT_Fast)
+        ? "fastZombie"
+        : "zombie";
+    mSpriteComponent->SetTexture(
+        TextureManager::sInstance->GetTexture(key)
+    );
+
     // client‐side prediction for remote zombies
     DoClientSidePredictionAfterReplicationForRemoteZombie(readState);
 

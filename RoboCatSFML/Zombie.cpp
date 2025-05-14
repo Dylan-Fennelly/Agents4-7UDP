@@ -1,11 +1,20 @@
 #include "RoboCatPCH.hpp"
 
+static constexpr float kDefaultSpeed = 80.f;
+static constexpr float kFastSpeed = 250.f;
+
 Zombie::Zombie()
     : GameObject()
     , mVelocity(Vector3::Zero)
     , mMovementDirection(Vector3::Zero)
-    , mHealth(15)
 {
+}
+
+void Zombie::SetType(EZombieType t)
+{
+    mType = t;
+    // now that we know the type, assign the correct HP:
+    mHealth = (mType == ZT_Fast ? 1 : 4);
 }
 
 static constexpr float kZombieMaxSpeed = 100.f;
@@ -15,27 +24,20 @@ void Zombie::Update()
 
 }
 
-void Zombie::SimulateMovement(float inDeltaTime)
+void Zombie::SimulateMovement(float dt)
 {
-    // 1) velocity snaps to direction × max speed
-    mVelocity = mMovementDirection * kZombieMaxSpeed;
+    // pick speed by type
+    float speed = (mType == ZT_Fast ? kFastSpeed : kDefaultSpeed);
+    mVelocity = mMovementDirection * speed;
+    SetLocation(GetLocation() + mVelocity * dt);
 
-    // 2) advance the position
-    Vector3 newLoc = GetLocation() + mVelocity * inDeltaTime;
-    SetLocation(newLoc);
-
-    // 3) (optional) update rotation so the sprite faces movement
+    // rotate to face
     if (mMovementDirection.LengthSq2D() > 0.f)
     {
-        float angle = RoboMath::ToDegrees(
-            atan2f(mMovementDirection.mX,
-                -mMovementDirection.mY)
-        );
+        float angle = RoboMath::ToDegrees(atan2f(
+            mMovementDirection.mX, -mMovementDirection.mY));
         SetRotation(angle);
     }
-
-    // 4) (optional) handle collisions if you want zombies to bounce
-    //    ProcessCollisions();
 }
 
 uint32_t Zombie::Write(OutputMemoryBitStream& out, uint32_t inDirtyState) const
@@ -75,6 +77,15 @@ uint32_t Zombie::Write(OutputMemoryBitStream& out, uint32_t inDirtyState) const
         // pack health into 5 bits (0–31)
         out.Write(mHealth, 5);
         written |= ZRS_Health;
+    }
+
+    // Type
+    dirty = (inDirtyState & ZRS_Type) != 0;
+    out.Write(dirty);
+    if (dirty)
+    {
+        out.Write(mType, 5);
+        written |= ZRS_Type;
     }
 
     return written;

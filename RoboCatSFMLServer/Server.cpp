@@ -77,8 +77,7 @@ namespace
 
 void Server::SetupWorld()
 {
-	//auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
-	//go->SetLocation(Vector3(600, 500, 0.f));
+
 }
 
 void Server::DoFrame()
@@ -140,9 +139,14 @@ void Server::TrySpawnZombie()
 	}
 
 	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
+	auto zs = static_cast<ZombieServer*>(go.get());
+
+	// random between 0 (default) and 1 (fast)
+	auto t = (RoboMath::GetRandomFloat() < 0.3f  // e.g. 30% fast
+		? Zombie::ZT_Fast
+		: Zombie::ZT_Default);
+	zs->SetType(t);
 	go->SetLocation(spawn);
-	//auto zs = static_cast<ZombieServer*>(go.get());
-	//zs->SetCatControlType(ESCT_AI);
 }
 
 void Server::HandleNewClient(ClientProxyPtr inClientProxy)

@@ -1,5 +1,7 @@
 ﻿#include "RoboCatServerPCH.hpp"
 
+static constexpr int kDefaultZombieDamage = 2;
+static constexpr int kFastZombieDamage = 5;
 
 ZombieServer::ZombieServer() : Zombie() 
 {
@@ -97,10 +99,10 @@ void ZombieServer::ProcessCollisionsWithCats()
             {
                 auto catServer = static_cast<RoboCatServer*>(cat);
 
-                // This will skip damage if invincibility is active
-                catServer->TakeDamage(0);
-
-                // zombie self‐destructs on contact
+                int dmg = (GetType() == Zombie::ZT_Fast
+                    ? kFastZombieDamage
+                    : kDefaultZombieDamage);
+                catServer->TakeDamage(0, dmg);
                 SetDoesWantToDie(true);
                 ScoreBoardManager::sInstance->IncScore(cat->GetPlayerId(), 1);
                 break;

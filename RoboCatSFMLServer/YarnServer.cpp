@@ -1,6 +1,6 @@
 #include "RoboCatServerPCH.hpp"
 
-static constexpr int kYarnDamage = 5;
+static constexpr int kYarnDamage = 1;
 
 YarnServer::YarnServer()
 {
@@ -75,7 +75,7 @@ bool YarnServer::HandleCollisionWithCat(RoboCat* inCat)
 		//kill yourself!
 		SetDoesWantToDie(true);
 
-		static_cast<RoboCatServer*>(inCat)->TakeDamage(GetPlayerId());
+		static_cast<RoboCatServer*>(inCat)->TakeDamage(GetPlayerId(), 1);
 
 	}
 

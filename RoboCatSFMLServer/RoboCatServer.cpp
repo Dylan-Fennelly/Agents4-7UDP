@@ -111,12 +111,12 @@ void RoboCatServer::HandleShooting()
 	}
 }
 
-void RoboCatServer::TakeDamage(int inDamagingPlayerId)
+void RoboCatServer::TakeDamage(int inDamagingPlayerId, int inAmount)
 {
 	if (mInvincibilityTimer > 0.f)
 		return;
 
-	mHealth--;
+	mHealth -= inAmount;
 	if (mHealth <= 0.f)
 	{
 		//score one for damaging player...

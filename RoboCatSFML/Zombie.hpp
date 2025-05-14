@@ -3,15 +3,26 @@ class Zombie : public GameObject
 public:
     CLASS_IDENTIFICATION('ZOMB', GameObject)
 
-        enum EZombieReplicationState
+    enum EZombieType : uint8_t
+    {
+        ZT_Default = 0,
+        ZT_Fast = 1,
+        ZT_Count
+    };
+
+    enum EZombieReplicationState
     {
         ZRS_Pose = 1 << 0,  // pos, rot, vel, movement dir
         ZRS_Health = 1 << 1,
-        ZRS_AllState = ZRS_Pose | ZRS_Health
+        ZRS_Type = 1 << 2,
+		ZRS_AllState = ZRS_Pose | ZRS_Health | ZRS_Type
     };
 
     static GameObject* StaticCreate() { return new Zombie(); }
     virtual uint32_t GetAllStateMask() const override { return ZRS_AllState; }
+
+    void SetType(EZombieType t);
+    int GetType() const { return mType; }
 
     void SetHealth(int h) { mHealth = h; }
     int  GetHealth() const { return mHealth; }
@@ -29,7 +40,8 @@ protected:
     Zombie();
 
 private:
+    uint8_t      mType{ ZT_Default };
     Vector3 mVelocity;
     Vector3 mMovementDirection;
-    int     mHealth{ 100 };
+    int     mHealth{ 1 };
 };

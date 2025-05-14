@@ -26,6 +26,7 @@ TextureManager::TextureManager()
 	CacheTexture("agentSeven", "../Assets/AgentSeven.png");
 
 	CacheTexture("zombie", "../Assets/Zombie.png");
+	CacheTexture("fastZombie", "../Assets/FastZombie.png");
 
 	CacheTexture("invincible", "../Assets/Invincible.png");
 }
