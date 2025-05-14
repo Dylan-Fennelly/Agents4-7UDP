@@ -11,7 +11,7 @@ Title2::Title2(StateStack& stack)
 	const auto position = WindowManager::sInstance->getView().getSize() / 2.f;
 
 	std::shared_ptr<gui::Label> label;
-	label = std::make_shared<gui::Label>("you have arrived");
+	label = std::make_shared<gui::Label>("you have arrived",26,sf::Color::Red);
 	label->setPosition(position.x, position.y);
 	//Utility::CreateLabel(label, position.x, position.y, "Press any key to continue", 50);
 

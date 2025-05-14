@@ -1,7 +1,8 @@
 #include "RoboCatClientPCH.hpp"
-gui::Label::Label(const std::string& text)
-    :m_text(text, *FontManager::sInstance->GetFont("carlito"), 16)
+gui::Label::Label(const std::string& text,int fontSize,sf::Color textColour)
+    :m_text(text, *FontManager::sInstance->GetFont("carlito"), fontSize)
 {
+	m_text.setFillColor(textColour);
 }
 bool gui::Label::IsSelectable() const
 {

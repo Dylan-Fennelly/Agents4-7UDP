@@ -24,11 +24,13 @@
     <ClInclude Include="Client.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Container.hpp" />
+    <ClInclude Include="CredentialEntryState.hpp" />
     <ClInclude Include="FontManager.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="InputManager.hpp" />
     <ClInclude Include="Label.hpp" />
+    <ClInclude Include="MenuState.hpp" />
     <ClInclude Include="MouseClient.hpp" />
     <ClInclude Include="NetworkManagerClient.hpp" />
     <ClInclude Include="PlayerSpriteComponent.hpp" />
@@ -41,6 +43,7 @@
     <ClInclude Include="State.hpp" />
     <ClInclude Include="StateID.hpp" />
     <ClInclude Include="StateStack.hpp" />
+    <ClInclude Include="TextBox.hpp" />
     <ClInclude Include="TextureManager.hpp" />
     <ClInclude Include="Title2.hpp" />
     <ClInclude Include="TitleState.hpp" />
@@ -54,11 +57,13 @@
     <ClCompile Include="ClientMain.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="CredentialEntryState.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Label.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MouseClient.cpp" />
     <ClCompile Include="NetworkManagerClient.cpp" />
     <ClCompile Include="PlayerSpriteComponent.cpp" />
@@ -75,6 +80,7 @@
     <ClCompile Include="StackManager.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Title2.cpp" />
     <ClCompile Include="TitleState.cpp" />
