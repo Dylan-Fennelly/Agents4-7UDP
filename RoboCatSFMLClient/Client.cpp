@@ -9,7 +9,8 @@ bool Client::StaticInit()
 	FontManager::StaticInit();
 	TextureManager::StaticInit();
 	RenderManager::StaticInit();
-	
+	StackManager::StaticInit();
+
 
 	HUD::StaticInit();
 

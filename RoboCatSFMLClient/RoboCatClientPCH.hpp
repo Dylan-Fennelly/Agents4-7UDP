@@ -1,6 +1,7 @@
 #include "RoboCatShared.hpp"
 
 #include "StateID.hpp"
+#include "ButtonType.hpp"
 
 #include "SFML\Graphics.hpp"
 #include <iostream>
@@ -14,6 +15,12 @@
 #include "RenderManager.hpp"
 #include "WindowManager.hpp"
 #include "StackManager.hpp"
+#include "Component.hpp"
+#include "Button.hpp"
+#include "Label.hpp"
+#include "Container.hpp"
+
+#include "TitleState.hpp"
 
 #include "RoboCatClient.hpp"
 #include "MouseClient.hpp"

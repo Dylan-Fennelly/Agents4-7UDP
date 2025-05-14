@@ -9,14 +9,20 @@ void TextureManager::StaticInit()
 
 TextureManager::TextureManager()
 {
-	CacheTexture("cat", "../Assets/AgentOne.png");
-	CacheTexture("mouse", "../Assets/mouse.png");
-	CacheTexture("yarn", "../Assets/Bullet.png");
+	//CacheTexture("cat", "../Assets/AgentOne.png");
+	//CacheTexture("mouse", "../Assets/mouse.png");
+	//CacheTexture("yarn", "../Assets/Bullet.png");
 
+	//Menu Textures
+	CacheTexture("button", "../Assets/Media/Textures/Buttons.png");
+	CacheTexture("background", "../Assets/Media/Textures/Background.png");
+
+	//Power Ups
 	CacheTexture("health", "../Assets/Health.png");
 	CacheTexture("machinegun", "../Assets/Machinegun.png");
 	CacheTexture("invincibility", "../Assets/Invincibility.png");
 
+	//Player Sprites
 	CacheTexture("AgentOne", "../Assets/AgentOne.png");
 	CacheTexture("AgentTwo", "../Assets/AgentTwo.png");
 	CacheTexture("AgentThree", "../Assets/AgentThree.png");

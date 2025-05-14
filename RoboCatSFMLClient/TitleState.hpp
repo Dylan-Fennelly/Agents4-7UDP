@@ -13,5 +13,5 @@ private:
 	bool m_show_text;
 	float m_text_effect_time;
 	SpriteComponentPtr mSpriteComponent;
-	GUI::Container m_container;
+	gui::Container m_container;
 };

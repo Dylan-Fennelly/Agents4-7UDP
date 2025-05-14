@@ -49,5 +49,6 @@ State* StackManager::GetCurrentState() const
 StackManager::StackManager()
 {
 	//lets register all the states
-
+	m_stack.RegisterState<TitleState>(StateID::kTitleScreen);
+	m_stack.PushState(StateID::kTitleScreen);
 }
