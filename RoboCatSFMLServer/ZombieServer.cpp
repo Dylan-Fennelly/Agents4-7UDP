@@ -102,7 +102,7 @@ void ZombieServer::ProcessCollisionsWithCats()
 
                 // zombie self‐destructs on contact
                 SetDoesWantToDie(true);
-                //ScoreBoardManager::sInstance->IncScore(inCat->GetPlayerId(), 1);
+                ScoreBoardManager::sInstance->IncScore(cat->GetPlayerId(), 1);
                 break;
             }
         }

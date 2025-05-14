@@ -17,15 +17,17 @@ TextureManager::TextureManager()
 	CacheTexture("machinegun", "../Assets/Machinegun.png");
 	CacheTexture("invincibility", "../Assets/Invincibility.png");
 
-	CacheTexture("AgentOne", "../Assets/AgentOne.png");
-	CacheTexture("AgentTwo", "../Assets/AgentTwo.png");
-	CacheTexture("AgentThree", "../Assets/AgentThree.png");
-	CacheTexture("AgentFour", "../Assets/AgentFour.png");
-	CacheTexture("AgentFive", "../Assets/AgentFive.png");
-	CacheTexture("AgentSix", "../Assets/AgentSix.png");
-	CacheTexture("AgentSeven", "../Assets/AgentSeven.png");
+	CacheTexture("agentOne", "../Assets/AgentOne.png");
+	CacheTexture("agentTwo", "../Assets/AgentTwo.png");
+	CacheTexture("agentThree", "../Assets/AgentThree.png");
+	CacheTexture("agentFour", "../Assets/AgentFour.png");
+	CacheTexture("agentFive", "../Assets/AgentFive.png");
+	CacheTexture("agentSix", "../Assets/AgentSix.png");
+	CacheTexture("agentSeven", "../Assets/AgentSeven.png");
 
 	CacheTexture("zombie", "../Assets/Zombie.png");
+
+	CacheTexture("invincible", "../Assets/Invincible.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)
