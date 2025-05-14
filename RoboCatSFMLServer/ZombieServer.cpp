@@ -95,12 +95,13 @@ void ZombieServer::ProcessCollisionsWithCats()
 
             if (distSq < (collisionDist * collisionDist))
             {
-                // Damage the player cat by 1 HP
                 auto catServer = static_cast<RoboCatServer*>(cat);
-                catServer->AddHealth(-1);
 
-				SetDoesWantToDie(true);
+                // This will skip damage if invincibility is active
+                catServer->TakeDamage(0);
 
+                // zombie self‐destructs on contact
+                SetDoesWantToDie(true);
                 break;
             }
         }

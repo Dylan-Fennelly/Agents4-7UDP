@@ -1,7 +1,8 @@
-#include "RoboCatServerPCH.hpp"
+﻿#include "RoboCatServerPCH.hpp"
 #include <iostream>
 
-
+extern const float WORLD_WIDTH = 1280.f;
+extern const float WORLD_HEIGHT = 720.f;
 
 //uncomment this when you begin working on the server
 
@@ -30,6 +31,9 @@ Server::Server()
 		latency = stof(latencyString);
 	}
 	NetworkManagerServer::sInstance->SetSimulatedLatency(latency);
+
+	mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+	mZombieSpawnTimer = mNextZombieSpawnInterval;
 }
 
 
@@ -71,11 +75,10 @@ namespace
 	}
 }
 
-
 void Server::SetupWorld()
 {
-	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
-	go->SetLocation(Vector3(600, 500, 0.f));
+	//auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
+	//go->SetLocation(Vector3(600, 500, 0.f));
 }
 
 void Server::DoFrame()
@@ -85,6 +88,15 @@ void Server::DoFrame()
 	NetworkManagerServer::sInstance->CheckForDisconnects();
 
 	NetworkManagerServer::sInstance->RespawnCats();
+
+	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
+    if (mZombieSpawnTimer <= 0.f)
+    {
+        TrySpawnZombie();
+        // pick a new interval and reset timer
+        mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+        mZombieSpawnTimer        = mNextZombieSpawnInterval;
+    }
 
 	// Update the mouse spawn timer
 	mMouseSpawnTimer += Timing::sInstance.GetDeltaTime();
@@ -99,6 +111,38 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+}
+
+void Server::TrySpawnZombie()
+{
+	const float margin = 50.f;
+	int side = RoboMath::GetRandomInt(0, 3);
+	Vector3 spawn;
+
+	switch (side)
+	{
+	case 0: // top
+		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
+		spawn.mY = WORLD_HEIGHT + margin;
+		break;
+	case 1: // bottom
+		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
+		spawn.mY = -margin;
+		break;
+	case 2: // left
+		spawn.mX = -margin;
+		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
+		break;
+	default: // right
+		spawn.mX = WORLD_WIDTH + margin;
+		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
+		break;
+	}
+
+	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
+	go->SetLocation(spawn);
+	//auto zs = static_cast<ZombieServer*>(go.get());
+	//zs->SetCatControlType(ESCT_AI);
 }
 
 void Server::HandleNewClient(ClientProxyPtr inClientProxy)

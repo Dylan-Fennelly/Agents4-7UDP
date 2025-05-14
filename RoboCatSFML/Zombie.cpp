@@ -4,7 +4,7 @@ Zombie::Zombie()
     : GameObject()
     , mVelocity(Vector3::Zero)
     , mMovementDirection(Vector3::Zero)
-    , mHealth(100)
+    , mHealth(15)
 {
 }
 
