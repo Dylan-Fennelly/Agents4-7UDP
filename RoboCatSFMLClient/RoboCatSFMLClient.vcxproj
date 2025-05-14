@@ -46,6 +46,7 @@
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="WindowManager.hpp" />
     <ClInclude Include="YarnClient.hpp" />
+    <ClInclude Include="ZombieClient.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="YarnClient.cpp" />
+    <ClCompile Include="ZombieClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RoboCatSFML\RoboCatSFML.vcxproj">

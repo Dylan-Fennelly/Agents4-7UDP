@@ -147,6 +147,9 @@
     <ClInclude Include="Timing.hpp">
       <Filter>Header Files\Game Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Zombie.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AckRange.cpp">
@@ -223,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

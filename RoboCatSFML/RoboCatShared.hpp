@@ -81,6 +81,7 @@ class GameObject;
 #include "GameObject.hpp"
 #include "GameObjectRegistry.hpp"
 #include "RoboCat.hpp"
+#include "Zombie.hpp"
 #include "World.hpp"
 #include "Timing.hpp"
 #include "Mouse.hpp"

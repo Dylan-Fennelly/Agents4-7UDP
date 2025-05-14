@@ -1,9 +1,11 @@
 #include "RoboCatShared.hpp"
 
+
 #include "StateID.hpp"
 #include "ButtonType.hpp"
 
 #include "SFML\Graphics.hpp"
+
 #include <iostream>
 #include "State.hpp"
 #include "StateStack.hpp"
@@ -25,6 +27,7 @@
 #include "Title2.hpp"
 
 #include "RoboCatClient.hpp"
+#include "ZombieClient.hpp"
 #include "MouseClient.hpp"
 #include "YarnClient.hpp"
 

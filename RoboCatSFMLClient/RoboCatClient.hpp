@@ -11,6 +11,8 @@ public:
 	void DoClientSidePredictionAfterReplicationForLocalCat(uint32_t inReadState);
 	void DoClientSidePredictionAfterReplicationForRemoteCat(uint32_t inReadState);
 
+	const std::string& GetDefaultTextureName() const { return mDefaultTextureName; }
+
 protected:
 	RoboCatClient();
 
@@ -21,5 +23,6 @@ private:
 	float				mTimeVelocityBecameOutOfSync;
 
 	SpriteComponentPtr	mSpriteComponent;
+	std::string           mDefaultTextureName;
 };
 

@@ -9,6 +9,7 @@ void TextureManager::StaticInit()
 
 TextureManager::TextureManager()
 {
+
 	CacheTexture("cat", "../Assets/Media/Textures/AgentOne.png");
 	//CacheTexture("mouse", "../Assets/mouse.png");
 	CacheTexture("yarn", "../Assets/Media/Textures/Bullet.png");
@@ -28,13 +29,18 @@ TextureManager::TextureManager()
 	CacheTexture("invincibility", "../Assets/Media/Textures/Invincibility.png");
 
 	//Player Sprites
-	CacheTexture("AgentOne", "../Assets/Media/Textures/AgentOne.png");
-	CacheTexture("AgentTwo", "../Assets/Media/Textures/AgentTwo.png");
-	CacheTexture("AgentThree", "../Assets/Media/Textures/AgentThree.png");
-	CacheTexture("AgentFour", "../Assets/Media/Textures/AgentFour.png");
-	CacheTexture("AgentFive", "../Assets/Media/Textures/AgentFive.png");
-	CacheTexture("AgentSix", "../Assets/Media/Textures/AgentSix.png");
-	CacheTexture("AgentSeven", "../Assets/Media/Textures/AgentSeven.png");
+	CacheTexture("agentOne", "../Assets/Media/Textures/AgentOne.png");
+	CacheTexture("agentTwo", "../Assets/Media/Textures/AgentTwo.png");
+	CacheTexture("agentThree", "../Assets/Media/Textures/AgentThree.png");
+	CacheTexture("agentFour", "../Assets/Media/Textures/AgentFour.png");
+	CacheTexture("agentFive", "../Assets/Media/Textures/AgentFive.png");
+	CacheTexture("agentSix", "../Assets/Media/Textures/AgentSix.png");
+	CacheTexture("agentSeven", "../Assets/Media/Textures/AgentSeven.png");
+  
+	CacheTexture("zombie", "../Assets/Zombie.png");
+	CacheTexture("fastZombie", "../Assets/FastZombie.png");
+
+	CacheTexture("invincible", "../Assets/Invincible.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)

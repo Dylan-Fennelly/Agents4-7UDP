@@ -4,8 +4,9 @@ RoboCatClient::RoboCatClient() :
 	mTimeLocationBecameOutOfSync(0.f),
 	mTimeVelocityBecameOutOfSync(0.f)
 {
+	mDefaultTextureName = "agentOne";
 	mSpriteComponent.reset(new PlayerSpriteComponent(this));
-	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("cat"));
+	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture(mDefaultTextureName));
 }
 
 void RoboCatClient::HandleDying()
@@ -22,6 +23,10 @@ void RoboCatClient::HandleDying()
 
 void RoboCatClient::Update()
 {
+	float dt = Timing::sInstance.GetDeltaTime();
+	if (mInvincibilityTimer > 0.f)
+		mInvincibilityTimer -= dt;
+
 	//is this the cat owned by us?
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
 	{
@@ -73,15 +78,16 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
 		static constexpr int kNumSkins = 7;
 		static const char* sSkins[kNumSkins] = {
-			"AgentOne",
-			"AgentTwo",
-			"AgentThree",
-			"AgentFour",
-			"AgentFive",
-			"AgentSix",
-			"AgentSeven"
+			"agentOne",
+			"agentTwo",
+			"agentThree",
+			"agentFour",
+			"agentFive",
+			"agentSix",
+			"agentSeven"
 		};
 		int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
+		mDefaultTextureName = sSkins[slot];
 		mSpriteComponent->SetTexture(
 			TextureManager::sInstance->GetTexture(sSkins[slot])
 		);
@@ -118,17 +124,6 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 		readState |= ECRS_Pose;
 	}
-	//Remove the thrust block
-	//inInputStream.Read(stateBit);
-	//if (stateBit)
-	//{
-	//	inInputStream.Read(stateBit);
-	//	mThrustDir = stateBit ? 1.f : -1.f;
-	//}
-	//else
-	//{
-	//	mThrustDir = 0.f;
-	//}
 
 	inInputStream.Read(stateBit);
 	if (stateBit)

@@ -66,6 +66,9 @@
     <ClInclude Include="ClientProxy.hpp">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
+    <ClInclude Include="ZombieServer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServerMain.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="YarnServer.cpp">
       <Filter>Source Files\ServerSide Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ZombieServer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
