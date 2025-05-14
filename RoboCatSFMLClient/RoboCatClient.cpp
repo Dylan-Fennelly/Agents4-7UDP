@@ -70,21 +70,21 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		SetPlayerId(playerId);
 		readState |= ECRS_PlayerId;
 
-		//// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
-		//static constexpr int kNumSkins = 7;
-		//static const char* sSkins[kNumSkins] = {
-		//	"AgentOne",
-		//	"AgentTwo",
-		//	"AgentThree",
-		//	"AgentFour",
-		//	"AgentFive",
-		//	"AgentSix",
-		//	"AgentSeven"
-		//};
-		//int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
-		//mSpriteComponent->SetTexture(
-		//	TextureManager::sInstance->GetTexture(sSkins[slot])
-		//);
+		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
+		static constexpr int kNumSkins = 7;
+		static const char* sSkins[kNumSkins] = {
+			"agentOne",
+			"agentTwo",
+			"agentThree",
+			"agentFour",
+			"agentFive",
+			"agentSix",
+			"agentSeven"
+		};
+		int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
+		mSpriteComponent->SetTexture(
+			TextureManager::sInstance->GetTexture(sSkins[slot])
+		);
 	}
 
 	float oldRotation = GetRotation();
@@ -118,17 +118,6 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 
 		readState |= ECRS_Pose;
 	}
-	//Remove the thrust block
-	//inInputStream.Read(stateBit);
-	//if (stateBit)
-	//{
-	//	inInputStream.Read(stateBit);
-	//	mThrustDir = stateBit ? 1.f : -1.f;
-	//}
-	//else
-	//{
-	//	mThrustDir = 0.f;
-	//}
 
 	inInputStream.Read(stateBit);
 	if (stateBit)
@@ -163,33 +152,6 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		inInputStream.Read(q, 8);
 		mInvincibilityTimer = float(q) * 0.1f;
 		readState |= ECRS_InvincibilityTimer;
-	}
-
-	if (mInvincibilityTimer > 0.f)
-	{
-		// use the single shared invincible texture
-		mSpriteComponent->SetTexture(
-			TextureManager::sInstance->GetTexture("invincible")
-		);
-	}
-	else
-	{
-		// otherwise fall back to your normal slot logic
-		// ── PICK SKIN BY playerId % 7 ──
-		static constexpr int kNumSkins = 7;
-		static const char* sSkins[kNumSkins] = {
-			"agentOne",
-			"agentTwo",
-			"agentThree",
-			"agentFour",
-			"agentFive",
-			"agentSix",
-			"agentSeven"
-		};
-		int slot = (int(GetPlayerId() - 1) + kNumSkins) % kNumSkins;
-		mSpriteComponent->SetTexture(
-			TextureManager::sInstance->GetTexture(sSkins[slot])
-		);
 	}
 
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
