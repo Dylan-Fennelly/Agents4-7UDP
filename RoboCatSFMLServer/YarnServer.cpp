@@ -52,6 +52,7 @@ void YarnServer::Update()
                     zs->GetNetworkId(),
                     Zombie::ZRS_AllState
                 );
+                ScoreBoardManager::sInstance->IncScore(GetPlayerId(), 1);
             }
 
             // ——— destroy this yarn ———

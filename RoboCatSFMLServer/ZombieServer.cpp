@@ -1,10 +1,10 @@
 ﻿#include "RoboCatServerPCH.hpp"
 
+
 ZombieServer::ZombieServer() : Zombie() 
 {
     SetCollisionRadius(10.f);
 }
-
 void ZombieServer::HandleDying()
 {
     NetworkManagerServer::sInstance->UnregisterGameObject(this);
@@ -102,6 +102,7 @@ void ZombieServer::ProcessCollisionsWithCats()
 
                 // zombie self‐destructs on contact
                 SetDoesWantToDie(true);
+                //ScoreBoardManager::sInstance->IncScore(inCat->GetPlayerId(), 1);
                 break;
             }
         }
