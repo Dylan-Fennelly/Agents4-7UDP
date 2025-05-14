@@ -47,4 +47,5 @@ void GameState::Draw()
 {
 	WindowManager::sInstance->draw(RenderManager::sInstance->GetBackgroundSprite());
 	RenderManager::sInstance->RenderComponents();
+	HUD::sInstance->Render();
 }
