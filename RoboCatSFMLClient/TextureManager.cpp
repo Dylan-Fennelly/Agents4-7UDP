@@ -9,22 +9,34 @@ void TextureManager::StaticInit()
 
 TextureManager::TextureManager()
 {
-	CacheTexture("cat", "../Assets/AgentOne.png");
-	CacheTexture("mouse", "../Assets/mouse.png");
-	CacheTexture("yarn", "../Assets/Bullet.png");
 
-	CacheTexture("health", "../Assets/Health.png");
-	CacheTexture("machinegun", "../Assets/Machinegun.png");
-	CacheTexture("invincibility", "../Assets/Invincibility.png");
+	CacheTexture("cat", "../Assets/Media/Textures/AgentOne.png");
+	//CacheTexture("mouse", "../Assets/mouse.png");
+	CacheTexture("yarn", "../Assets/Media/Textures/Bullet.png");
 
-	CacheTexture("agentOne", "../Assets/AgentOne.png");
-	CacheTexture("agentTwo", "../Assets/AgentTwo.png");
-	CacheTexture("agentThree", "../Assets/AgentThree.png");
-	CacheTexture("agentFour", "../Assets/AgentFour.png");
-	CacheTexture("agentFive", "../Assets/AgentFive.png");
-	CacheTexture("agentSix", "../Assets/AgentSix.png");
-	CacheTexture("agentSeven", "../Assets/AgentSeven.png");
+	//Menu Textures
+	CacheTexture("button", "../Assets/Media/Textures/Buttons.png");
+	CacheTexture("title", "../Assets/Media/Textures/TitleScreen2.png");
 
+	//Background
+	CacheTexture("background", "../Assets/Media/Textures/Background.png");
+	GetTexture("background")->setRepeated(true);
+	
+
+	//Power Ups
+	CacheTexture("health", "../Assets/Media/Textures/Health.png");
+	CacheTexture("machinegun", "../Assets/Media/Textures/Machinegun.png");
+	CacheTexture("invincibility", "../Assets/Media/Textures/Invincibility.png");
+
+	//Player Sprites
+	CacheTexture("agentOne", "../Assets/Media/Textures/AgentOne.png");
+	CacheTexture("agentTwo", "../Assets/Media/Textures/AgentTwo.png");
+	CacheTexture("agentThree", "../Assets/Media/Textures/AgentThree.png");
+	CacheTexture("agentFour", "../Assets/Media/Textures/AgentFour.png");
+	CacheTexture("agentFive", "../Assets/Media/Textures/AgentFive.png");
+	CacheTexture("agentSix", "../Assets/Media/Textures/AgentSix.png");
+	CacheTexture("agentSeven", "../Assets/Media/Textures/AgentSeven.png");
+  
 	CacheTexture("zombie", "../Assets/Zombie.png");
 	CacheTexture("fastZombie", "../Assets/FastZombie.png");
 
