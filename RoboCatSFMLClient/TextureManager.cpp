@@ -37,10 +37,10 @@ TextureManager::TextureManager()
 	CacheTexture("agentSix", "../Assets/Media/Textures/AgentSix.png");
 	CacheTexture("agentSeven", "../Assets/Media/Textures/AgentSeven.png");
   
-	CacheTexture("zombie", "../Assets/Zombie.png");
-	CacheTexture("fastZombie", "../Assets/FastZombie.png");
+	CacheTexture("zombie", "../Assets/Media/Textures/Zombie.png");
+	CacheTexture("fastZombie", "../Assets/Media/Textures/FastZombie.png");
 
-	CacheTexture("invincible", "../Assets/Invincible.png");
+	CacheTexture("invincible", "../Assets/Media/Textures/Invincible.png");
 }
 
 TexturePtr	TextureManager::GetTexture(const string& inTextureName)
