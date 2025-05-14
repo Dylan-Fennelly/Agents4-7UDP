@@ -4,8 +4,9 @@ RoboCatClient::RoboCatClient() :
 	mTimeLocationBecameOutOfSync(0.f),
 	mTimeVelocityBecameOutOfSync(0.f)
 {
+	mDefaultTextureName = "agentOne";
 	mSpriteComponent.reset(new PlayerSpriteComponent(this));
-	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("cat"));
+	mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture(mDefaultTextureName));
 }
 
 void RoboCatClient::HandleDying()
@@ -22,6 +23,10 @@ void RoboCatClient::HandleDying()
 
 void RoboCatClient::Update()
 {
+	float dt = Timing::sInstance.GetDeltaTime();
+	if (mInvincibilityTimer > 0.f)
+		mInvincibilityTimer -= dt;
+
 	//is this the cat owned by us?
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())
 	{
@@ -82,6 +87,7 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 			"agentSeven"
 		};
 		int slot = (int(playerId) - 1 + kNumSkins) % kNumSkins;
+		mDefaultTextureName = sSkins[slot];
 		mSpriteComponent->SetTexture(
 			TextureManager::sInstance->GetTexture(sSkins[slot])
 		);
@@ -146,11 +152,15 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 	}
 
 	inInputStream.Read(stateBit);
+	LOG("Client::Read invincibility-stateBit = %d", stateBit);
 	if (stateBit)
 	{
-		uint8_t q;
-		inInputStream.Read(q, 8);
-		mInvincibilityTimer = float(q) * 0.1f;
+		//uint8_t q;
+		float timer;
+		inInputStream.Read(timer);
+		LOG("Client::Read raw timer byte = %d", timer);
+		//mInvincibilityTimer = float(q) * 0.1f;
+		mInvincibilityTimer = timer;
 		readState |= ECRS_InvincibilityTimer;
 	}
 

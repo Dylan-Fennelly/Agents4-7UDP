@@ -41,6 +41,8 @@ public:
 	uint8_t GetTextureIndex()  const { return mTextureIndex; }
 	void    SetTextureIndex(uint8_t idx) { mTextureIndex = idx; }
 
+	float GetInvincibilityTimer() const { return mInvincibilityTimer; }
+
 protected:
 	RoboCat();
 

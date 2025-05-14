@@ -37,7 +37,6 @@ private:
 	float		mTimeBetweenShots;
 
 	float mMachineGunTimer{ 0.f };
-	float mInvincibilityTimer{ 0.f };
 	float mOriginalTimeBetweenShots{ 0.2f };
 };
 

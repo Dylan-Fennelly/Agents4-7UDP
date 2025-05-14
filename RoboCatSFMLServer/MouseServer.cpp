@@ -25,14 +25,13 @@ bool MouseServer::HandleCollisionWithCat(RoboCat* inCat)
         break;
 
     case Type::Invincibility:
+
         serverCat->AddInvincibility(5.f);      // 5 s invulnerable
         break;
     }
 
 	//kill yourself!
 	SetDoesWantToDie(true);
-
-	//ScoreBoardManager::sInstance->IncScore(inCat->GetPlayerId(), 1);
 
 	return false;
 }
