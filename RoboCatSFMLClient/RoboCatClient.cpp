@@ -12,6 +12,7 @@ RoboCatClient::RoboCatClient() :
 void RoboCatClient::HandleDying()
 {
 	RoboCat::HandleDying();
+	AudioManager::sInstance->Play("death");
 
 	//and if we're local, tell the hud so our health goes away!
 	if (GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId())

@@ -11,6 +11,7 @@ bool Client::StaticInit()
 	RenderManager::StaticInit();
 	StackManager::StaticInit();
 	HUD::StaticInit();
+	AudioManager::StaticInit();
 
 	s_instance.reset(client);
 	return true;

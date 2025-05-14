@@ -144,8 +144,11 @@
     <ClInclude Include="Title2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AudioManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="ZombieClient.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Clientside Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -228,7 +231,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ZombieClient.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Clientside Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
