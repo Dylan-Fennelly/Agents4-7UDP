@@ -398,3 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 !SFML-2.6.2/bin/
+RoboCatSFMLServer/Scores
