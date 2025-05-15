@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="ButtonType.hpp" />
     <ClInclude Include="Client.hpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="ZombieClient.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientMain.cpp" />

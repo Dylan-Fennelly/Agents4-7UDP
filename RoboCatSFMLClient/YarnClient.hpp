@@ -1,7 +1,11 @@
 class YarnClient : public Yarn
 {
 public:
-	static	GameObjectPtr	StaticCreate() { return GameObjectPtr(new YarnClient()); }
+	static	GameObjectPtr	StaticCreate() 
+	{ 
+		AudioManager::sInstance->Play("shot");
+		return GameObjectPtr(new YarnClient()); 
+	}
 
 	virtual void		Read(InputMemoryBitStream& inInputStream) override;
 

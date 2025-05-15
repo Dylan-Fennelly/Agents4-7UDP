@@ -88,6 +88,13 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->RespawnCats();
 
+	mGameTime += Timing::sInstance.GetDeltaTime();
+
+	if (!mGameEnded && mGameTime >= kMaxGameTime)
+	{
+		EndGame();
+	}
+
 	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
     if (mZombieSpawnTimer <= 0.f)
     {
@@ -110,6 +117,12 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+}
+
+void Server::EndGame()
+{
+	mGameEnded = true;
+	NetworkManagerServer::sInstance->SendGameOverPacket();
 }
 
 void Server::TrySpawnZombie()

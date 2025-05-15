@@ -3,7 +3,6 @@
 MouseClient::MouseClient()
 {
 	mSpriteComponent.reset(new SpriteComponent(this));
-	//mSpriteComponent->SetTexture(TextureManager::sInstance->GetTexture("mouse"));
 }
 
 void MouseClient::Read(InputMemoryBitStream& inInputStream)
@@ -16,7 +15,7 @@ void MouseClient::Read(InputMemoryBitStream& inInputStream)
     inInputStream.Read(typeVal);
     Type t = static_cast<Type>(typeVal);
     SetType(t);
-
+    AudioManager::sInstance->Play("pickup");
     // 3) pick the right texture
     switch (t)
     {
