@@ -18,4 +18,6 @@ private:
     sf::Text m_timer_text;
 
     void UpdateTimerText();
+
+	bool m_ScoreBoardPrinted = false;
 };

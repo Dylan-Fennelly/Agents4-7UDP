@@ -43,9 +43,12 @@ GameOverState::GameOverState(StateStack& stack)
     auto save_button = std::make_shared<gui::Button>();
     save_button->SetText("Save Scoreboard");
     save_button->setPosition(centerX - 100.f, 560);
-    save_button->SetCallback([]() {
-        //ScoreBoardManager::sInstance->WriteToFile("scoreboard.csv");
-
+    save_button->SetCallback([this]() {
+        static bool hasWrittenFile = false;
+        if (hasWrittenFile)
+            return;
+        hasWrittenFile = true;
+		m_ScoreBoardPrinted = true;
         const char* dir = "Scores";
         if (MKDIR(dir) != 0 && errno != EEXIST)
         {
@@ -153,7 +156,7 @@ bool GameOverState::Update(float dt)
 
 bool GameOverState::HandleEvent(const sf::Event& event)
 {
-    if (m_time_remaining <= 10.f)
+    if (m_time_remaining <= 12.f)
     {
         m_container.HandleEvent(event);
     }

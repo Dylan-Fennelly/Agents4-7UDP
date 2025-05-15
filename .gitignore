@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 !SFML-2.6.2/bin/
 RoboCatSFMLServer/Scores
+RoboCatSFMLClient/Scores
