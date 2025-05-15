@@ -65,3 +65,10 @@ void GameState::Draw()
 	RenderManager::sInstance->RenderComponents();
 	HUD::sInstance->Render();
 }
+
+void GameState::OnStackPopped()
+{
+	//we need to handle Disconnecting from the game 
+	m_networkInitialised = false;
+}
+

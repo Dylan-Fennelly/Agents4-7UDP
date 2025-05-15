@@ -31,6 +31,7 @@ PauseState::PauseState(StateStack& stack, bool lets_updates_through)
     backToMenuButton->SetCallback([this]()
         {
             RequestStackClear();
+			InputManager::sInstance->UnPause(); //Need to unpause the input manager, it'll fuck up joining a new game otherwise
             RequestStackPush(StateID::kMenu);
         });
 
