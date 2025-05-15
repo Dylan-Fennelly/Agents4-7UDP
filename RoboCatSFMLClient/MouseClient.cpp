@@ -10,16 +10,15 @@ MouseClient::MouseClient()
 
 void MouseClient::Read(InputMemoryBitStream& inInputStream)
 {
-    // 1) read pose & color
     Mouse::Read(inInputStream);
 
-    // 2) now read our Type (matches write order)
+    //Read the type
     uint8_t typeVal = 0;
     inInputStream.Read(typeVal);
     Type t = static_cast<Type>(typeVal);
     SetType(t);
     AudioManager::sInstance->Play("pickup");
-    // 3) pick the right texture
+    //Pick the right texture
     switch (t)
     {
     case Type::Health:

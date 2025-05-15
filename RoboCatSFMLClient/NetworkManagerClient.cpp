@@ -94,7 +94,7 @@ void NetworkManagerClient::SendOutgoingPackets()
 		UpdateSendingInputPacket();
 		break;
 	case NCS_GameOver:
-		//do nothing, we are done here
+		//do nothing, the game is over
 		break;
 	}
 }

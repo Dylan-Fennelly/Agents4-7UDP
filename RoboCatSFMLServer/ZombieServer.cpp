@@ -17,18 +17,15 @@ void ZombieServer::HandleDying()
 
 void ZombieServer::Update()
 {
-    // snapshot old state
     Vector3 oldLoc = GetLocation(), oldVel = GetVelocity();
     float   oldRot = GetRotation();
     int     oldHP = GetHealth();
 
-    // → run your AI & movement logic here
     SimulateAI();
     SimulateMovement(Timing::sInstance.GetDeltaTime());
 
     ProcessCollisionsWithCats();
 
-    // if anything changed, flag for replication
     if (!RoboMath::Is2DVectorEqual(oldLoc, GetLocation()) ||
         !RoboMath::Is2DVectorEqual(oldVel, GetVelocity()) ||
         oldRot != GetRotation() ||
@@ -41,17 +38,16 @@ void ZombieServer::Update()
 
 void ZombieServer::SimulateAI()
 {
-    // scan all game objects for the closest RoboCat
+    //Looks for the closest player
     GameObjectPtr  bestGo;
     RoboCat* bestCat = nullptr;
     float          bestDistSq = FLT_MAX;
 
     for (auto& goPtr : World::sInstance->GetGameObjects())
     {
-        // is it a live player‐cat?
         if (auto cat = goPtr->GetAsCat())
         {
-            if (!cat->DoesWantToDie())  // skip “dead” cats
+            if (!cat->DoesWantToDie())
             {
                 float d2 = (cat->GetLocation() - GetLocation()).LengthSq2D();
                 if (d2 < bestDistSq)
@@ -65,14 +61,13 @@ void ZombieServer::SimulateAI()
 
     if (bestCat)
     {
-        // point at them
         Vector3 toPlayer = bestCat->GetLocation() - GetLocation();
         toPlayer.Normalize2D();
         SetMovementDirection(toPlayer);
     }
     else
     {
-        // no players alive: stand still
+		//Stand still, I mean, where would you even go?
         SetMovementDirection(Vector3::Zero);
     }
 }
@@ -87,10 +82,8 @@ void ZombieServer::ProcessCollisionsWithCats()
         if (goPtr.get() == this)
             continue;
 
-        // Only care about player cats
         if (auto cat = goPtr->GetAsCat())
         {
-            // Skip if the cat is already dead
             if (cat->DoesWantToDie())
                 continue;
 
@@ -102,9 +95,11 @@ void ZombieServer::ProcessCollisionsWithCats()
             {
                 auto catServer = static_cast<RoboCatServer*>(cat);
 
+                //Damage
                 int dmg = (GetType() == Zombie::ZT_Fast
                     ? kFastZombieDamage
                     : kDefaultZombieDamage);
+				//Had to re-write TakeDamage to work with passing in different damage values
                 catServer->TakeDamage(0, dmg);
                 SetDoesWantToDie(true);
                 ScoreBoardManager::sInstance->IncScore(cat->GetPlayerId(), 1);

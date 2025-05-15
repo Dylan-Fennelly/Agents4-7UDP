@@ -16,7 +16,7 @@ Zombie::Zombie()
 void Zombie::SetType(EZombieType t)
 {
     mType = t;
-    // now that we know the type, assign the correct HP:
+    //Assigning correct HP by zombie type
     mHealth = (mType == ZT_Fast ? 1 : 4);
 }
 
@@ -29,12 +29,12 @@ void Zombie::Update()
 
 void Zombie::SimulateMovement(float dt)
 {
-    // pick speed by type
+	//Chooses the speed based on the zombie type
     float speed = (mType == ZT_Fast ? kFastSpeed : kDefaultSpeed);
     mVelocity = mMovementDirection * speed;
     SetLocation(GetLocation() + mVelocity * dt);
 
-    // rotate to face
+    //Rotates to face the nearest player
     if (mMovementDirection.LengthSq2D() > 0.f)
     {
         float angle = RoboMath::ToDegrees(atan2f(
@@ -48,41 +48,33 @@ uint32_t Zombie::Write(OutputMemoryBitStream& out, uint32_t inDirtyState) const
     uint32_t written = 0;
     bool     dirty = false;
 
-    // ——— Pose ———
     dirty = (inDirtyState & ZRS_Pose) != 0;
     out.Write(dirty);
     if (dirty)
     {
-        // velocity
         out.Write(mVelocity.mX);
         out.Write(mVelocity.mY);
 
-        // position
         Vector3 loc = GetLocation();
         out.Write(loc.mX);
         out.Write(loc.mY);
 
-        // rotation
         out.Write(GetRotation());
 
-        // movement direction
         out.Write(mMovementDirection.mX);
         out.Write(mMovementDirection.mY);
 
         written |= ZRS_Pose;
     }
 
-    // ——— Health ———
     dirty = (inDirtyState & ZRS_Health) != 0;
     out.Write(dirty);
     if (dirty)
     {
-        // pack health into 5 bits (0–31)
         out.Write(mHealth, 5);
         written |= ZRS_Health;
     }
 
-    // Type
     dirty = (inDirtyState & ZRS_Type) != 0;
     out.Write(dirty);
     if (dirty)

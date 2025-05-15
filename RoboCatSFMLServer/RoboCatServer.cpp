@@ -54,7 +54,6 @@ void RoboCatServer::Update()
 		NetworkManagerServer::sInstance->SetStateDirty(GetNetworkId(), ECRS_InvincibilityTimer);
 	}
 
-	// countdown machinegun
 	if (mMachineGunTimer > 0.f)
 	{
 		mMachineGunTimer -= dt;
@@ -122,9 +121,6 @@ void RoboCatServer::TakeDamage(int inDamagingPlayerId, int inAmount)
 	mHealth -= inAmount;
 	if (mHealth <= 0.f)
 	{
-		//score one for damaging player...
-		//ScoreBoardManager::sInstance->IncScore(inDamagingPlayerId, 1);
-
 		ScoreBoardManager::sInstance->SetDeath(GetPlayerId());
 
 		//and you want to die

@@ -31,23 +31,23 @@ void YarnServer::Update()
         if (!zs || zs->DoesWantToDie())
             continue;
 
+		//Logic for checking if the yarn is within the zombie's radius
         Vector3 delta = zs->GetLocation() - myLoc;
         float   distSq = delta.LengthSq2D();
         float   hitDist = myRadius + zs->GetCollisionRadius();
 
         if (distSq < hitDist * hitDist)
         {
-            // ——— damage the zombie ———
+            //Zombie gets a hit
             int newHP = zs->GetHealth() - kYarnDamage;
             zs->SetHealth(newHP);
 
-            // replicate just the health change
             NetworkManagerServer::sInstance->SetStateDirty(
                 zs->GetNetworkId(),
                 Zombie::ZRS_Health
             );
 
-            // if it’s dead, flag for removal (and replicate all state so client erases it)
+            //zombie = dead
             if (newHP <= 0)
             {
                 zs->SetDoesWantToDie(true);
@@ -58,7 +58,7 @@ void YarnServer::Update()
                 ScoreBoardManager::sInstance->IncScore(GetPlayerId(), 1);
             }
 
-            // ——— destroy this yarn ———
+            //bye bye yarn
             SetDoesWantToDie(true);
             break;
         }

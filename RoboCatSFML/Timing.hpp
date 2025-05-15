@@ -30,6 +30,5 @@ private:
 	double		mLastFrameStartTime;
 	float		mFrameStartTimef;
 	double		mPerfCountDuration;
-
 };
 

@@ -33,10 +33,10 @@ void HUD::Render()
 
 void HUD::RenderNameTags()
 {
-	// 1) get all the scoreboard entries
+	//Getting all entries
 	const auto& entries = ScoreBoardManager::sInstance->GetEntries();
 
-	// 2) for each entry, find its client in the world
+	//Getting respective clients
 	for (const auto& entry : entries)
 	{
 		for (const auto& goPtr : World::sInstance->GetGameObjects())
@@ -45,20 +45,20 @@ void HUD::RenderNameTags()
 			if (!cat || cat->GetPlayerId() != entry.GetPlayerId())
 				continue;
 
-			// 3) pull its sprite component
+			//Getting sprites
 			auto* spriteComp = cat->GetSpriteComponent();
 			if (!spriteComp)
 				break;
 
-			// 4) get sprite bounds
+			//Getting sprite bounds
 			const auto bounds = spriteComp->GetSprite().getGlobalBounds();
 
-			// 5) set up the name text
+			//Setting up the text
 			sf::Text nameText;
 			nameText.setFont(*FontManager::sInstance->GetFont("carlito"));
 			nameText.setString(entry.GetPlayerName());
 			nameText.setCharacterSize(18);
-			// tint to the player’s color
+			//Changing color to match the entry color
 			const auto& c = entry.GetColor();
 			nameText.setFillColor(
 				sf::Color(uint8_t(c.mX),
@@ -66,17 +66,16 @@ void HUD::RenderNameTags()
 					uint8_t(c.mZ),
 					255));
 
-			// 6) position centered below the sprite
+			//Positioning the text
 			float x = bounds.left + bounds.width * 0.5f;
 			float y = bounds.top + bounds.height + 4.f;
 			const auto tb = nameText.getLocalBounds();
 			nameText.setOrigin(tb.width * 0.5f, 0.f);
 			nameText.setPosition(x, y);
 
-			// 7) draw it
 			WindowManager::sInstance->draw(nameText);
 
-			break;  // found this entry’s cat; move to next entry
+			break;
 		}
 	}
 }

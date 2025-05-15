@@ -150,6 +150,5 @@ void InputManager::CalculateRotation()
 	// Quantise to the same step used for network
 	float quantisedAngle = std::round((angle / 360.f) * 255.f) / 255.f * 360.f;
 	mCurrentState.mDesiredRotation = quantisedAngle;
-	//std::cout << "angle: " << angle << " quantisedAngle: " << quantisedAngle << std::endl;
 }
 

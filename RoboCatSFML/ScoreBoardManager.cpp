@@ -164,6 +164,7 @@ bool ScoreBoardManager::Entry::Read(InputMemoryBitStream& inInputStream)
 	return didSucceed;
 }
 
+//Write the scoreboard to a file in CSV format
 bool ScoreBoardManager::WriteToFile(const std::string& inFileName) const
 {
 	std::ofstream ofs(inFileName);

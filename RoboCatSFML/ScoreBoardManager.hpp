@@ -42,6 +42,7 @@ public:
 
 		void            UpdateFormattedName()
 		{
+			//A nicer way of displaying the scoreboard, as deaths are being counted too
 			char buffer[256];
 			snprintf(buffer, sizeof(buffer), "%s  K:%d  D:%d", mPlayerName.c_str(), mScore, mDeaths);
 			mFormattedNameScore = buffer;

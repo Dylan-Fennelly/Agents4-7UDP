@@ -20,16 +20,16 @@ bool MouseServer::HandleCollisionWithCat(RoboCat* inCat)
     switch (GetType())
     {
     case Type::Health:
-        serverCat->AddHealth(5);               // give 5 health
+        serverCat->AddHealth(5);
         break;
 
     case Type::MachineGun:
-        serverCat->AddMachineGun(10.f, 0.1f);  // 10 s at 10× fire rate
+        serverCat->AddMachineGun(10.f, 0.1f);
         break;
 
     case Type::Invincibility:
 
-        serverCat->AddInvincibility(5.f);      // 5 s invulnerable
+        serverCat->AddInvincibility(5.f);
         break;
     }
 

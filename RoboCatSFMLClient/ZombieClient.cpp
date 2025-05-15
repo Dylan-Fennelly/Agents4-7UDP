@@ -35,7 +35,6 @@ void ZombieClient::Read(InputMemoryBitStream& inInputStream)
     Vector3 oldLoc = GetLocation();
     Vector3 oldVel = GetVelocity();
 
-    // ——— Pose ———
     inInputStream.Read(stateBit);
     if (stateBit)
     {
@@ -60,12 +59,11 @@ void ZombieClient::Read(InputMemoryBitStream& inInputStream)
         readState |= ZRS_Pose;
     }
 
-    // ——— Health ———
     inInputStream.Read(stateBit);
     if (stateBit)
     {
         int h = 0;
-        inInputStream.Read(h, 5);  // 5 bits for health 0–31
+        inInputStream.Read(h, 5);
         SetHealth(h);
         readState |= ZRS_Health;
     }
@@ -86,7 +84,6 @@ void ZombieClient::Read(InputMemoryBitStream& inInputStream)
         TextureManager::sInstance->GetTexture(key)
     );
 
-    // client‐side prediction for remote zombies
     DoClientSidePredictionAfterReplicationForRemoteZombie(readState);
 
     if ((readState & ZRS_Pose) == 0)
@@ -100,9 +97,7 @@ void ZombieClient::InterpolateClientSidePrediction(
     const Vector3& inOldLocation,
     const Vector3& inOldVelocity)
 {
-    // identical to RoboCatClient::InterpolateClientSidePrediction,
-    // but we always treat it as “remote” interpolation :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
-
+    // identical to RoboCatClient::InterpolateClientSidePrediction, but we always treat it as “remote” interpolation, zombies on the server only
     float roundTripTime = NetworkManagerClient::sInstance->GetRoundTripTime();
 
     // Location smoothing
@@ -146,7 +141,7 @@ void ZombieClient::InterpolateClientSidePrediction(
 
 void ZombieClient::DoClientSidePredictionAfterReplicationForRemoteZombie(uint32_t inReadState)
 {
-    // mirror RoboCatClient’s extra‐RTT simulation :contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
+    //same as RoboCatClient
     if (inReadState & ZRS_Pose)
     {
         float rtt = NetworkManagerClient::sInstance->GetRoundTripTime();

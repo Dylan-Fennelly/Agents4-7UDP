@@ -11,14 +11,14 @@ sf::Sprite& PlayerSpriteComponent::GetSprite()
 {
     if (auto* cat = dynamic_cast<RoboCatClient*>(mGameObject))
     {
-        // if invincible > 0, use the glowing texture…
+		//Use a different texture if the player is invincible
         if (cat->GetInvincibilityTimer() > 0.f)
         {
             SetTexture(TextureManager::sInstance->GetTexture("invincible"));
         }
         else
         {
-            // revert to the normal agent skin based on playerId
+			//Skins assigned based on player ID
             static constexpr int kNumSkins = 7;
             static const char* sSkins[kNumSkins] = {
                 "agentOne","agentTwo","agentThree",

@@ -1,9 +1,6 @@
 /*Albert Skalinski - D00248346
   Dylan Fennelly - D00248176*/
 
-/*
-* the world tracks all the live game objects. Failry inefficient for now, but not that much of a problem
-*/
 class World
 {
 
@@ -27,7 +24,5 @@ private:
 	int	GetIndexOfGameObject(GameObjectPtr inGameObject);
 
 	std::vector< GameObjectPtr >	mGameObjects;
-
-
 };
 

@@ -79,7 +79,7 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		SetPlayerId(playerId);
 		readState |= ECRS_PlayerId;
 
-		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
+		//Duplicated code, but no time to fix
 		static constexpr int kNumSkins = 7;
 		static const char* sSkins[kNumSkins] = {
 			"agentOne",

@@ -99,7 +99,6 @@ void RoboCat::ProcessCollisions()
 		GameObject* target = goIt->get();
 		if (target != this && !target->DoesWantToDie())
 		{
-			//simple collision test for spheres- are the radii summed less than the distance?
 			Vector3 targetLocation = target->GetLocation();
 			float targetRadius = target->GetCollisionRadius();
 
@@ -200,7 +199,6 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 {
 	uint32_t writtenState = 0;
 
-	// ——— PlayerId ———
 	bool dirty = (inDirtyState & ECRS_PlayerId) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -209,7 +207,6 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_PlayerId;
 	}
 
-	// ——— Pose ———
 	dirty = (inDirtyState & ECRS_Pose) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -228,22 +225,6 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Pose;
 	}
 
-
-	// ——— ThrustDir (always two bits) ———
-	//if (mThrustDir != 0.f)
-	//{
-	//	inOutputStream.Write(true);
-	//	inOutputStream.Write(mThrustDir > 0.f);
-	//}
-	//else
-	//{
-	//	inOutputStream.Write(false);
-	//}
-
-
-
-
-	// ——— Color ———
 	dirty = (inDirtyState & ECRS_Color) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -252,7 +233,6 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Color;
 	}
 
-	// ——— Health ———
 	dirty = (inDirtyState & ECRS_Health) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -261,7 +241,7 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_Health;
 	}
 
-	// ——— Machine-Gun Timer ———
+	//Added timers for pickups
 	dirty = (inDirtyState & ECRS_MachineGunTimer) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
@@ -273,17 +253,14 @@ uint32_t RoboCat::Write(OutputMemoryBitStream& inOutputStream, uint32_t inDirtyS
 		writtenState |= ECRS_MachineGunTimer;
 	}
 
-	// ——— Invincibility Timer ———
 	dirty = (inDirtyState & ECRS_InvincibilityTimer) != 0;
 	inOutputStream.Write(dirty);
 	if (dirty)
 	{
-		// pack 0–MaxInvTime seconds into 0–255 with 0.1s precision
 		float raw = mInvincibilityTimer * 10.f;
 		float clamped = std::max(0.f, std::min(raw, 255.f));
 		uint8_t q = static_cast<uint8_t>(clamped);
 		inOutputStream.Write(q, 8);
-		//inOutputStream.Write(mInvincibilityTimer);
 		writtenState |= ECRS_InvincibilityTimer;
 	}
 

@@ -39,12 +39,6 @@ string StringUtils::Sprintf(const char* inFormat, ...)
 	return string(temp);
 }
 
-// void StringUtils::Log( const char* inFormat )
-// {
-// 	OutputDebugString( inFormat );
-// 	OutputDebugString( "\n" );
-// }
-
 void StringUtils::Log(const char* inFormat, ...)
 {
 	//not thread safe...

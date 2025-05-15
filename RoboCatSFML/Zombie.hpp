@@ -1,6 +1,8 @@
 /*Albert Skalinski - D00248346
   Dylan Fennelly - D00248176*/
 
+//Based on RoboCat.cpp
+
 class Zombie : public GameObject
 {
 public:
@@ -15,7 +17,7 @@ public:
 
     enum EZombieReplicationState
     {
-        ZRS_Pose = 1 << 0,  // pos, rot, vel, movement dir
+        ZRS_Pose = 1 << 0,
         ZRS_Health = 1 << 1,
         ZRS_Type = 1 << 2,
 		ZRS_AllState = ZRS_Pose | ZRS_Health | ZRS_Type
