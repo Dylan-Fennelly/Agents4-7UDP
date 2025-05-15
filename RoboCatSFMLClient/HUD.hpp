@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 //I take care of rendering things!
 
 class HUD
@@ -20,6 +23,7 @@ private:
 	void	RenderScoreBoard();
 	void	RenderHealth();
 	void	RenderText(const string& inStr, const Vector3& origin, const Vector3& inColor);
+	void RenderNameTags();
 
 	Vector3										mBandwidthOrigin;
 	Vector3										mRoundTripTimeOrigin;

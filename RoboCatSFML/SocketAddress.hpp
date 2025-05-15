@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 class SocketAddress
 {
 public:
@@ -29,9 +32,7 @@ public:
 
 	size_t GetHash() const
 	{
-		return (GetIP4Ref()) |
-			((static_cast<uint32_t>(GetAsSockAddrIn()->sin_port)) << 13) |
-			mSockAddr.sa_family;
+		return (GetIP4Ref()) | ((static_cast<uint32_t>(GetAsSockAddrIn()->sin_port)) << 13) | mSockAddr.sa_family;
 	}
 
 

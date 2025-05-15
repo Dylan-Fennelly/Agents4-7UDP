@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 typedef unordered_map<int, GameObjectPtr> IntToGameObjectMap;
 
 class NetworkManager

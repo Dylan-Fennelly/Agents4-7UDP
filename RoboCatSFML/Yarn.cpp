@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatPCH.hpp"
 
 Yarn::Yarn() :
@@ -81,12 +84,11 @@ void Yarn::InitFromShooter(RoboCat* inShooter)
 	SetPlayerId(inShooter->GetPlayerId());
 
 	Vector3 forward = inShooter->GetForwardVector();
-	SetVelocity(/*inShooter->GetVelocity() + */forward * mMuzzleSpeed);
-	SetLocation(inShooter->GetLocation() /* + forward * 0.55f */);
 
-	SetRotation(inShooter->GetRotation());
-	
-	//std::cout << "Bang Bang" << std::endl;
+	SetVelocity(forward * mMuzzleSpeed); //Removed velocity in the equation so the bullet doesn't speed up as players move around
+	SetLocation(inShooter->GetLocation());
+
+	SetRotation(inShooter->GetRotation());	
 }
 
 void Yarn::Update()

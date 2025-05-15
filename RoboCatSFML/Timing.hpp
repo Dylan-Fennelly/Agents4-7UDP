@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 class Timing
 {
 public:
@@ -27,6 +30,5 @@ private:
 	double		mLastFrameStartTime;
 	float		mFrameStartTimef;
 	double		mPerfCountDuration;
-
 };
 

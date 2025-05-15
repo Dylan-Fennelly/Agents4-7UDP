@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 //Modified by Dylan Fennelly 
 NetworkManagerClient* NetworkManagerClient::sInstance;
@@ -91,7 +94,7 @@ void NetworkManagerClient::SendOutgoingPackets()
 		UpdateSendingInputPacket();
 		break;
 	case NCS_GameOver:
-		//do nothing, we are done here
+		//do nothing, the game is over
 		break;
 	}
 }

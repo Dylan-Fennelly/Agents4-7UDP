@@ -1,4 +1,7 @@
-﻿#include "RoboCatClientPCH.hpp"
+﻿/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
+#include "RoboCatClientPCH.hpp"
 
 RoboCatClient::RoboCatClient() :
 	mTimeLocationBecameOutOfSync(0.f),
@@ -76,7 +79,7 @@ void RoboCatClient::Read(InputMemoryBitStream& inInputStream)
 		SetPlayerId(playerId);
 		readState |= ECRS_PlayerId;
 
-		// ── CHOOSE ONE OF 7 AGENTS BY playerId % 7 ──
+		//Duplicated code, but no time to fix
 		static constexpr int kNumSkins = 7;
 		static const char* sSkins[kNumSkins] = {
 			"agentOne",

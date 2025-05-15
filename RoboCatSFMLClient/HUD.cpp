@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 
 std::unique_ptr< HUD >	HUD::sInstance;
@@ -25,6 +28,56 @@ void HUD::Render()
 	RenderRoundTripTime();
 	RenderScoreBoard();
 	RenderHealth();
+	RenderNameTags();
+}
+
+void HUD::RenderNameTags()
+{
+	//Getting all entries
+	const auto& entries = ScoreBoardManager::sInstance->GetEntries();
+
+	//Getting respective clients
+	for (const auto& entry : entries)
+	{
+		for (const auto& goPtr : World::sInstance->GetGameObjects())
+		{
+			auto* cat = dynamic_cast<RoboCatClient*>(goPtr.get());
+			if (!cat || cat->GetPlayerId() != entry.GetPlayerId())
+				continue;
+
+			//Getting sprites
+			auto* spriteComp = cat->GetSpriteComponent();
+			if (!spriteComp)
+				break;
+
+			//Getting sprite bounds
+			const auto bounds = spriteComp->GetSprite().getGlobalBounds();
+
+			//Setting up the text
+			sf::Text nameText;
+			nameText.setFont(*FontManager::sInstance->GetFont("carlito"));
+			nameText.setString(entry.GetPlayerName());
+			nameText.setCharacterSize(18);
+			//Changing color to match the entry color
+			const auto& c = entry.GetColor();
+			nameText.setFillColor(
+				sf::Color(uint8_t(c.mX),
+					uint8_t(c.mY),
+					uint8_t(c.mZ),
+					255));
+
+			//Positioning the text
+			float x = bounds.left + bounds.width * 0.5f;
+			float y = bounds.top + bounds.height + 4.f;
+			const auto tb = nameText.getLocalBounds();
+			nameText.setOrigin(tb.width * 0.5f, 0.f);
+			nameText.setPosition(x, y);
+
+			WindowManager::sInstance->draw(nameText);
+
+			break;
+		}
+	}
 }
 
 void HUD::RenderHealth()

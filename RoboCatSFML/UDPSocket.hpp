@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 class UDPSocket
 {
 public:
@@ -7,11 +10,6 @@ public:
 	int Bind(const SocketAddress& inToAddress);
 	int SendTo(const void* inToSend, int inLength, const SocketAddress& inToAddress);
 	int ReceiveFrom(void* inToReceive, int inMaxLength, SocketAddress& outFromAddress);
-
-	/*
-	int SendTo( const MemoryOutputStream& inMOS, const SocketAddress& inToAddress );
-	int ReceiveFrom( MemoryInputStream& inMIS, SocketAddress& outFromAddress );
-	*/
 
 	int SetNonBlockingMode(bool inShouldBeNonBlocking);
 
