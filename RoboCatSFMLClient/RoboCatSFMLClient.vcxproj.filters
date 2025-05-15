@@ -145,9 +145,9 @@
     <ClInclude Include="AudioManager.hpp">
       <Filter>Header Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="ZombieClient.hpp">
-      <Filter>Header Files\Clientside Objects</Filter>
-
+	  <ClInclude Include="ZombieClient.hpp">
+		  <Filter>Header Files\Clientside Objects</Filter>
+	  </ClInclude>
     <ClInclude Include="CredentialEntryState.hpp">
       <Filter>Header Files\States\Definitions</Filter>
     </ClInclude>
@@ -160,12 +160,8 @@
     <ClInclude Include="TextBox.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="ZombieClient.hpp">
-      <Filter>Header Files\Clientside Objects</Filter>
-    </ClInclude>
     <ClInclude Include="PauseState.hpp">
       <Filter>Header Files</Filter>
-
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,9 +247,9 @@
       <Filter>Source Files\Clientside Objects</Filter>
     </ClCompile>
 
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>Source Files\Manager</Filter>
-
+	  <ClCompile Include="AudioManager.cpp">
+		  <Filter>Source Files\Manager</Filter>
+	  </ClCompile>
     <ClCompile Include="TextBox.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -265,7 +261,6 @@
     </ClCompile>
     <ClCompile Include="PauseState.cpp">
       <Filter>Source Files</Filter>
-
     </ClCompile>
   </ItemGroup>
 </Project>
