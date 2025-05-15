@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 typedef shared_ptr<sf::SoundBuffer> SoundPtr;
 typedef shared_ptr<sf::Music> MusicPtr;
 

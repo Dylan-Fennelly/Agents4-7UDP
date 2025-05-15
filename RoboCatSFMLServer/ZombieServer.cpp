@@ -1,4 +1,7 @@
-﻿#include "RoboCatServerPCH.hpp"
+﻿/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
+#include "RoboCatServerPCH.hpp"
 
 static constexpr int kDefaultZombieDamage = 2;
 static constexpr int kFastZombieDamage = 5;

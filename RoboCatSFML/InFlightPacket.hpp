@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 class DeliveryNotificationManager;
 
 //in case we decide to change the type of the sequence number to use fewer or more bits
