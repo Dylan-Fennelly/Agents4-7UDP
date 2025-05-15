@@ -32,9 +32,11 @@ void Client::DoFrame()
 {
 	StackManager::sInstance->Update(Timing::sInstance.GetDeltaTime());
 
+	AudioManager::sInstance->RemoveStoppedSounds();
+
 	if (StackManager::sInstance->IsEmpty())
 	{
-
+		Engine::s_instance->SetShouldKeepRunning(false);
 		WindowManager::sInstance->close();
 		return;
 	}
@@ -56,3 +58,4 @@ bool Client::PollEvent(sf::Event& p_event)
 {
 	return WindowManager::sInstance->pollEvent(p_event);
 }
+

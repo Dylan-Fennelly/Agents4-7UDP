@@ -76,7 +76,7 @@ void gui::Button::Activate()
         Deactivate();
     }
 
-    // AudioManager::sInstance->Play("Button"); // optional
+    AudioManager::sInstance->Play("button"); // optional
 }
 
 void gui::Button::Deactivate()
