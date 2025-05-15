@@ -39,7 +39,7 @@ void ScoreBoardManager::Entry::SetScore(int32_t inScore)
 
 void ScoreBoardManager::SetDeath(uint32_t inPlayerId)
 {
-		Entry* entry = GetEntry(inPlayerId);
+	Entry* entry = GetEntry(inPlayerId);
 	if (entry)
 	{
 		entry->IncDeath();

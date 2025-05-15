@@ -134,8 +134,10 @@ void NetworkManagerClient::HandleGameOverPacket()
 {
 
 	mState = NCS_GameOver;
+	StackManager::sInstance->ClearStates();
+	StackManager::sInstance->PushState(StateID::kGameOver);
 
-	Engine::s_instance->SetShouldKeepRunning(false);
+	//Engine::s_instance->SetShouldKeepRunning(false);
 
 	std::cout << "Game Over!" << std::endl;
 }

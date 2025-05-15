@@ -18,6 +18,9 @@ TextureManager::TextureManager()
 	CacheTexture("button", "../Assets/Media/Textures/Buttons.png");
 	CacheTexture("title", "../Assets/Media/Textures/TitleScreen2.png");
 
+	//Instructions
+	CacheTexture("instructions", "../Assets/Media/Textures/Instructions.png");
+
 	//Background
 	CacheTexture("background", "../Assets/Media/Textures/Background.png");
 	GetTexture("background")->setRepeated(true);

@@ -8,6 +8,8 @@ enum class StateID
 	kCredentialEntryHost,
 	kGame,
 	kGameOver,
+	kInstructionsJoin,
+	kInstructionsHost,
 	kPause,
 
 };

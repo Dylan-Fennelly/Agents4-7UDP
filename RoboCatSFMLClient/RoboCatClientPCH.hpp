@@ -28,6 +28,8 @@
 #include "MenuState.hpp"
 #include "Title2.hpp"
 #include "PauseState.hpp"
+#include "GameOverState.hpp"
+#include "InstructionState.hpp"
 
 #include "RoboCatClient.hpp"
 #include "ZombieClient.hpp"
