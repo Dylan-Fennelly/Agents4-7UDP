@@ -8,7 +8,6 @@ sf::Sprite& PlayerSpriteComponent::GetSprite()
 {
     if (auto* cat = dynamic_cast<RoboCatClient*>(mGameObject))
     {
-        LOG("Invincibility timer = %f", cat->GetInvincibilityTimer());
         // if invincible > 0, use the glowing texture…
         if (cat->GetInvincibilityTimer() > 0.f)
         {

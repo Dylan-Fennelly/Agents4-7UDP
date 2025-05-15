@@ -9,6 +9,7 @@
 #include "State.hpp"
 #include "StateStack.hpp"
 #include "InputManager.hpp"
+#include "AudioManager.hpp"
 #include "SpriteComponent.hpp"
 #include "PlayerSpriteComponent.hpp"
 #include "TextureManager.hpp"
