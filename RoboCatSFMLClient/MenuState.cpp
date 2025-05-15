@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 
 
@@ -11,7 +14,7 @@ MenuState::MenuState(StateStack& stack)
     play_button->SetCallback([this]()
         {
             RequestStackPop();
-            RequestStackPush(StateID::kCredentialEntryJoin);
+            RequestStackPush(StateID::kInstructionsJoin);
         });
 
     auto host_play_button = std::make_shared<gui::Button>();
@@ -20,7 +23,7 @@ MenuState::MenuState(StateStack& stack)
     host_play_button->SetCallback([this]()
         {
             RequestStackPop();
-            RequestStackPush(StateID::kCredentialEntryHost);
+            RequestStackPush(StateID::kInstructionsHost);
         });
 
     //auto settings_button = std::make_shared<gui::Button>();
@@ -45,7 +48,7 @@ MenuState::MenuState(StateStack& stack)
     m_container.Pack(exit_button);
 
     //Play the music
-    //context.music->Play(MusicThemes::kMenuTheme);
+	AudioManager::sInstance->PlayMusic("menu");
 }
 
 void MenuState::Draw()

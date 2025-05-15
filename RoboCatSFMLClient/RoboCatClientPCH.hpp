@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatShared.hpp"
 #include <fstream>
 #include "StateID.hpp"
@@ -28,6 +31,8 @@
 #include "MenuState.hpp"
 #include "Title2.hpp"
 #include "PauseState.hpp"
+#include "GameOverState.hpp"
+#include "InstructionState.hpp"
 
 #include "RoboCatClient.hpp"
 #include "ZombieClient.hpp"

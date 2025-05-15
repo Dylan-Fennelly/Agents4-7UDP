@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 class RoboCatClient : public RoboCat
 {
 public:
@@ -12,6 +15,8 @@ public:
 	void DoClientSidePredictionAfterReplicationForRemoteCat(uint32_t inReadState);
 
 	const std::string& GetDefaultTextureName() const { return mDefaultTextureName; }
+
+	SpriteComponent* GetSpriteComponent() const { return mSpriteComponent.get(); }
 
 protected:
 	RoboCatClient();

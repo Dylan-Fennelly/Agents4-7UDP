@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 std::unique_ptr<StackManager> StackManager::sInstance;
 
@@ -55,5 +58,8 @@ StackManager::StackManager()
 	m_stack.RegisterState<CredentialEntryState>(StateID::kCredentialEntryHost, true);
 	m_stack.RegisterState<MenuState>(StateID::kMenu);
 	m_stack.RegisterState<PauseState>(StateID::kPause);
+	m_stack.RegisterState<GameOverState>(StateID::kGameOver);
+	m_stack.RegisterState<InstructionState>(StateID::kInstructionsJoin,false);
+	m_stack.RegisterState<InstructionState>(StateID::kInstructionsHost, true);
 	m_stack.PushState(StateID::kTitleScreen);
 }

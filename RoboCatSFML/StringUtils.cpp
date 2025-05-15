@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatPCH.hpp"
 
 #if !_WIN32
@@ -35,12 +38,6 @@ string StringUtils::Sprintf(const char* inFormat, ...)
 #endif
 	return string(temp);
 }
-
-// void StringUtils::Log( const char* inFormat )
-// {
-// 	OutputDebugString( inFormat );
-// 	OutputDebugString( "\n" );
-// }
 
 void StringUtils::Log(const char* inFormat, ...)
 {

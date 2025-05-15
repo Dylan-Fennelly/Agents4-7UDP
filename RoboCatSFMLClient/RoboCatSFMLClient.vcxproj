@@ -27,9 +27,11 @@
     <ClInclude Include="Container.hpp" />
     <ClInclude Include="CredentialEntryState.hpp" />
     <ClInclude Include="FontManager.hpp" />
+    <ClInclude Include="GameOverState.hpp" />
     <ClInclude Include="GameState.hpp" />
     <ClInclude Include="HUD.hpp" />
     <ClInclude Include="InputManager.hpp" />
+    <ClInclude Include="InstructionState.hpp" />
     <ClInclude Include="Label.hpp" />
     <ClInclude Include="MenuState.hpp" />
     <ClInclude Include="MouseClient.hpp" />
@@ -62,9 +64,11 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="CredentialEntryState.cpp" />
     <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="InstructionState.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="MouseClient.cpp" />

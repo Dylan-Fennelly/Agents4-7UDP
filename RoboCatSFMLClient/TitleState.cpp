@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 
 TitleState::TitleState(StateStack& stack)
@@ -23,6 +26,7 @@ TitleState::TitleState(StateStack& stack)
 
 	// Add the label to the container
 	m_container.Pack(label);
+	
 }
 
 bool TitleState::Update(const float dt)

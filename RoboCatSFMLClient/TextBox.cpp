@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 TextBox::TextBox(sf::Font& font, sf::Vector2f position, sf::Vector2f size, unsigned int charSize, unsigned int maxChars)
     : maxChars(maxChars)

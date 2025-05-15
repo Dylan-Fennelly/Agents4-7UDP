@@ -1,6 +1,10 @@
-﻿#include "RoboCatServerPCH.hpp"
+﻿/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
+#include "RoboCatServerPCH.hpp"
 #include <iostream>
 
+//Doing this thing here to allow for the creation of a directory. Filesystem only works in C++17
 #ifdef _WIN32
 #include <direct.h>
 #define MKDIR(path) _mkdir(path)
@@ -63,9 +67,9 @@ bool Server::InitNetworkManager()
 
 namespace
 {
-
 	void CreateRandomMice(int inMouseCount)
 	{
+		//Spawning bounds
 		Vector3 mouseMin(100.f, 100.f, 0.f);
 		Vector3 mouseMax(1720.f, 980.f, 0.f);
 
@@ -75,7 +79,7 @@ namespace
 			Vector3 mouseLocation = RoboMath::GetRandomVector(mouseMin, mouseMax);
 			go->SetLocation(mouseLocation);
 
-			// assign random pickup type
+			//Assign random pickup type
 			auto mouseServer = static_cast<MouseServer*>(go.get());
 			int r = RoboMath::GetRandomInt(0, 2);
 			mouseServer->SetType(static_cast<Mouse::Type>(r));
@@ -98,33 +102,58 @@ void Server::DoFrame()
 
 	mGameTime += Timing::sInstance.GetDeltaTime();
 
-	if (!mGameEnded && mGameTime >= kMaxGameTime)
+	//Logic for stopping zombie spawns - after x seconds they stop spawning. After the last zombie dies, the game ends
+	if (!mStopSpawningZombies)
 	{
-		EndGame();
+		mTimeRemaining -= Timing::sInstance.GetDeltaTime();
+		if (mTimeRemaining <= 0.f)
+		{
+			mStopSpawningZombies = true;
+			std::cout << "Round time up – stopping zombie spawns" << std::endl;
+		}
 	}
 
-	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
-    if (mZombieSpawnTimer <= 0.f)
-    {
-        TrySpawnZombie();
-        // pick a new interval and reset timer
-        mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
-        mZombieSpawnTimer        = mNextZombieSpawnInterval;
-    }
+	if (!mStopSpawningZombies)
+	{
+		mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
+		if (mZombieSpawnTimer <= 0.f)
+		{
+			TrySpawnZombie();
+			mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+			mZombieSpawnTimer = mNextZombieSpawnInterval;
+		}
+	}
 
-	// Update the mouse spawn timer
+	//Update the pickup spawn timer
 	mMouseSpawnTimer += Timing::sInstance.GetDeltaTime();
 	if (mMouseSpawnTimer >= mMouseSpawnInterval)
 	{
-		// Spawn one mouse
 		CreateRandomMice(1);
-		mMouseSpawnTimer = 0.0f; // Reset the timer
+		mMouseSpawnTimer = 0.0f;
 	}
 
 	Engine::DoFrame();
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+	if (mStopSpawningZombies)
+	{
+		//Scan world for any live zombies
+		bool anyZombies = false;
+		for (auto& go : World::sInstance->GetGameObjects())
+		{
+			if (go->GetClassId() == 'ZOMB' && !go->DoesWantToDie())
+			{
+				anyZombies = true;
+				break;
+			}
+		}
+		if (!anyZombies)
+		{
+			//No zombies? No problem
+			EndGame();
+		}
+	}
 }
 
 void Server::EndGame()
@@ -132,6 +161,7 @@ void Server::EndGame()
 	mGameEnded = true;
 	NetworkManagerServer::sInstance->SendGameOverPacket();
 
+	//Crazy logic for writing the scoreboard to a file. ChatGPT was a huge help here
 	const char* dir = "Scores";
 	if (MKDIR(dir) != 0 && errno != EEXIST)
 	{
@@ -161,7 +191,6 @@ void Server::EndGame()
 
 	const std::string fileName = oss.str();
 
-	// 3) write out the CSV
 	if (ScoreBoardManager::sInstance->WriteToFile(fileName))
 	{
 		std::cout << "[Server] Wrote final scoreboard to "
@@ -176,25 +205,26 @@ void Server::EndGame()
 
 void Server::TrySpawnZombie()
 {
+	//Spawn a zombie at a random location outside the world bounds
 	const float margin = 50.f;
 	int side = RoboMath::GetRandomInt(0, 3);
 	Vector3 spawn;
 
 	switch (side)
 	{
-	case 0: // top
+	case 0: //top
 		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
 		spawn.mY = WORLD_HEIGHT + margin;
 		break;
-	case 1: // bottom
+	case 1: //bottom
 		spawn.mX = RoboMath::GetRandomFloat() * WORLD_WIDTH;
 		spawn.mY = -margin;
 		break;
-	case 2: // left
+	case 2: //left
 		spawn.mX = -margin;
 		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
 		break;
-	default: // right
+	default: //right
 		spawn.mX = WORLD_WIDTH + margin;
 		spawn.mY = RoboMath::GetRandomFloat() * WORLD_HEIGHT;
 		break;
@@ -203,8 +233,8 @@ void Server::TrySpawnZombie()
 	auto go = GameObjectRegistry::sInstance->CreateGameObject('ZOMB');
 	auto zs = static_cast<ZombieServer*>(go.get());
 
-	// random between 0 (default) and 1 (fast)
-	auto t = (RoboMath::GetRandomFloat() < 0.3f  // e.g. 30% fast
+	//Chance of spawning a fast zombie
+	auto t = (RoboMath::GetRandomFloat() < 0.3f
 		? Zombie::ZT_Fast
 		: Zombie::ZT_Default);
 	zs->SetType(t);
@@ -223,7 +253,6 @@ void Server::HandleNewClient(ClientProxyPtr inClientProxy)
 void Server::SpawnCatForPlayer(int inPlayerId)
 {
 	RoboCatPtr cat = std::static_pointer_cast<RoboCat>(GameObjectRegistry::sInstance->CreateGameObject('RCAT'));
-	//cat->SetColor(ScoreBoardManager::sInstance->GetEntry(inPlayerId)->GetColor());
 	cat->SetPlayerId(inPlayerId);
 	//gotta pick a better spawn location than this...
 	cat->SetLocation(Vector3(600.f - static_cast<float>(inPlayerId), 400.f, 0.f));

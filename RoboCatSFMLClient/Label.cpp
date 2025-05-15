@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 gui::Label::Label(const std::string& text,int fontSize,sf::Color textColour)
     :m_text(text, *FontManager::sInstance->GetFont("carlito"), fontSize)

@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 //Modified by Dylan Fennelly 
 NetworkManagerClient* NetworkManagerClient::sInstance;
@@ -91,7 +94,7 @@ void NetworkManagerClient::SendOutgoingPackets()
 		UpdateSendingInputPacket();
 		break;
 	case NCS_GameOver:
-		//do nothing, we are done here
+		//do nothing, the game is over
 		break;
 	}
 }
@@ -134,8 +137,10 @@ void NetworkManagerClient::HandleGameOverPacket()
 {
 
 	mState = NCS_GameOver;
+	StackManager::sInstance->ClearStates();
+	StackManager::sInstance->PushState(StateID::kGameOver);
 
-	Engine::s_instance->SetShouldKeepRunning(false);
+	//Engine::s_instance->SetShouldKeepRunning(false);
 
 	std::cout << "Game Over!" << std::endl;
 }

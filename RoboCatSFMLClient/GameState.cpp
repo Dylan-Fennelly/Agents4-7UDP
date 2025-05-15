@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatClientPCH.hpp"
 
 GameState::GameState(StateStack& stack):State(stack)
@@ -5,6 +8,7 @@ GameState::GameState(StateStack& stack):State(stack)
 	InputManager::StaticInit();
 	World::sInstance->StaticInit();
 	RenderManager::sInstance->StaticInit();
+	AudioManager::sInstance->PlayMusic("gameplay");
 }
 
 bool GameState::Update(float dt)

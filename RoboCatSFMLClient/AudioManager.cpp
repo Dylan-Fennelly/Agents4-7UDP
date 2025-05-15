@@ -1,3 +1,8 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
+//Ported from ColorJump
+
 #include "RoboCatClientPCH.hpp"
 
 namespace
@@ -25,9 +30,10 @@ AudioManager::AudioManager()
 	CacheSound("zombie", "../Assets/Media/Sounds/DyingZombie.wav");
 	CacheSound("pickup", "../Assets/Media/Sounds/Pickup.wav");	
 	CacheSound("death", "../Assets/Media/Sounds/Dying.wav");
+	CacheSound("gameWon", "../Assets/Media/Music/GameWonTheme.wav");
 
 	CacheMusic("menu", "../Assets/Media/Music/MenuTheme.wav");
-	CacheMusic("gameWon", "../Assets/Media/Music/GameWonTheme.wav");
+	
 	CacheMusic("gameOver", "../Assets/Media/Music/GameOverTheme.wav");
 	CacheMusic("gameplay", "../Assets/Media/Music/GameplayTheme.wav");
 	

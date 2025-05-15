@@ -1,3 +1,6 @@
+/*Albert Skalinski - D00248346
+  Dylan Fennelly - D00248176*/
+
 #include "RoboCatPCH.hpp"
 
 std::unique_ptr< ScoreBoardManager >	ScoreBoardManager::sInstance;
@@ -39,7 +42,7 @@ void ScoreBoardManager::Entry::SetScore(int32_t inScore)
 
 void ScoreBoardManager::SetDeath(uint32_t inPlayerId)
 {
-		Entry* entry = GetEntry(inPlayerId);
+	Entry* entry = GetEntry(inPlayerId);
 	if (entry)
 	{
 		entry->IncDeath();
@@ -161,6 +164,7 @@ bool ScoreBoardManager::Entry::Read(InputMemoryBitStream& inInputStream)
 	return didSucceed;
 }
 
+//Write the scoreboard to a file in CSV format
 bool ScoreBoardManager::WriteToFile(const std::string& inFileName) const
 {
 	std::ofstream ofs(inFileName);
