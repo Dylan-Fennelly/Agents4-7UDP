@@ -129,7 +129,14 @@ void InputManager::Update()
 	if (IsTimeToSampleInput())
 	{
 		mPendingMove = &SampleInputAsMove();
-		CalculateRotation();
+		if (!isPaused)
+		{
+			CalculateRotation();
+
+			// Check if the left mouse button is pressed
+			mCurrentState.mIsShooting = sf::Mouse::isButtonPressed(sf::Mouse::Left);
+		}
+
 
 	}
 }

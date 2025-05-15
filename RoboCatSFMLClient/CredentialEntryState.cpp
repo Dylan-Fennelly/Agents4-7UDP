@@ -142,8 +142,8 @@ CredentialEntryState::CredentialEntryState(StateStack& stack, bool is_host)
 					MessageBoxA(NULL, "Failed to launch server.exe", "Error", MB_OK | MB_ICONERROR);
 				}
 			}
-
-			RequestStackPush(StateID::kGame);
+			
+			RequestStackPush(m_is_host ? StateID::kGameHost : StateID::kGameClient);
 		});
 
 	auto back_button = std::make_shared<gui::Button>();

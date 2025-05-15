@@ -15,7 +15,7 @@ TitleState::TitleState(StateStack& stack)
 	const auto view_size = WindowManager::sInstance->getView().getSize();
 
 	// Create the label
-	std::shared_ptr<gui::Label> label = std::make_shared<gui::Label>("Press any key to continue", 32, sf::Color::Red);
+	std::shared_ptr<gui::Label> label = std::make_shared<gui::Label>("Press any key to continue", 64, sf::Color::White);
 
 	// Centre the origin of the text for proper alignment
 	sf::FloatRect bounds = label->GetText().getLocalBounds();

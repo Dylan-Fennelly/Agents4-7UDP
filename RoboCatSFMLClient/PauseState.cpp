@@ -65,6 +65,15 @@ bool PauseState::Update(float dt)
 
 bool PauseState::HandleEvent(const sf::Event& event)
 {
+    if (event.type == sf::Event::KeyPressed)
+    {
+        if (event.key.code == sf::Keyboard::Escape)
+        {
+            InputManager::sInstance->UnPause();
+            RequestStackPop();
+        }
+    }
+
     m_gui_container.HandleEvent(event);
 
     return false;

@@ -37,7 +37,7 @@ bool Title2::HandleEvent(const sf::Event& event)
 	if (event.type == sf::Event::KeyReleased)
 	{
 		RequestStackPop();
-		RequestStackPush(StateID::kGame);
+		//RequestStackPush(StateID::kGame);
 	}
 	return true;
 }

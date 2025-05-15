@@ -53,7 +53,8 @@ StackManager::StackManager()
 {
 	//lets register all the states
 	m_stack.RegisterState<TitleState>(StateID::kTitleScreen);
-	m_stack.RegisterState<GameState>(StateID::kGame);
+	m_stack.RegisterState<GameState>(StateID::kGameHost,true);
+	m_stack.RegisterState<GameState>(StateID::kGameClient, false);
 	m_stack.RegisterState<CredentialEntryState>(StateID::kCredentialEntryJoin,false);
 	m_stack.RegisterState<CredentialEntryState>(StateID::kCredentialEntryHost, true);
 	m_stack.RegisterState<MenuState>(StateID::kMenu);

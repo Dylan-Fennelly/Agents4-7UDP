@@ -3,7 +3,9 @@
 
 #include "RoboCatClientPCH.hpp"
 
-GameState::GameState(StateStack& stack):State(stack)
+GameState::GameState(StateStack& stack,bool isHosting)
+	:State(stack)
+	, m_isHost(isHosting)
 {
 	InputManager::StaticInit();
 	World::sInstance->StaticInit();
@@ -22,10 +24,11 @@ bool GameState::Update(float dt)
 		std::string ip = "127.0.0.1";      // default fallback IP
 		std::string port = "50000";        // default fallback port
 		std::string name = "Player";       // default fallback name
-
-		if (ipFile >> ip) {}
-		else { std::ofstream("ip.txt") << ip; }
-
+		if (!m_isHost)
+		{
+			if (ipFile >> ip) {}
+			else { std::ofstream("ip.txt") << ip; }
+		}
 		if (portFile >> port) {}
 		else { std::ofstream("port.txt") << port; }
 
