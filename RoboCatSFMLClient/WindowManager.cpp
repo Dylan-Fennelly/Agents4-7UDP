@@ -9,7 +9,7 @@ bool WindowManager::StaticInit()
 {
 	
 	//sInstance.reset(new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Agents 4-7", sf::Style::Fullscreen));
-	sInstance.reset(new sf::RenderWindow(sf::VideoMode(1920, 1080), "Agents 4-7", sf::Style::Fullscreen));
+	sInstance.reset(new sf::RenderWindow(sf::VideoMode(1920, 1080), "Agents 4-7", sf::Style::Close));
 	return true;
 }
 
