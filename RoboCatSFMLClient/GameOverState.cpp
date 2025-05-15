@@ -1,5 +1,13 @@
 #include "RoboCatClientPCH.hpp"
 
+#ifdef _WIN32
+#include <direct.h>
+#define MKDIR(path) _mkdir(path)
+#else
+#include <sys/stat.h>
+#define MKDIR(path) mkdir(path, 0755)
+#endif
+
 GameOverState::GameOverState(StateStack& stack)
     : State(stack), m_time_remaining(15.f)
 {
@@ -36,7 +44,47 @@ GameOverState::GameOverState(StateStack& stack)
     save_button->SetText("Save Scoreboard");
     save_button->setPosition(centerX - 100.f, 560);
     save_button->SetCallback([]() {
-        ScoreBoardManager::sInstance->WriteToFile("scoreboard.csv");
+        //ScoreBoardManager::sInstance->WriteToFile("scoreboard.csv");
+
+        const char* dir = "Scores";
+        if (MKDIR(dir) != 0 && errno != EEXIST)
+        {
+            std::cerr << "[Server] ERROR: failed to create directory '"
+                << dir << "' (errno=" << errno << ")\n";
+        }
+
+        auto now = std::chrono::system_clock::now();
+        std::time_t t = std::chrono::system_clock::to_time_t(now);
+        std::tm tm;
+#ifdef _WIN32
+        localtime_s(&tm, &t);
+#else
+        localtime_r(&t, &tm);
+#endif
+
+        std::ostringstream oss;
+        oss << dir << "/scoreboard_"
+            << (tm.tm_year + 1900)
+            << std::setw(2) << std::setfill('0') << (tm.tm_mon + 1)
+            << std::setw(2) << std::setfill('0') << tm.tm_mday
+            << '_'
+            << std::setw(2) << std::setfill('0') << tm.tm_hour
+            << std::setw(2) << std::setfill('0') << tm.tm_min
+            << std::setw(2) << std::setfill('0') << tm.tm_sec
+            << ".csv";
+
+        const std::string fileName = oss.str();
+
+        if (ScoreBoardManager::sInstance->WriteToFile(fileName))
+        {
+            std::cout << "[Server] Wrote final scoreboard to "
+                << fileName << std::endl;
+        }
+        else
+        {
+            std::cerr << "[Server] ERROR: failed to write "
+                << fileName << std::endl;
+        }
         });
 
     // Add buttons to container
