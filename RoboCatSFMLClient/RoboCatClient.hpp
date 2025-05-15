@@ -13,6 +13,8 @@ public:
 
 	const std::string& GetDefaultTextureName() const { return mDefaultTextureName; }
 
+	SpriteComponent* GetSpriteComponent() const { return mSpriteComponent.get(); }
+
 protected:
 	RoboCatClient();
 private:

@@ -25,6 +25,57 @@ void HUD::Render()
 	RenderRoundTripTime();
 	RenderScoreBoard();
 	RenderHealth();
+	RenderNameTags();
+}
+
+void HUD::RenderNameTags()
+{
+	// 1) get all the scoreboard entries
+	const auto& entries = ScoreBoardManager::sInstance->GetEntries();
+
+	// 2) for each entry, find its client in the world
+	for (const auto& entry : entries)
+	{
+		for (const auto& goPtr : World::sInstance->GetGameObjects())
+		{
+			auto* cat = dynamic_cast<RoboCatClient*>(goPtr.get());
+			if (!cat || cat->GetPlayerId() != entry.GetPlayerId())
+				continue;
+
+			// 3) pull its sprite component
+			auto* spriteComp = cat->GetSpriteComponent();
+			if (!spriteComp)
+				break;
+
+			// 4) get sprite bounds
+			const auto bounds = spriteComp->GetSprite().getGlobalBounds();
+
+			// 5) set up the name text
+			sf::Text nameText;
+			nameText.setFont(*FontManager::sInstance->GetFont("carlito"));
+			nameText.setString(entry.GetPlayerName());
+			nameText.setCharacterSize(18);
+			// tint to the player’s color
+			const auto& c = entry.GetColor();
+			nameText.setFillColor(
+				sf::Color(uint8_t(c.mX),
+					uint8_t(c.mY),
+					uint8_t(c.mZ),
+					255));
+
+			// 6) position centered below the sprite
+			float x = bounds.left + bounds.width * 0.5f;
+			float y = bounds.top + bounds.height + 4.f;
+			const auto tb = nameText.getLocalBounds();
+			nameText.setOrigin(tb.width * 0.5f, 0.f);
+			nameText.setPosition(x, y);
+
+			// 7) draw it
+			WindowManager::sInstance->draw(nameText);
+
+			break;  // found this entry’s cat; move to next entry
+		}
+	}
 }
 
 void HUD::RenderHealth()
