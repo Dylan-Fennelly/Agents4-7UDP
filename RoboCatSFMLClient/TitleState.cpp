@@ -5,16 +5,23 @@ TitleState::TitleState(StateStack& stack)
 	, m_show_text(true)
 	, m_text_effect_time(0)
 {
-
+	// Set the background texture
 	m_background_sprite.setTexture(*TextureManager::sInstance->GetTexture("title"));
 
-	const auto position = WindowManager::sInstance->getView().getSize() / 2.f;
+	// Get view size to position elements
+	const auto view_size = WindowManager::sInstance->getView().getSize();
 
-	std::shared_ptr<gui::Label> label;
-	label = std::make_shared<gui::Label>("Press any key to continue",32,sf::Color::Red);
-	label->setPosition(position.x, position.y);
-	//Utility::CreateLabel(label, position.x, position.y, "Press any key to continue", 50);
+	// Create the label
+	std::shared_ptr<gui::Label> label = std::make_shared<gui::Label>("Press any key to continue", 32, sf::Color::Red);
 
+	// Centre the origin of the text for proper alignment
+	sf::FloatRect bounds = label->GetText().getLocalBounds();
+	label->setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	// Position the label in the lower-centre of the screen (e.g. 85% down)
+	label->setPosition(view_size.x / 2.f, view_size.y * 0.85f);
+
+	// Add the label to the container
 	m_container.Pack(label);
 }
 

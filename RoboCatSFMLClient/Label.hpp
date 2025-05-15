@@ -10,6 +10,7 @@ namespace gui
 		bool IsSelectable() const override;
 		void SetText(const std::string& text);
 		void HandleEvent(const sf::Event& event) override;
+		sf::Text GetText() const { return m_text; }
 
 	private:
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

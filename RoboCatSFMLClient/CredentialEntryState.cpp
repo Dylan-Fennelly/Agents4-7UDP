@@ -106,9 +106,13 @@ CredentialEntryState::CredentialEntryState(StateStack& stack, bool is_host)
 
 			if (m_is_host)
 			{
+				char buffer[MAX_PATH];
+				GetCurrentDirectoryA(MAX_PATH, buffer);
+				std::cout << "Working Dir: " << buffer << std::endl;
+
 				STARTUPINFOA si = { sizeof(si) };
 				PROCESS_INFORMATION pi;
-				std::string commandLineStr = "\"D:\\Multiplayer\\ca3\\Agents4-7UDP\\x64\\Debug\\RoboCatSFMLServer.exe\" " + port;
+				std::string commandLineStr = "\"..\\x64\\Debug\\RoboCatSFMLServer.exe\" " + port;
 				char commandLine[MAX_PATH * 2];
 				strcpy_s(commandLine, commandLineStr.c_str());
 

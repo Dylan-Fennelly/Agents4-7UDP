@@ -3,6 +3,8 @@
 GameState::GameState(StateStack& stack):State(stack)
 {
 	InputManager::StaticInit();
+	World::sInstance->StaticInit();
+	RenderManager::sInstance->StaticInit();
 }
 
 bool GameState::Update(float dt)
