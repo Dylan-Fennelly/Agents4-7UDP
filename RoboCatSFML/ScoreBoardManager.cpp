@@ -161,6 +161,24 @@ bool ScoreBoardManager::Entry::Read(InputMemoryBitStream& inInputStream)
 	return didSucceed;
 }
 
+bool ScoreBoardManager::WriteToFile(const std::string& inFileName) const
+{
+	std::ofstream ofs(inFileName);
+	if (!ofs.is_open())
+		return false;
 
+	// Write a header row
+	ofs << "PlayerId,Name,Score,Deaths\n";
 
+	// Dump each entry in CSV form
+	for (const auto& entry : mEntries)
+	{
+		ofs << entry.GetPlayerId() << ','
+			<< '"' << entry.GetPlayerName() << '"' << ','
+			<< entry.GetScore() << ','
+			<< entry.GetDeaths() << '\n';
+	}
 
+	ofs.close();
+	return true;
+}

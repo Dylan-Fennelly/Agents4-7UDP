@@ -25,6 +25,7 @@ public:
 		bool			Write(OutputMemoryBitStream& inOutputStream) const;
 		bool			Read(InputMemoryBitStream& inInputStream);
 		static uint32_t	GetSerializedSize();
+
 	private:
 		Vector3			mColor;
 
@@ -54,6 +55,8 @@ public:
 	bool	Read(InputMemoryBitStream& inInputStream);
 
 	const vector< Entry >& GetEntries()	const { return mEntries; }
+
+	bool WriteToFile(const std::string& inFileName) const;
 
 private:
 
