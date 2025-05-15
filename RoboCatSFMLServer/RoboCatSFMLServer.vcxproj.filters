@@ -102,7 +102,7 @@
       <Filter>Source Files\ServerSide Objects</Filter>
     </ClCompile>
     <ClCompile Include="ZombieServer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\ServerSide Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

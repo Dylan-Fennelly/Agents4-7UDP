@@ -15,6 +15,8 @@ public:
 	void				Update();
 
 	void CalculateRotation();
+	void Pause() { isPaused = true; }
+	void UnPause() { isPaused = false; }
 
 private:
 
@@ -28,5 +30,6 @@ private:
 	MoveList		mMoveList;
 	float			mNextTimeToSampleInput;
 	const Move* mPendingMove;
+	bool isPaused;
 };
 

@@ -6,6 +6,7 @@ public:
 	bool Update(float dt) override;
 	bool HandleEvent(const sf::Event& event) override;
 	void Draw() override;
+	void OnStackPopped() override;
 private:
 	bool m_networkInitialised = false;
 };

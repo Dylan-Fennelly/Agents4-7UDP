@@ -6,7 +6,7 @@ namespace gui
 	public:
 		using PTR = std::shared_ptr<Label>;
 	public:
-		Label(const std::string& text);
+		Label(const std::string& text,int fontSize, sf::Color fontColour);
 		bool IsSelectable() const override;
 		void SetText(const std::string& text);
 		void HandleEvent(const sf::Event& event) override;

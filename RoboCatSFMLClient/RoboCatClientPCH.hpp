@@ -1,6 +1,5 @@
 #include "RoboCatShared.hpp"
-
-
+#include <fstream>
 #include "StateID.hpp"
 #include "ButtonType.hpp"
 
@@ -22,10 +21,13 @@
 #include "Button.hpp"
 #include "Label.hpp"
 #include "Container.hpp"
-
+#include "TextBox.hpp"
 #include "TitleState.hpp"
 #include "GameState.hpp"
+#include "CredentialEntryState.hpp"
+#include "MenuState.hpp"
 #include "Title2.hpp"
+#include "PauseState.hpp"
 
 #include "RoboCatClient.hpp"
 #include "ZombieClient.hpp"
