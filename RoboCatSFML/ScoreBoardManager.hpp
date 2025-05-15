@@ -17,8 +17,10 @@ public:
 		const string& GetPlayerName()	const { return mPlayerName; }
 		const string& GetFormattedNameScore()	const { return mFormattedNameScore; }
 		int				GetScore()		const { return mScore; }
+		int             GetDeaths()    const { return mDeaths; }
 
 		void			SetScore(int inScore);
+		void            IncDeath() { ++mDeaths; UpdateFormattedName(); }
 
 		bool			Write(OutputMemoryBitStream& inOutputStream) const;
 		bool			Read(InputMemoryBitStream& inInputStream);
@@ -30,14 +32,23 @@ public:
 		string			mPlayerName;
 
 		int				mScore;
+		int             mDeaths = 0;
 
 		string			mFormattedNameScore;
+
+		void            UpdateFormattedName()
+		{
+			char buffer[256];
+			snprintf(buffer, sizeof(buffer), "%s  K:%d  D:%d", mPlayerName.c_str(), mScore, mDeaths);
+			mFormattedNameScore = buffer;
+		}
 	};
 
 	Entry* GetEntry(uint32_t inPlayerId);
 	bool	RemoveEntry(uint32_t inPlayerId);
 	void	AddEntry(uint32_t inPlayerId, const string& inPlayerName);
 	void	IncScore(uint32_t inPlayerId, int inAmount);
+	void    SetDeath(uint32_t inPlayerId);
 
 	bool	Write(OutputMemoryBitStream& inOutputStream) const;
 	bool	Read(InputMemoryBitStream& inInputStream);

@@ -22,6 +22,8 @@ ScoreBoardManager::Entry::Entry(uint32_t inPlayerId, const string& inPlayerName,
 	mColor(inColor)
 {
 	SetScore(0);
+	mDeaths = 0;
+	UpdateFormattedName();
 }
 
 void ScoreBoardManager::Entry::SetScore(int32_t inScore)
@@ -31,9 +33,18 @@ void ScoreBoardManager::Entry::SetScore(int32_t inScore)
 	char	buffer[256];
 	snprintf(buffer, 256, "%s %i", mPlayerName.c_str(), mScore);
 	mFormattedNameScore = string(buffer);
+	UpdateFormattedName();
 
 }
 
+void ScoreBoardManager::SetDeath(uint32_t inPlayerId)
+{
+		Entry* entry = GetEntry(inPlayerId);
+	if (entry)
+	{
+		entry->IncDeath();
+	}
+}
 
 ScoreBoardManager::Entry* ScoreBoardManager::GetEntry(uint32_t inPlayerId)
 {
@@ -121,6 +132,7 @@ bool ScoreBoardManager::Entry::Write(OutputMemoryBitStream& inOutputStream) cons
 	inOutputStream.Write(mPlayerId);
 	inOutputStream.Write(mPlayerName);
 	inOutputStream.Write(mScore);
+	inOutputStream.Write(mDeaths);
 
 	return didSucceed;
 }
@@ -141,6 +153,10 @@ bool ScoreBoardManager::Entry::Read(InputMemoryBitStream& inInputStream)
 		SetScore(score);
 	}
 
+	int deaths;
+	inInputStream.Read(deaths);
+	mDeaths = deaths;
+	UpdateFormattedName();
 
 	return didSucceed;
 }

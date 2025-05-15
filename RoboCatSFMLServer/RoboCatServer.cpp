@@ -120,7 +120,9 @@ void RoboCatServer::TakeDamage(int inDamagingPlayerId, int inAmount)
 	if (mHealth <= 0.f)
 	{
 		//score one for damaging player...
-		ScoreBoardManager::sInstance->IncScore(inDamagingPlayerId, 1);
+		//ScoreBoardManager::sInstance->IncScore(inDamagingPlayerId, 1);
+
+		ScoreBoardManager::sInstance->SetDeath(GetPlayerId());
 
 		//and you want to die
 		SetDoesWantToDie(true);
