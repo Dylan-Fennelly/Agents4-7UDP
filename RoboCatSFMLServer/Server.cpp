@@ -98,19 +98,27 @@ void Server::DoFrame()
 
 	mGameTime += Timing::sInstance.GetDeltaTime();
 
-	if (!mGameEnded && mGameTime >= kMaxGameTime)
+	// 1) decrement round timer
+	if (!mStopSpawningZombies)
 	{
-		EndGame();
+		mTimeRemaining -= Timing::sInstance.GetDeltaTime();
+		if (mTimeRemaining <= 0.f)
+		{
+			mStopSpawningZombies = true;
+			std::cout << "Round time up – stopping zombie spawns" << std::endl;
+		}
 	}
 
-	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
-    if (mZombieSpawnTimer <= 0.f)
-    {
-        TrySpawnZombie();
-        // pick a new interval and reset timer
-        mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
-        mZombieSpawnTimer        = mNextZombieSpawnInterval;
-    }
+	if (!mStopSpawningZombies)
+	{
+		mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
+		if (mZombieSpawnTimer <= 0.f)
+		{
+			TrySpawnZombie();
+			mNextZombieSpawnInterval = 1.f + RoboMath::GetRandomFloat() * (2.f - 1.f);
+			mZombieSpawnTimer = mNextZombieSpawnInterval;
+		}
+	}
 
 	// Update the mouse spawn timer
 	mMouseSpawnTimer += Timing::sInstance.GetDeltaTime();
@@ -125,6 +133,24 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+	if (mStopSpawningZombies)
+	{
+		// scan world for any live zombies
+		bool anyZombies = false;
+		for (auto& go : World::sInstance->GetGameObjects())
+		{
+			if (go->GetClassId() == 'ZOMB' && !go->DoesWantToDie())
+			{
+				anyZombies = true;
+				break;
+			}
+		}
+		if (!anyZombies)
+		{
+			// broadcast game‐over to all clients
+			EndGame();
+		}
+	}
 }
 
 void Server::EndGame()

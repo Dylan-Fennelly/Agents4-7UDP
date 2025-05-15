@@ -33,5 +33,7 @@ private:
 	float   mGameTime = 0.f;         // seconds since match start
 	bool    mGameEnded = false;       // guard so we only end once
 	static constexpr float kMaxGameTime = 30.f;
+	float   mTimeRemaining = kMaxGameTime;
+	bool    mStopSpawningZombies = false;
 };
 
