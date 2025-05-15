@@ -5,13 +5,13 @@ TitleState::TitleState(StateStack& stack)
 	, m_show_text(true)
 	, m_text_effect_time(0)
 {
-	const auto texture_ptr = TextureManager::sInstance->GetTexture("title");
-	m_background_sprite.setTexture(*texture_ptr);
+
+	m_background_sprite.setTexture(*TextureManager::sInstance->GetTexture("title"));
 
 	const auto position = WindowManager::sInstance->getView().getSize() / 2.f;
 
 	std::shared_ptr<gui::Label> label;
-	label = std::make_shared<gui::Label>("Press any key to continue");
+	label = std::make_shared<gui::Label>("Press any key to continue",32,sf::Color::Red);
 	label->setPosition(position.x, position.y);
 	//Utility::CreateLabel(label, position.x, position.y, "Press any key to continue", 50);
 
@@ -34,7 +34,7 @@ bool TitleState::HandleEvent(const sf::Event& event)
 	if (event.type == sf::Event::KeyReleased)
 	{
 		RequestStackPop();
-		RequestStackPush(StateID::kGame);
+		RequestStackPush(StateID::kMenu);
 	}
 	return true;
 }

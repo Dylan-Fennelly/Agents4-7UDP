@@ -73,6 +73,9 @@ void NetworkManagerClient::ProcessPacket(InputMemoryBitStream& inInputStream, co
 			HandleStatePacket(inInputStream);
 		}
 		break;
+	case kGameOverCC:
+		HandleGameOverPacket();  
+		break;
 	}
 }
 
@@ -86,6 +89,9 @@ void NetworkManagerClient::SendOutgoingPackets()
 		break;
 	case NCS_Welcomed:
 		UpdateSendingInputPacket();
+		break;
+	case NCS_GameOver:
+		//do nothing, we are done here
 		break;
 	}
 }
@@ -124,7 +130,15 @@ void NetworkManagerClient::HandleWelcomePacket(InputMemoryBitStream& inInputStre
 	}
 }
 
+void NetworkManagerClient::HandleGameOverPacket()
+{
 
+	mState = NCS_GameOver;
+
+	Engine::s_instance->SetShouldKeepRunning(false);
+
+	std::cout << "Game Over!" << std::endl;
+}
 
 void NetworkManagerClient::HandleStatePacket(InputMemoryBitStream& inInputStream)
 {

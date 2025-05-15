@@ -138,14 +138,34 @@
     <ClInclude Include="ButtonType.hpp">
       <Filter>Header Files\GUI\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="GameState.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Title2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+
+    <ClInclude Include="AudioManager.hpp">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="ZombieClient.hpp">
+      <Filter>Header Files\Clientside Objects</Filter>
+
+    <ClInclude Include="CredentialEntryState.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuState.hpp">
+      <Filter>Header Files\States\Definitions</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ZombieClient.hpp">
+      <Filter>Header Files\Clientside Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.hpp">
       <Filter>Header Files</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -228,7 +248,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ZombieClient.cpp">
+      <Filter>Source Files\Clientside Objects</Filter>
+    </ClCompile>
+
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+
+    <ClCompile Include="TextBox.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CredentialEntryState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
       <Filter>Source Files</Filter>
+
     </ClCompile>
   </ItemGroup>
 </Project>

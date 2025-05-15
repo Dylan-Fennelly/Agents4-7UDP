@@ -51,5 +51,9 @@ StackManager::StackManager()
 	//lets register all the states
 	m_stack.RegisterState<TitleState>(StateID::kTitleScreen);
 	m_stack.RegisterState<GameState>(StateID::kGame);
+	m_stack.RegisterState<CredentialEntryState>(StateID::kCredentialEntryJoin,false);
+	m_stack.RegisterState<CredentialEntryState>(StateID::kCredentialEntryHost, true);
+	m_stack.RegisterState<MenuState>(StateID::kMenu);
+	m_stack.RegisterState<PauseState>(StateID::kPause);
 	m_stack.PushState(StateID::kTitleScreen);
 }

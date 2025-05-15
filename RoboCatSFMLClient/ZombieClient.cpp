@@ -13,6 +13,7 @@ ZombieClient::ZombieClient()
 void ZombieClient::HandleDying()
 {
     GameObject::HandleDying();
+    AudioManager::sInstance->Play("zombie");
 }
 void ZombieClient::Update()
 {

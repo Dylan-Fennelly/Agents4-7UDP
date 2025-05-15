@@ -60,7 +60,16 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 	case sf::Keyboard::Space:
 		UpdateDesireVariableFromKey(inInputAction, mCurrentState.mIsShooting);
 		break;
-	case sf::Keyboard::Add:
+	case sf::Keyboard::Escape:
+	{
+		if (inInputAction == EIA_Pressed)
+		{
+			Pause();
+			StackManager::sInstance->PushState(StateID::kPause);
+		}
+		break;
+	}
+	/*case sf::Keyboard::Add:
 	case sf::Keyboard::Equal:
 	{
 		float latency = NetworkManagerClient::sInstance->GetSimulatedLatency();
@@ -71,8 +80,8 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 		}
 		NetworkManagerClient::sInstance->SetSimulatedLatency(latency);
 		break;
-	}
-	case sf::Keyboard::Subtract:
+	}*/
+	/*case sf::Keyboard::Subtract:
 	{
 		float latency = NetworkManagerClient::sInstance->GetSimulatedLatency();
 		latency -= 0.1f;
@@ -82,7 +91,7 @@ void InputManager::HandleInput(EInputAction inInputAction, int inKeyCode)
 		}
 		NetworkManagerClient::sInstance->SetSimulatedLatency(latency);
 		break;
-	}
+	}*/
 	}
 
 }

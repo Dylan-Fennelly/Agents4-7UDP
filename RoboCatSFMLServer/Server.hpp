@@ -22,10 +22,16 @@ private:
 	void	SetupWorld();
 	void TrySpawnZombie();
 
+	void EndGame();
+
 	float mMouseSpawnTimer = 0.0f; // Tracks elapsed time for spawning mice
 	const float mMouseSpawnInterval = 10.0f; // Interval in seconds to spawn a mouse
 
 	float mZombieSpawnTimer = 0.f;
 	float mNextZombieSpawnInterval = 0.f;
+
+	float   mGameTime = 0.f;         // seconds since match start
+	bool    mGameEnded = false;       // guard so we only end once
+	static constexpr float kMaxGameTime = 180.f;
 };
 

@@ -1,8 +1,8 @@
 ﻿#include "RoboCatServerPCH.hpp"
 #include <iostream>
 
-extern const float WORLD_WIDTH = 1280.f;
-extern const float WORLD_HEIGHT = 720.f;
+extern const float WORLD_WIDTH = 1920.f;
+extern const float WORLD_HEIGHT = 1080.f;
 
 //uncomment this when you begin working on the server
 
@@ -59,7 +59,7 @@ namespace
 	void CreateRandomMice(int inMouseCount)
 	{
 		Vector3 mouseMin(100.f, 100.f, 0.f);
-		Vector3 mouseMax(1180.f, 620.f, 0.f);
+		Vector3 mouseMax(1720.f, 980.f, 0.f);
 
 		for (int i = 0; i < inMouseCount; ++i)
 		{
@@ -88,6 +88,13 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->RespawnCats();
 
+	mGameTime += Timing::sInstance.GetDeltaTime();
+
+	if (!mGameEnded && mGameTime >= kMaxGameTime)
+	{
+		EndGame();
+	}
+
 	mZombieSpawnTimer -= Timing::sInstance.GetDeltaTime();
     if (mZombieSpawnTimer <= 0.f)
     {
@@ -110,6 +117,12 @@ void Server::DoFrame()
 
 	NetworkManagerServer::sInstance->SendOutgoingPackets();
 
+}
+
+void Server::EndGame()
+{
+	mGameEnded = true;
+	NetworkManagerServer::sInstance->SendGameOverPacket();
 }
 
 void Server::TrySpawnZombie()

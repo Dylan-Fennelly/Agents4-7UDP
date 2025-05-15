@@ -4,7 +4,8 @@ class NetworkManagerClient : public NetworkManager
 	{
 		NCS_Uninitialized,
 		NCS_SayingHello,
-		NCS_Welcomed
+		NCS_Welcomed,
+		NCS_GameOver
 	};
 
 public:
@@ -34,6 +35,8 @@ private:
 
 	void	HandleGameObjectState(InputMemoryBitStream& inInputStream);
 	void	HandleScoreBoardState(InputMemoryBitStream& inInputStream);
+
+	void	HandleGameOverPacket();
 
 	void	UpdateSendingInputPacket();
 	void	SendInputPacket();
