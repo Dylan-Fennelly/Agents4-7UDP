@@ -10,7 +10,7 @@ void State::OnStackPopped()
 void State::OnStackPushed()
 {
 	//Every state sets the camera to the default position
-	WindowManager::sInstance->setView(WindowManager::sInstance->getDefaultView());
+	WindowManager::sInstance->setView(WindowManager::sInstance->getView());
 }
 
 void State::RequestStackPush(const StateID state_id)

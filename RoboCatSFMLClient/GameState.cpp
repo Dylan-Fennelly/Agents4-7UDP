@@ -9,11 +9,27 @@ bool GameState::Update(float dt)
 {
 	if (!m_networkInitialised)
 	{
-		std::string destination = StringUtils::GetCommandLineArg(1);
-		std::string name = StringUtils::GetCommandLineArg(2);
+		std::ifstream ipFile("ip.txt");
+		std::ifstream portFile("port.txt");
+		std::ifstream nameFile("username.txt");
 
-		SocketAddressPtr serverAddress = SocketAddressFactory::CreateIPv4FromString(destination);
+		std::string ip = "127.0.0.1";      // default fallback IP
+		std::string port = "50000";        // default fallback port
+		std::string name = "Player";       // default fallback name
+
+		if (ipFile >> ip) {}
+		else { std::ofstream("ip.txt") << ip; }
+
+		if (portFile >> port) {}
+		else { std::ofstream("port.txt") << port; }
+
+		if (nameFile >> name) {}
+		else { std::ofstream("username.txt") << name; }
+
+		std::string fullAddress = ip + ":" + port;
+		SocketAddressPtr serverAddress = SocketAddressFactory::CreateIPv4FromString(fullAddress);
 		NetworkManagerClient::StaticInit(*serverAddress, name);
+
 
 		m_networkInitialised = true;
 	}

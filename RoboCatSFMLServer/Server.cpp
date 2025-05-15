@@ -1,8 +1,8 @@
 ﻿#include "RoboCatServerPCH.hpp"
 #include <iostream>
 
-extern const float WORLD_WIDTH = 1280.f;
-extern const float WORLD_HEIGHT = 720.f;
+extern const float WORLD_WIDTH = 1920.f;
+extern const float WORLD_HEIGHT = 1080.f;
 
 //uncomment this when you begin working on the server
 
