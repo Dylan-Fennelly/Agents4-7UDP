@@ -32,6 +32,8 @@ void Client::DoFrame()
 {
 	StackManager::sInstance->Update(Timing::sInstance.GetDeltaTime());
 
+	AudioManager::sInstance->RemoveStoppedSounds();
+
 	if (StackManager::sInstance->IsEmpty())
 	{
 
