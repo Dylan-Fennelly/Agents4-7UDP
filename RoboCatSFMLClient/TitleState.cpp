@@ -23,6 +23,7 @@ TitleState::TitleState(StateStack& stack)
 
 	// Add the label to the container
 	m_container.Pack(label);
+	
 }
 
 bool TitleState::Update(const float dt)

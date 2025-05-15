@@ -42,6 +42,8 @@ GameOverState::GameOverState(StateStack& stack)
     // Add buttons to container
     m_container.Pack(back_button);
     m_container.Pack(save_button);
+
+    AudioManager::sInstance->Play("gameWon");
 }
 
 void GameOverState::UpdateTimerText()
@@ -103,6 +105,10 @@ bool GameOverState::Update(float dt)
 
 bool GameOverState::HandleEvent(const sf::Event& event)
 {
-    m_container.HandleEvent(event);
+    if (m_time_remaining <= 10.f)
+    {
+        m_container.HandleEvent(event);
+    }
+
     return false;
 }

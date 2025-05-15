@@ -45,7 +45,7 @@ MenuState::MenuState(StateStack& stack)
     m_container.Pack(exit_button);
 
     //Play the music
-    //context.music->Play(MusicThemes::kMenuTheme);
+	AudioManager::sInstance->PlayMusic("menu");
 }
 
 void MenuState::Draw()
